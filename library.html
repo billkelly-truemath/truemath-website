@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Common Library — TrueMath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base:       #0C0B12;
+      --bg-surface:    #121020;
+      --bg-card:       #18162A;
+      --bg-card-hover: #1F1C34;
+      --purple-deep:   #3E2580;
+      --purple-mid:    #6B44C4;
+      --purple-bright: #8B5CF6;
+      --purple-light:  #C4B5FD;
+      --lavender:      #A48DD6;
+      --text-primary:  #F0EEF8;
+      --text-secondary:#A099C4;
+      --text-muted:    #5C5580;
+      --border-subtle: rgba(139, 92, 246, 0.12);
+      --border-mid:    rgba(139, 92, 246, 0.25);
+      --font-sans:     'DM Sans', system-ui, sans-serif;
+      --font-mono:     'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(12, 11, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-logo img { height: 32px; display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-primary); }
+
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+    .btn-ghost {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 8px 0;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text-primary); }
+
+    .btn-primary {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--purple-mid);
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--purple-bright); transform: translateY(-1px); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 120px 48px 80px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .breadcrumb a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover { color: var(--purple-light); }
+
+    .breadcrumb-sep { color: var(--text-muted); opacity: 0.4; }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .page-headline {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      max-width: 760px;
+    }
+
+    .page-subhead {
+      font-size: 19px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 640px;
+      margin-bottom: 48px;
+    }
+
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-stat-number {
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .hero-stat-number span { color: var(--purple-bright); }
+
+    .hero-stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-stat-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border-subtle);
+    }
+
+    /* ── PHILOSOPHY STRIP ── */
+    .philosophy-strip {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 48px;
+    }
+
+    .philosophy-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    .philosophy-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .philosophy-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .philosophy-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── DOMAIN BROWSER ── */
+    .domain-browser {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 48px;
+    }
+
+    .browser-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .browser-title {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 8px;
+    }
+
+    .browser-headline {
+      font-size: clamp(26px, 3vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .domain-count-badge {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 6px 16px;
+      white-space: nowrap;
+    }
+
+    /* Category block */
+    .category-block {
+      margin-bottom: 56px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--border-mid);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .category-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .category-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 100px;
+      padding: 3px 10px;
+      margin-left: auto;
+    }
+
+    .domain-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+
+    .domain-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px 22px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .domain-card:hover {
+      border-color: var(--border-mid);
+      background: var(--bg-card-hover);
+    }
+
+    .domain-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .domain-calculations {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ── CUSTOMIZATION SECTION ── */
+    .customization-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 80px 48px;
+    }
+
+    .customization-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .custom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .custom-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .custom-card-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--purple-mid);
+      letter-spacing: 0.06em;
+    }
+
+    .custom-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .custom-card-body {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── ASSISTANT CTA ── */
+    .assistant-cta {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      text-align: center;
+    }
+
+    .assistant-cta-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: 20px;
+      padding: 60px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .assistant-cta-box::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(107, 68, 196, 0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .assistant-cta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--border-mid);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .assistant-cta-headline {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .assistant-cta-body {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-large {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--purple-mid);
+      border: none;
+      border-radius: 10px;
+      padding: 16px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+    }
+
+    .btn-large:hover {
+      background: var(--purple-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 36px rgba(139, 92, 246, 0.38);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left { display: flex; align-items: center; gap: 24px; }
+    .footer-logo img { height: 24px; opacity: 0.7; }
+    .footer-copy { font-size: 13px; color: var(--text-muted); }
+
+    .footer-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 100px 24px 60px; }
+      .philosophy-strip { padding: 40px 24px; }
+      .philosophy-inner { grid-template-columns: 1fr; gap: 28px; }
+      .domain-browser { padding: 60px 24px; }
+      .customization-section { padding: 60px 24px; }
+      .custom-grid { grid-template-columns: 1fr; }
+      .assistant-cta { padding: 60px 24px; }
+      .assistant-cta-box { padding: 40px 28px; }
+      footer { padding: 32px 24px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="TrueMath-Logo-Long-White-500px.png" alt="TrueMath">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How it works</a></li>
+      <li><a href="library.html" class="active">Library</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#about">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://app.truemath.ai" class="btn-ghost">Log in</a>
+      <a href="https://app.truemath.ai/signup" class="btn-primary">Get started</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Common Library</span>
+    </div>
+
+    <span class="page-eyebrow">The Common Library</span>
+    <h1 class="page-headline">Your calculation toolkit, built for your role</h1>
+    <p class="page-subhead">41 pre-built domains across 11 professional categories. Activate the ones that fit your practice. Customize them to fit your firm. Build new ones when you need to go further.</p>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-number">41<span></span></span>
+        <span class="hero-stat-label">Role-specific domains</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">11<span></span></span>
+        <span class="hero-stat-label">Professional categories</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-number"><span>∞</span></span>
+        <span class="hero-stat-label">Customizable activities</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHILOSOPHY STRIP -->
+  <div class="philosophy-strip">
+    <div class="philosophy-inner">
+      <div class="philosophy-item">
+        <div class="philosophy-title">Role-scoped, not practice-scoped</div>
+        <div class="philosophy-body">Every domain is built for one type of person doing one type of work. When a Wealth Manager opens TrueMath and selects their domain, everything they need is there. They never wonder which domain has the function they want.</div>
+      </div>
+      <div class="philosophy-item">
+        <div class="philosophy-title">Self-contained toolkits</div>
+        <div class="philosophy-body">Each domain is a complete calculation environment. Activate one or many. Each session starts with a domain selected, and all variables and activities for that role are immediately available.</div>
+      </div>
+      <div class="philosophy-item">
+        <div class="philosophy-title">Starting points, not locked configs</div>
+        <div class="philosophy-body">Library domains are foundations. Modify terminology, adjust default values, extend activities, add visualizations, or build entirely new domains for workflows unique to your firm.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOMAIN BROWSER -->
+  <div class="domain-browser">
+    <div class="browser-header">
+      <div>
+        <div class="browser-title">Browse all domains</div>
+        <div class="browser-headline">41 domains across 11 categories</div>
+      </div>
+      <div class="domain-count-badge">All domains available at launch</div>
+    </div>
+
+    <!-- Investment Banking & M&A -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 12l3-5 2 2.5 2.5-5.5 3 8" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Investment Banking &amp; M&amp;A</span>
+        <span class="category-count">4 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">M&amp;A Advisor</div>
+          <div class="domain-calculations">DCF, LBO, accretion/dilution, synergies, earnouts, deal structuring</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Equity Capital Markets</div>
+          <div class="domain-calculations">IPO valuation, dilution, greenshoe, stabilization pricing</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Leveraged Finance</div>
+          <div class="domain-calculations">Debt capacity, coverage ratios, amortization, covenant analysis</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Restructuring Advisor</div>
+          <div class="domain-calculations">Recovery analysis, waterfall, fulcrum security, DIP sizing</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Private Capital -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="5.5" stroke="var(--purple-bright)" stroke-width="1.3"/>
+            <path d="M8 5v3l2 2" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Private Capital</span>
+        <span class="category-count">4 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Private Equity Investor</div>
+          <div class="domain-calculations">IRR, MOIC, LBO modeling, carried interest, fund returns, DPI/RVPI</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Venture Capital Investor</div>
+          <div class="domain-calculations">Dilution, option pool, cap table, post-money, ownership at exit</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Credit Investor</div>
+          <div class="domain-calculations">YTM, YTC, spread, duration, default-adjusted return</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Fund Manager</div>
+          <div class="domain-calculations">NAV, management fee, carried interest, waterfall, hurdle, clawback</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wealth & Personal Finance -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 11l2.5-4 2 2 2.5-5 2 3 2.5-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Wealth &amp; Personal Finance</span>
+        <span class="category-count">5 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Wealth Manager</div>
+          <div class="domain-calculations">Portfolio returns, asset allocation, tax-loss harvesting, rebalancing, equity comp</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Retirement Planner</div>
+          <div class="domain-calculations">Savings rate, drawdown, RMDs, Social Security optimization</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Financial Advisor</div>
+          <div class="domain-calculations">Budgeting, debt payoff, emergency fund, life insurance needs, college savings</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Estate Planner</div>
+          <div class="domain-calculations">Gifting limits, trust math, step-up basis, estate tax, GRAT, charitable</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Tax Advisor</div>
+          <div class="domain-calculations">Effective rate, brackets, AMT, capital gains, QBI, estimated payments</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corporate Finance -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="12" height="12" rx="2" stroke="var(--purple-bright)" stroke-width="1.3"/>
+            <path d="M5 8h6M5 5h6M5 11h3" stroke="var(--purple-bright)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Corporate Finance</span>
+        <span class="category-count">4 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">CFO / Corporate Finance</div>
+          <div class="domain-calculations">WACC, capital budgeting, working capital, operating leverage, break-even</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Business Valuation Analyst</div>
+          <div class="domain-calculations">DCF, comparable multiples, asset approach, DLOM, goodwill, minority discount</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">FP&amp;A Analyst</div>
+          <div class="domain-calculations">Variance analysis, rolling forecast, scenario modeling, contribution margin</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Treasury Manager</div>
+          <div class="domain-calculations">Cash forecasting, FX exposure, interest rate hedging, liquidity ratios</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real Estate -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 14V7l6-5 6 5v7" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="6" y="10" width="4" height="4" rx="0.5" stroke="var(--purple-bright)" stroke-width="1.1"/>
+          </svg>
+        </div>
+        <span class="category-name">Real Estate</span>
+        <span class="category-count">3 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">CRE Investor</div>
+          <div class="domain-calculations">Cap rate, NOI, cash-on-cash, IRR, equity multiple, waterfall, 1031</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">CRE Lender</div>
+          <div class="domain-calculations">DSCR, LTV, LTC, debt yield, interest reserve, construction draw</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Residential Lender</div>
+          <div class="domain-calculations">DTI, LTV, qualifying income, payment, PMI, refi break-even, ARM</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Construction -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 13h10M5 13V7l3-4 3 4v6" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Construction</span>
+        <span class="category-count">4 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">General Contractor / Estimator</div>
+          <div class="domain-calculations">Bid pricing, material markup, labor burden, subcontractor, change orders, job costing</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Construction Project Owner</div>
+          <div class="domain-calculations">Budget control, schedule of values, retainage, contingency, cost-to-complete</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Construction Lender</div>
+          <div class="domain-calculations">LTC, LTV, draw schedule, interest reserve, completion guarantee, DSCR at stabilization</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Trades Contractor</div>
+          <div class="domain-calculations">Bid markup, labor burden, equipment cost, overhead allocation, job margin</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cloud & Tech Services -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M4 11a3 3 0 01-.5-5.95A4 4 0 1112.5 8H13a2 2 0 010 4H5" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Cloud &amp; Tech Services</span>
+        <span class="category-count">4 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Solution Architect / Sales Engineer</div>
+          <div class="domain-calculations">TCO, migration ROI, consumption modeling, reserved vs. on-demand, build vs. buy</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">SaaS Pricing Strategist</div>
+          <div class="domain-calculations">Tier pricing, seat vs. consumption, discount waterfall, contract value, margin by tier</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">SaaS Account Executive</div>
+          <div class="domain-calculations">Deal sizing, expansion ARR, discount approval, multi-year NPV, renewal math</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Cloud FinOps Analyst</div>
+          <div class="domain-calculations">Reserved instance savings, waste identification, unit cost, chargeback allocation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insurance & Actuarial -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2l1.5 4.5H14l-3.75 2.75 1.5 4.5L8 11l-3.75 2.75 1.5-4.5L2 6.5h4.5z" stroke="var(--purple-bright)" stroke-width="1.2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Insurance &amp; Actuarial</span>
+        <span class="category-count">3 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Life &amp; Annuity Advisor</div>
+          <div class="domain-calculations">Death benefit, PV of annuity, income replacement, mortality-adjusted return</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">P&amp;C Underwriter</div>
+          <div class="domain-calculations">Loss ratio, combined ratio, credibility weighting, rating factors</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Actuarial Analyst</div>
+          <div class="domain-calculations">Reserve development, IBNR, loss triangles, trend factors, discounting</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal & Advisory -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="3" y="2" width="10" height="12" rx="1.5" stroke="var(--purple-bright)" stroke-width="1.3"/>
+            <path d="M5.5 6h5M5.5 9h5M5.5 12h3" stroke="var(--purple-bright)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Legal &amp; Advisory</span>
+        <span class="category-count">4 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Litigation Finance Expert</div>
+          <div class="domain-calculations">Lost profits, present value of damages, prejudgment interest, life expectancy</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Divorce Financial Analyst</div>
+          <div class="domain-calculations">Asset division, support duration, QDRO, pension valuation, net worth</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Business Succession Advisor</div>
+          <div class="domain-calculations">Buy-sell pricing, installment sale, transfer tax, ESOP, gifting strategy</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Management Consultant</div>
+          <div class="domain-calculations">ROI, payback, cost-benefit, market sizing, unit economics</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Healthcare Finance -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="2" y="2" width="12" height="12" rx="2" stroke="var(--purple-bright)" stroke-width="1.3"/>
+            <path d="M8 5v6M5 8h6" stroke="var(--purple-bright)" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Healthcare Finance</span>
+        <span class="category-count">3 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Healthcare Practice Advisor</div>
+          <div class="domain-calculations">Practice valuation, payer mix, collections rate, overhead ratio, goodwill</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Hospital CFO</div>
+          <div class="domain-calculations">RVUs, reimbursement rates, cost per case, CMI, charity care ratio</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Pharma / Biotech Finance</div>
+          <div class="domain-calculations">NPV of pipeline, rNPV, milestone probability, licensing deal structure</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engineering & Science -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="2" stroke="var(--purple-bright)" stroke-width="1.3"/>
+            <path d="M8 2v2M8 12v2M2 8h2M12 8h2M4.1 4.1l1.4 1.4M10.5 10.5l1.4 1.4M4.1 11.9l1.4-1.4M10.5 5.5l1.4-1.4" stroke="var(--purple-bright)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="category-name">Engineering &amp; Science</span>
+        <span class="category-count">3 domains</span>
+      </div>
+      <div class="domain-list">
+        <div class="domain-card">
+          <div class="domain-name">Engineering Economist</div>
+          <div class="domain-calculations">MARR, AW, EUAC, depreciation methods, replacement analysis, B/C ratio</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Data Scientist / Statistician</div>
+          <div class="domain-calculations">Regression, hypothesis testing, distributions, Bayesian inference, sampling</div>
+        </div>
+        <div class="domain-card">
+          <div class="domain-name">Environmental Finance Analyst</div>
+          <div class="domain-calculations">Carbon cost, abatement NPV, social cost of carbon, renewable energy economics</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CUSTOMIZATION SECTION -->
+  <div class="customization-section">
+    <div class="customization-inner">
+      <span style="font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--purple-light);display:block;margin-bottom:12px;">Customization</span>
+      <h2 style="font-size:clamp(26px,3.5vw,38px);font-weight:600;letter-spacing:-0.02em;color:var(--text-primary);margin-bottom:16px;">Every domain is a starting point</h2>
+      <p style="font-size:17px;font-weight:300;color:var(--text-secondary);max-width:580px;line-height:1.65;">Activate a Library domain and immediately begin customizing it for your practice. Or build something new from scratch with the TrueMath Assistant.</p>
+
+      <div class="custom-grid">
+        <div class="custom-card">
+          <div class="custom-card-num">01</div>
+          <div class="custom-card-title">Modify variable descriptions</div>
+          <div class="custom-card-body">Change how TrueMath recognizes terms in your prompts. Use your firm's specific terminology, not generic definitions.</div>
+        </div>
+        <div class="custom-card">
+          <div class="custom-card-num">02</div>
+          <div class="custom-card-title">Adjust defaults</div>
+          <div class="custom-card-body">Set default values that reflect your typical client profile, market assumptions, or firm-wide standards.</div>
+        </div>
+        <div class="custom-card">
+          <div class="custom-card-num">03</div>
+          <div class="custom-card-title">Add activities</div>
+          <div class="custom-card-body">Extend any domain with new calculation activities for workflows the Library version doesn't cover.</div>
+        </div>
+        <div class="custom-card">
+          <div class="custom-card-num">04</div>
+          <div class="custom-card-title">Build visualizations</div>
+          <div class="custom-card-body">Design outputs for your highest-value client moments — charts, tables, scenario comparisons built to be shared.</div>
+        </div>
+        <div class="custom-card">
+          <div class="custom-card-num">05</div>
+          <div class="custom-card-title">Create new domains</div>
+          <div class="custom-card-body">Build entirely new domains for practice areas unique to your firm. The TrueMath Assistant handles the construction.</div>
+        </div>
+        <div class="custom-card">
+          <div class="custom-card-num">06</div>
+          <div class="custom-card-title">Share across your team</div>
+          <div class="custom-card-body">Customized domains can be shared across your organization, so your whole team operates from the same calculation foundation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSISTANT CTA -->
+  <div class="assistant-cta">
+    <div class="assistant-cta-box">
+      <div class="assistant-cta-badge">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="5.5" stroke="var(--purple-bright)" stroke-width="1.2"/>
+          <path d="M5 7l1.5 1.5L9.5 5" stroke="var(--purple-bright)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Powered by Claude — included with every paid account
+      </div>
+      <h2 class="assistant-cta-headline">Need a domain that isn't here?</h2>
+      <p class="assistant-cta-body">The TrueMath Assistant builds and extends domains through a conversation. Describe what you need to calculate, and it handles the rest — no code, no configuration, just a precise new domain ready to use.</p>
+      <a href="https://app.truemath.ai/signup" class="btn-large">Get started with the Library</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <a href="/" class="footer-logo">
+        <img src="TrueMath-Logo-Long-White-500px.png" alt="TrueMath">
+      </a>
+      <span class="footer-copy">© 2026 TrueMath, Inc.</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="/privacy-policy">Privacy</a></li>
+      <li><a href="/terms-of-service">Terms</a></li>
+      <li><a href="https://app.truemath.ai/contact">Contact</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
