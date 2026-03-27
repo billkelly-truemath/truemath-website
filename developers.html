@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developers — TrueMath</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-base:       #0C0B12;
+      --bg-surface:    #121020;
+      --bg-card:       #18162A;
+      --bg-card-hover: #1F1C34;
+      --purple-deep:   #3E2580;
+      --purple-mid:    #6B44C4;
+      --purple-bright: #8B5CF6;
+      --purple-light:  #C4B5FD;
+      --lavender:      #A48DD6;
+      --slate:         #8A9BB8;
+      --text-primary:  #FFFFFF;
+      --text-secondary:#C4B5FD;
+      --text-muted:    #5C5580;
+      --border-subtle: rgba(139, 92, 246, 0.12);
+      --border-mid:    rgba(139, 92, 246, 0.25);
+      --font-sans:     'DM Sans', system-ui, sans-serif;
+      --font-mono:     'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+      background: rgba(12, 11, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-logo img { height: 32px; display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text-primary); }
+
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+
+    .btn-ghost {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      padding: 8px 0;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--text-primary); }
+
+    .btn-primary {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--purple-mid);
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--purple-bright); transform: translateY(-1px); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 120px 48px 80px;
+      max-width: 1120px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 500px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(107, 68, 196, 0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--purple-light); }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    .page-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .page-headline {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      max-width: 700px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-subhead {
+      font-size: 19px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      max-width: 580px;
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-large {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--purple-mid);
+      border: none;
+      border-radius: 10px;
+      padding: 14px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: inline-block;
+    }
+    .btn-large:hover {
+      background: var(--purple-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(139, 92, 246, 0.35);
+    }
+
+    .btn-outline {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      background: none;
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      padding: 14px 28px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--purple-bright); color: var(--text-primary); }
+
+    /* ── COMING SOON BANNER ── */
+    .docs-banner {
+      background: rgba(138, 155, 184, 0.06);
+      border: 1px solid rgba(138, 155, 184, 0.2);
+      border-radius: 12px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 0 48px 0;
+      max-width: 1024px;
+      margin: 0 auto 0;
+    }
+
+    .docs-banner-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(138, 155, 184, 0.1);
+      border: 1px solid rgba(138, 155, 184, 0.2);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .docs-banner-text {
+      flex: 1;
+    }
+
+    .docs-banner-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--slate);
+      margin-bottom: 2px;
+    }
+
+    .docs-banner-body {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .docs-banner-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--slate);
+      text-decoration: none;
+      border: 1px solid rgba(138, 155, 184, 0.25);
+      border-radius: 8px;
+      padding: 8px 16px;
+      white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .docs-banner-cta:hover { border-color: var(--slate); color: var(--text-primary); }
+
+    /* ── WHAT IT DOES ── */
+    .section {
+      padding: 80px 48px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 16px;
+    }
+
+    .section-headline {
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .section-body {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .api-flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-subtle);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 64px;
+    }
+
+    .api-flow-step {
+      background: var(--bg-card);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+
+    .api-flow-step:hover { background: var(--bg-card-hover); }
+
+    .api-flow-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--purple-mid);
+      letter-spacing: 0.08em;
+    }
+
+    .api-flow-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .api-flow-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── CODE EXAMPLE ── */
+    .code-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 80px 48px;
+    }
+
+    .code-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .code-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .code-block-header {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .code-block-lang {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .code-block-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .code-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.2);
+    }
+
+    .code-block-body {
+      padding: 24px 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      overflow-x: auto;
+    }
+
+    .code-key { color: var(--purple-light); }
+    .code-string { color: #A8D8A8; }
+    .code-comment { color: var(--text-muted); font-style: italic; }
+    .code-value { color: #F0C89A; }
+    .code-bracket { color: var(--text-muted); }
+
+    /* ── ENDPOINT REFERENCE ── */
+    .endpoint-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 48px;
+    }
+
+    .endpoint-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .endpoint-card:hover { border-color: var(--border-mid); }
+
+    .endpoint-method {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      letter-spacing: 0.04em;
+    }
+
+    .endpoint-method.post {
+      background: rgba(139, 92, 246, 0.12);
+      color: var(--purple-light);
+      border: 1px solid var(--border-mid);
+    }
+
+    .endpoint-method.get {
+      background: rgba(138, 155, 184, 0.1);
+      color: var(--slate);
+      border: 1px solid rgba(138, 155, 184, 0.2);
+    }
+
+    .endpoint-path {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .endpoint-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    /* ── INTEGRATIONS ── */
+    .integrations-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .integration-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .integration-card:hover {
+      border-color: var(--border-mid);
+      background: var(--bg-card-hover);
+    }
+
+    .integration-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .integration-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .integration-body {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .integration-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--slate);
+      background: rgba(138, 155, 184, 0.08);
+      border: 1px solid rgba(138, 155, 184, 0.18);
+      border-radius: 100px;
+      padding: 3px 10px;
+      margin-top: 4px;
+    }
+
+    /* ── PRICING TABLE ── */
+    .pricing-section {
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 80px 48px;
+    }
+
+    .pricing-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .pricing-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--border-mid);
+      background: var(--bg-card-hover);
+      position: relative;
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--purple-light);
+      background: var(--bg-base);
+      border: 1px solid var(--border-mid);
+      border-radius: 100px;
+      padding: 3px 14px;
+      white-space: nowrap;
+    }
+
+    .pricing-tier {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .pricing-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .pricing-amount {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+
+    .pricing-unit {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 300;
+    }
+
+    .pricing-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .pricing-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pricing-feature {
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-weight: 300;
+    }
+
+    .pricing-feature-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid var(--border-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .pricing-cta {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 9px;
+      padding: 12px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      display: block;
+      margin-top: auto;
+    }
+
+    .pricing-cta.default {
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+    .pricing-cta.default:hover { border-color: var(--border-mid); color: var(--text-primary); }
+
+    .pricing-cta.featured {
+      color: #fff;
+      background: var(--purple-mid);
+      border: none;
+    }
+    .pricing-cta.featured:hover { background: var(--purple-bright); }
+
+    /* ── NOTIFY CTA ── */
+    .notify-section {
+      padding: 80px 48px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .notify-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: 20px;
+      padding: 60px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notify-box::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(107, 68, 196, 0.1) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .notify-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 20px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .notify-headline {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .notify-body {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.65;
+      position: relative;
+      z-index: 1;
+    }
+
+    .notify-form {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 440px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .notify-input {
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-mid);
+      border-radius: 9px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .notify-input::placeholder { color: var(--text-muted); }
+    .notify-input:focus { border-color: var(--purple-bright); }
+
+    .notify-submit {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--purple-mid);
+      border: none;
+      border-radius: 9px;
+      padding: 12px 22px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .notify-submit:hover { background: var(--purple-bright); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left { display: flex; align-items: center; gap: 24px; }
+    .footer-logo img { height: 24px; opacity: 0.7; }
+    .footer-copy { font-size: 13px; color: var(--text-muted); }
+    .footer-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text-secondary); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 100px 24px 60px; }
+      .docs-banner { margin: 0 24px; }
+      .section { padding: 60px 24px; }
+      .api-flow { grid-template-columns: 1fr 1fr; }
+      .code-section { padding: 60px 24px; }
+      .code-inner { grid-template-columns: 1fr; gap: 40px; }
+      .integrations-grid { grid-template-columns: 1fr; }
+      .pricing-section { padding: 60px 24px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .notify-section { padding: 60px 24px; }
+      .notify-box { padding: 40px 28px; }
+      .notify-form { flex-direction: column; }
+      .notify-input { width: 100%; }
+      .notify-submit { width: 100%; }
+      footer { padding: 32px 24px; }
+    }
+
+    @media (max-width: 560px) {
+      .api-flow { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <img src="TrueMath-Logo-Long-White-500px.png" alt="TrueMath">
+    </a>
+    <ul class="nav-links">
+      <li><a href="/#how-it-works">How it works</a></li>
+      <li><a href="library.html">Professional Library</a></li>
+      <li><a href="developers.html" class="active">Developers</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/#about">About</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://app.truemath.ai" class="btn-ghost">Log in</a>
+      <a href="https://app.truemath.ai/signup" class="btn-primary">Get started</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span class="breadcrumb-sep">/</span>
+      <span>Developers</span>
+    </div>
+
+    <span class="page-eyebrow">TrueMath for Developers</span>
+    <h1 class="page-headline">Embed deterministic math into any product</h1>
+    <p class="page-subhead">The TrueMath API gives your application access to the same precision math engine professionals rely on. Natural language in. Auditable, deterministic answers out.</p>
+
+    <div class="hero-actions">
+      <a href="https://app.truemath.ai/contact" class="btn-large">Request API access</a>
+      <a href="#notify" class="btn-outline">Get notified when docs launch</a>
+    </div>
+  </div>
+
+  <!-- DOCS COMING SOON BANNER -->
+  <div style="padding: 0 48px; max-width: 1120px; margin: 0 auto 0;">
+    <div class="docs-banner">
+      <div class="docs-banner-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <rect x="3" y="2" width="12" height="14" rx="2" stroke="var(--slate)" stroke-width="1.3"/>
+          <path d="M6 6h6M6 9h6M6 12h4" stroke="var(--slate)" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="docs-banner-text">
+        <div class="docs-banner-title">Full API documentation coming soon</div>
+        <div class="docs-banner-body">Complete reference docs, authentication guide, and SDK documentation are in progress. Get notified when they launch.</div>
+      </div>
+      <a href="#notify" class="docs-banner-cta">Notify me</a>
+    </div>
+  </div>
+
+  <!-- HOW THE API WORKS -->
+  <div class="section">
+    <span class="section-label">How it works</span>
+    <h2 class="section-headline">One request. One certain answer.</h2>
+    <p class="section-body">Send a natural language prompt and your input values. TrueMath parses the intent, routes to the correct calculation, executes the math precisely, and returns a structured, auditable result.</p>
+
+    <div class="api-flow">
+      <div class="api-flow-step">
+        <span class="api-flow-num">01</span>
+        <span class="api-flow-title">Send your prompt</span>
+        <p class="api-flow-desc">POST a natural language question and your input values as JSON. No special syntax or formula knowledge required.</p>
+      </div>
+      <div class="api-flow-step">
+        <span class="api-flow-num">02</span>
+        <span class="api-flow-title">TrueMath routes and calculates</span>
+        <p class="api-flow-desc">The engine parses the prompt, identifies variables and the target output, selects the correct calculation path, and executes deterministically.</p>
+      </div>
+      <div class="api-flow-step">
+        <span class="api-flow-num">03</span>
+        <span class="api-flow-title">Receive an auditable answer</span>
+        <p class="api-flow-desc">The response includes the result, the calculation steps taken, the variables used, and the domain and activity that produced the answer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CODE EXAMPLE -->
+  <div class="code-section">
+    <div class="code-inner">
+      <div>
+        <span class="section-label">Code example</span>
+        <h2 class="section-headline">Simple request. Structured response.</h2>
+        <p class="section-body" style="margin-bottom: 24px;">A single POST to <code style="font-family:var(--font-mono);font-size:13px;color:var(--purple-light);background:rgba(139,92,246,0.1);padding:2px 7px;border-radius:5px;">/v1/calculate</code> returns a complete, auditable answer with full calculation lineage.</p>
+        <p class="section-body" style="font-size:15px;">The <code style="font-family:var(--font-mono);font-size:13px;color:var(--purple-light);background:rgba(139,92,246,0.1);padding:2px 7px;border-radius:5px;">domain</code> field scopes the calculation to a specific role. Omit it and TrueMath will infer the best match from your prompt.</p>
+      </div>
+
+      <div>
+        <div class="code-block" style="margin-bottom: 16px;">
+          <div class="code-block-header">
+            <span class="code-block-lang">REQUEST</span>
+            <div class="code-block-dots">
+              <div class="code-dot"></div>
+              <div class="code-dot" style="opacity:0.5"></div>
+              <div class="code-dot" style="opacity:0.25"></div>
+            </div>
+          </div>
+          <div class="code-block-body">
+            <span class="code-comment">// POST /v1/calculate</span><br>
+            <span class="code-bracket">{</span><br>
+            &nbsp;&nbsp;<span class="code-key">"domain"</span>: <span class="code-string">"cre_investor"</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"prompt"</span>: <span class="code-string">"What is the IRR on<br>&nbsp;&nbsp;&nbsp;&nbsp;this deal?"</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"inputs"</span>: <span class="code-bracket">{</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"purchase_price"</span>: <span class="code-value">4200000</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"noi"</span>: <span class="code-value">273000</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"hold_period_years"</span>: <span class="code-value">5</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"exit_cap_rate"</span>: <span class="code-value">0.065</span><br>
+            &nbsp;&nbsp;<span class="code-bracket">}</span><br>
+            <span class="code-bracket">}</span>
+          </div>
+        </div>
+
+        <div class="code-block">
+          <div class="code-block-header">
+            <span class="code-block-lang">RESPONSE</span>
+            <div class="code-block-dots">
+              <div class="code-dot"></div>
+              <div class="code-dot" style="opacity:0.5"></div>
+              <div class="code-dot" style="opacity:0.25"></div>
+            </div>
+          </div>
+          <div class="code-block-body">
+            <span class="code-bracket">{</span><br>
+            &nbsp;&nbsp;<span class="code-key">"result"</span>: <span class="code-bracket">{</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"irr"</span>: <span class="code-value">0.1243</span>,<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"irr_formatted"</span>: <span class="code-string">"12.43%"</span><br>
+            &nbsp;&nbsp;<span class="code-bracket">}</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"domain"</span>: <span class="code-string">"cre_investor"</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"activity"</span>: <span class="code-string">"levered_irr"</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"steps"</span>: <span class="code-bracket">[</span><span class="code-comment">...</span><span class="code-bracket">]</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"inputs_used"</span>: <span class="code-bracket">{</span><span class="code-comment">...</span><span class="code-bracket">}</span>,<br>
+            &nbsp;&nbsp;<span class="code-key">"deterministic"</span>: <span class="code-value">true</span><br>
+            <span class="code-bracket">}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENDPOINT REFERENCE -->
+  <div class="section">
+    <span class="section-label">API Reference</span>
+    <h2 class="section-headline">Endpoints</h2>
+    <p class="section-body">A focused set of endpoints covering calculation, domain management, and session context. Full reference documentation coming soon.</p>
+
+    <div class="endpoint-list">
+      <div class="endpoint-card">
+        <span class="endpoint-method post">POST</span>
+        <div>
+          <div class="endpoint-path">/v1/calculate</div>
+          <div class="endpoint-desc">Submit a natural language prompt with input values. Returns a deterministic, auditable answer with full calculation lineage.</div>
+        </div>
+      </div>
+      <div class="endpoint-card">
+        <span class="endpoint-method get">GET</span>
+        <div>
+          <div class="endpoint-path">/v1/domains</div>
+          <div class="endpoint-desc">List all domains available to your account, including Library domains and any custom domains you have built.</div>
+        </div>
+      </div>
+      <div class="endpoint-card">
+        <span class="endpoint-method get">GET</span>
+        <div>
+          <div class="endpoint-path">/v1/domains/{domain_id}/activities</div>
+          <div class="endpoint-desc">List all activities within a domain, including variable descriptions and supported solve directions.</div>
+        </div>
+      </div>
+      <div class="endpoint-card">
+        <span class="endpoint-method post">POST</span>
+        <div>
+          <div class="endpoint-path">/v1/sessions</div>
+          <div class="endpoint-desc">Create a calculation session. Variables set in a session are carried forward automatically across subsequent requests.</div>
+        </div>
+      </div>
+      <div class="endpoint-card">
+        <span class="endpoint-method post">POST</span>
+        <div>
+          <div class="endpoint-path">/v1/sessions/{session_id}/calculate</div>
+          <div class="endpoint-desc">Submit a calculation within an existing session. Prior variable values are available without re-supplying them.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEGRATIONS -->
+  <div class="section" style="padding-top: 0;">
+    <span class="section-label">Integrations</span>
+    <h2 class="section-headline">Works with your stack</h2>
+    <p class="section-body">TrueMath integrates wherever you need reliable math -- from AI copilots and agent frameworks to spreadsheets and enterprise platforms.</p>
+
+    <div class="integrations-grid">
+      <div class="integration-card">
+        <div class="integration-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="3" width="6" height="6" rx="1" stroke="var(--purple-bright)" stroke-width="1.4"/>
+            <rect x="11" y="3" width="6" height="6" rx="1" stroke="var(--purple-bright)" stroke-width="1.4"/>
+            <rect x="7" y="11" width="6" height="6" rx="1" stroke="var(--purple-bright)" stroke-width="1.4"/>
+            <path d="M9 6h2M10 9v2" stroke="var(--purple-bright)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="integration-title">REST API</div>
+        <div class="integration-body">Language-agnostic JSON API. Works with any backend, framework, or platform that can make an HTTP request.</div>
+        <span class="integration-tag">Available now</span>
+      </div>
+
+      <div class="integration-card">
+        <div class="integration-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 5h12M4 10h12M4 15h7" stroke="var(--purple-bright)" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="integration-title">SDKs</div>
+        <div class="integration-body">Native client libraries for Python, JavaScript/TypeScript, and other popular languages. Typed responses out of the box.</div>
+        <span class="integration-tag">Coming soon</span>
+      </div>
+
+      <div class="integration-card">
+        <div class="integration-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="var(--purple-bright)" stroke-width="1.4"/>
+            <path d="M7 10l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="integration-title">MCP Integration</div>
+        <div class="integration-body">TrueMath as an MCP server -- plug deterministic math directly into any AI agent or copilot that supports the Model Context Protocol.</div>
+        <span class="integration-tag">Coming soon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- API PRICING -->
+  <div class="pricing-section">
+    <div class="pricing-inner">
+      <span class="section-label">API Pricing</span>
+      <h2 class="section-headline">Simple, usage-based pricing</h2>
+      <p class="section-body">Pay for what you use. No seat licenses, no minimums during beta. Pricing is per calculation request.</p>
+
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">Free</span>
+          </div>
+          <div class="pricing-desc">During beta. Ideal for evaluating the API and building your first integration.</div>
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              500 calculation requests / month
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Access to all 41 Library domains
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Full audit trail on every response
+            </div>
+          </div>
+          <a href="https://app.truemath.ai/signup" class="pricing-cta default">Get started free</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most popular</div>
+          <div class="pricing-tier">Growth</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">$0.02</span>
+            <span class="pricing-unit">/ request</span>
+          </div>
+          <div class="pricing-desc">For production integrations. Volume discounts apply above 10,000 requests / month.</div>
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Unlimited calculation requests
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Custom domain support
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Session context and variable carry-forward
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Priority support
+            </div>
+          </div>
+          <a href="https://app.truemath.ai/contact" class="pricing-cta featured">Request access</a>
+        </div>
+
+        <div class="pricing-card">
+          <div class="pricing-tier">Enterprise</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">Custom</span>
+          </div>
+          <div class="pricing-desc">For high-volume integrations, white-label deployments, or custom domain builds at scale.</div>
+          <div class="pricing-features">
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Volume pricing and SLA
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Dedicated domain build support
+            </div>
+            <div class="pricing-feature">
+              <div class="pricing-feature-check">
+                <svg width="9" height="9" viewBox="0 0 9 9" fill="none">
+                  <path d="M1.5 4.5l2 2 4-4" stroke="var(--purple-bright)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              Private deployment options
+            </div>
+          </div>
+          <a href="https://app.truemath.ai/contact" class="pricing-cta default">Talk to us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTIFY CTA -->
+  <div class="notify-section" id="notify">
+    <div class="notify-box">
+      <span class="notify-eyebrow">Documentation</span>
+      <h2 class="notify-headline">Full docs are on their way</h2>
+      <p class="notify-body">Complete API reference, authentication guide, SDK documentation, and integration examples are in progress. Leave your email and we'll notify you the moment they launch.</p>
+      <form class="notify-form" onsubmit="handleNotify(event)">
+        <input type="email" class="notify-input" placeholder="your@email.com" required>
+        <button type="submit" class="notify-submit">Notify me</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <a href="/" class="footer-logo">
+        <img src="TrueMath-Logo-Long-White-500px.png" alt="TrueMath">
+      </a>
+      <span class="footer-copy">© 2026 TrueMath, Inc.</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="/privacy-policy">Privacy</a></li>
+      <li><a href="/terms-of-service">Terms</a></li>
+      <li><a href="https://app.truemath.ai/contact">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    function handleNotify(e) {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('.notify-submit');
+      btn.textContent = 'You\'re on the list';
+      btn.style.background = 'rgba(138, 155, 184, 0.2)';
+      btn.style.color = 'var(--slate)';
+      btn.disabled = true;
+      form.querySelector('.notify-input').disabled = true;
+    }
+  </script>
+
+</body>
+</html>
