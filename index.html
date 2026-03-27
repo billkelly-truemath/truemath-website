@@ -124,7 +124,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 120px 48px 80px;
+      padding: 120px 80px 80px;
       position: relative;
       overflow: hidden;
       text-align: center;
@@ -165,10 +165,18 @@
     }
 
     .hero-clients {
-      font-size: 0.55em;
+      font-size: 0.5em;
       color: #8A9BB8;
       font-weight: 400;
       letter-spacing: 0;
+      vertical-align: middle;
+      position: relative;
+      top: -0.1em;
+    }
+
+    .hero-once {
+      display: inline-block;
+      margin-top: 0.2em;
     }
 
     .hero-logo {
@@ -1053,21 +1061,38 @@
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
-      .hero { padding: 100px 24px 60px; }
+      .hero { padding: 88px 24px 48px; }
+      .hero-logo { width: 140px; margin-bottom: 24px; }
+      .hero-headline { font-size: clamp(26px, 5.5vw, 40px); }
+      .hero-subhead { font-size: 16px; }
+      .hero-actions { flex-direction: column; align-items: center; gap: 12px; }
+      .btn-hero-primary { width: 100%; max-width: 320px; text-align: center; }
       .section { padding: 60px 24px; }
       .two-col { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr 1fr; }
       .workflow-grid { grid-template-columns: 1fr; }
       .assistant-inner { grid-template-columns: 1fr; gap: 40px; }
       .assistant-section { padding: 60px 24px; }
-      .proof-strip { padding: 20px 24px; gap: 28px; }
+      .proof-strip { padding: 20px 24px; gap: 28px; flex-wrap: wrap; justify-content: center; }
       .proof-divider { display: none; }
       .cta-section { padding: 60px 24px; }
+      .library-footer { flex-direction: column; align-items: flex-start; gap: 16px; }
       footer { padding: 32px 24px; }
+      .footer-left { flex-direction: column; align-items: flex-start; gap: 12px; }
     }
 
     @media (max-width: 560px) {
+      .hero { padding: 80px 20px 40px; }
+      .hero-logo { width: 120px; }
+      .hero-clients { font-size: 0.5em; }
+      .hero-tagline { font-size: 1em; letter-spacing: 0.05em; }
       .steps-grid { grid-template-columns: 1fr; }
+      .category-strip { gap: 6px; }
+      .workflow-card { padding: 24px 20px; }
+      .proof-item { min-width: 120px; text-align: center; }
+      .verticals-strip { gap: 8px; }
+      .domain-carousel-pill { min-width: 180px; }
+      .nav-cta .btn-ghost { display: none; }
     }
   </style>
 </head>
@@ -1102,7 +1127,7 @@
     </div>
 
     <h1 class="hero-headline">
-      Unlock what AI can do for you <span class="hero-clients">(and your clients)</span><br>Once you're <em>sure of the math</em>
+      Unlock what AI can do for you<br><span class="hero-clients">(and your clients)</span><br><span class="hero-once">Once you're <em>sure of the math</em></span>
     </h1>
 
     <p class="hero-subhead">
