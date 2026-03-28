@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F7F6F2">
-  <title>TrueMath — The Math Engine for the AI Age</title>
+  <title>TrueMath: The Math Engine for the AI Age</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -99,7 +99,7 @@
 
     .hero-content { position: relative; z-index: 1; }
 
-    .hero-logo { width: 160px; height: auto; margin-bottom: 40px; display: block; }
+    .hero-logo { width: 160px; height: auto; margin-bottom: 40px; display: block; margin-left: auto; margin-right: auto; }
 
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
@@ -120,17 +120,18 @@
       letter-spacing: -0.01em;
       color: var(--ink);
       margin-bottom: 12px;
+      text-wrap: balance;
     }
 
     .hero-headline em { font-style: italic; color: var(--purple); }
     .hero-clients { font-size: 0.52em; color: var(--slate); font-weight: 400; font-style: normal; vertical-align: middle; position: relative; top: -0.1em; font-family: var(--font-sans); }
     .hero-once { display: block; margin-top: 0.15em; }
 
-    .hero-tagline { display: block; font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-top: 24px; }
+    .hero-tagline { display: block; font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-top: 24px; text-align: center; }
 
-    .hero-subhead { font-size: 18px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 40px; max-width: 520px; margin-top: 20px; }
+    .hero-subhead { font-size: 18px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 40px; max-width: 600px; margin-top: 20px; margin-left: auto; margin-right: auto; text-align: center; }
 
-    .hero-actions { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
 
     .btn-hero-secondary { font-size: 15px; color: var(--ink-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
     .btn-hero-secondary:hover { color: var(--purple); }
@@ -138,7 +139,7 @@
     .btn-hero-secondary:hover svg { transform: translateX(3px); }
 
     /* CAROUSEL */
-    .verticals-strip { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .verticals-strip { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
     .verticals-label { font-size: 11px; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
 
     .domain-carousel-pill { display: inline-flex; align-items: center; font-size: 13px; font-weight: 500; color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple); border-radius: 100px; padding: 6px 16px; white-space: nowrap; transition: opacity 0.2s ease, transform 0.2s ease; min-width: 220px; justify-content: center; }
@@ -608,7 +609,7 @@
 
       <div class="hero-eyebrow">
         <span class="eyebrow-dot"></span>
-        Now in beta — limited access available
+        Now in beta. Limited access available.
       </div>
 
       <h1 class="hero-headline">
@@ -648,7 +649,7 @@
         <div>
           <span class="section-label">Why TrueMath</span>
           <h2 class="section-headline">What becomes possible when AI can really do the math</h2>
-          <p class="section-body">AI is transforming professional work at every level. But there's been one stubborn gap: numbers. TrueMath closes it -- permanently.</p>
+          <p class="section-body">AI has changed how professionals work. Except with numbers. That's what TrueMath is for.</p>
 
           <div class="why-cards">
             <div class="why-card">
@@ -656,8 +657,8 @@
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3v12" stroke="#6B44C4" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
               <div>
-                <div class="why-card-title">Ask in plain language. Get a certain answer.</div>
-                <div class="why-card-body">No formulas, no spreadsheet syntax. Describe what you need the way you'd say it to a colleague -- TrueMath handles the rest and returns a result you can stand behind.</div>
+                <div class="why-card-title">Ask the way you actually talk.</div>
+                <div class="why-card-body">No formulas, no spreadsheet syntax. Describe the calculation the way you'd explain it to a colleague. TrueMath figures out the rest and returns a result you can stake your reputation on.</div>
               </div>
             </div>
             <div class="why-card">
@@ -666,7 +667,7 @@
               </div>
               <div>
                 <div class="why-card-title">Every answer is auditable.</div>
-                <div class="why-card-body">TrueMath doesn't guess. It traverses a validated calculation path and returns the result with full lineage -- variables used, steps taken, logic behind every number.</div>
+                <div class="why-card-body">TrueMath doesn't estimate. It finds the right calculation path, runs the math precisely, and returns the result with full lineage: variables used, steps taken, logic behind every number.</div>
               </div>
             </div>
             <div class="why-card">
@@ -674,8 +675,8 @@
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#6B44C4" stroke-width="1.5"/><path d="M9 6v4l2.5 2" stroke="#6B44C4" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
               <div>
-                <div class="why-card-title">Built for the moment that matters.</div>
-                <div class="why-card-body">In a client meeting, closing a deal, submitting a filing -- TrueMath gives you answers you can show and defend. The math is right because it has to be.</div>
+                <div class="why-card-title">Ready when it counts.</div>
+                <div class="why-card-body">In a client meeting, closing a deal, or submitting a filing, you need answers you can show and defend. TrueMath gives you those.</div>
               </div>
             </div>
           </div>
@@ -687,7 +688,7 @@
     <div class="section">
       <span class="section-label">The Professional Library</span>
       <h2 class="section-headline">A complete calculation toolkit built for your role</h2>
-      <p class="section-body">When you register for TrueMath, you choose from 41 pre-built domains spanning 11 professional categories. Each domain is scoped to a specific role -- everything you need is there from day one.</p>
+      <p class="section-body">When you register, you pick from 41 pre-built domains across 11 professional categories. Each one is built for a specific role, not a practice area, so the calculations you actually need are there without hunting.</p>
 
       <div class="category-strip">
         <span class="category-tag">Investment Banking &amp; M&amp;A</span>
@@ -927,16 +928,16 @@
     <div class="section">
       <div class="assistant-layout">
         <div>
-          <span class="assistant-badge">Powered by Claude — included with every paid account</span>
+          <span class="assistant-badge">Powered by Claude. Included with every paid account.</span>
           <h3 class="assistant-headline">Need a domain that isn't here?<br>The TrueMath Assistant builds it.</h3>
-          <p class="assistant-body">Describe a calculation you need and the TrueMath Assistant builds the domain or extends an existing one -- from scratch or on top of what's there. No code, no configuration. Just a conversation.</p>
+          <p class="assistant-body">Tell the TrueMath Assistant what you need to calculate and it builds the domain for you, or extends one you already have. No configuration files, no technical setup. You describe it, it builds it.</p>
           <div class="assistant-feature">
             <div class="assistant-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 4.5l2 2 3-3" stroke="#6B44C4" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Build entirely new domains for calculations not in the Library
+            Build new domains for calculations not covered in the Library
           </div>
           <div class="assistant-feature">
             <div class="assistant-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 4.5l2 2 3-3" stroke="#6B44C4" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Extend Library domains with activities specific to your firm
+            Extend Library domains with calculation paths and defaults specific to your firm
           </div>
           <div class="assistant-feature">
             <div class="assistant-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 4.5l2 2 3-3" stroke="#6B44C4" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -944,7 +945,7 @@
           </div>
           <div class="assistant-paid">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5.5" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            Available on all paid plans. Start with the Library for free during beta.
+            Included on all paid plans. During beta, the Library is free to explore.
           </div>
           <div style="margin-top:28px;">
             <a href="https://app.truemath.ai/signup" class="btn-large">Get started free</a>
@@ -961,13 +962,13 @@
         <div>
           <span class="section-label">For Developers</span>
           <h2 class="section-headline">Embed deterministic math into any product</h2>
-          <p class="section-body">The TrueMath API gives your application access to the same precision math engine professionals rely on. Natural language in. Auditable, deterministic answers out.</p>
+          <p class="section-body">The TrueMath API connects your application to the same math engine professionals use every day. Send a natural language prompt with your inputs. Get back a precise, auditable answer.</p>
 
           <div class="integration-tags">
-            <span class="integration-tag available">REST API — available now</span>
-            <span class="integration-tag">Python SDK — coming soon</span>
-            <span class="integration-tag">JS/TS SDK — coming soon</span>
-            <span class="integration-tag">MCP integration — coming soon</span>
+            <span class="integration-tag available">REST API: available now</span>
+            <span class="integration-tag">Python SDK: coming soon</span>
+            <span class="integration-tag">JS/TS SDK: coming soon</span>
+            <span class="integration-tag">MCP integration: coming soon</span>
           </div>
 
           <a href="https://app.truemath.ai/signup" class="btn-large" style="font-size:15px;padding:13px 28px;">Request API access</a>
@@ -1014,15 +1015,15 @@
           <div class="endpoint-list">
             <div class="endpoint-card">
               <span class="endpoint-method post">POST</span>
-              <div><div class="endpoint-path">/v1/calculate</div><div class="endpoint-desc">Submit a prompt. Returns a deterministic, auditable answer.</div></div>
+              <div><div class="endpoint-path">/v1/calculate</div><div class="endpoint-desc">Submit a natural language prompt with inputs. Returns a precise, auditable answer.</div></div>
             </div>
             <div class="endpoint-card">
               <span class="endpoint-method get">GET</span>
-              <div><div class="endpoint-path">/v1/domains</div><div class="endpoint-desc">List all domains available to your account.</div></div>
+              <div><div class="endpoint-path">/v1/domains</div><div class="endpoint-desc">List the domains available to your account.</div></div>
             </div>
             <div class="endpoint-card">
               <span class="endpoint-method post">POST</span>
-              <div><div class="endpoint-path">/v1/sessions</div><div class="endpoint-desc">Create a session. Variables carry forward automatically.</div></div>
+              <div><div class="endpoint-path">/v1/sessions</div><div class="endpoint-desc">Open a calculation session. Variable values carry forward between requests.</div></div>
             </div>
           </div>
         </div>
@@ -1040,7 +1041,7 @@
         <div class="about-philosophy">
           <p>Every time technology advances, our tools for working with numbers evolve too -- from abacuses to calculators to spreadsheets, and now to AI.</p>
           <p>TrueMath is built on PowerOne, a calculation platform developed over 30 years by TrueMath co-founder Elia Freedman. With 30 million downloads and a reputation for precision across finance, engineering, and science, PowerOne became the foundation Elia committed to TrueMath -- bringing three decades of real-world calculation experience into the AI age.</p>
-          <p>The result is not a new idea dressed up in AI clothing. It is a proven math engine, rebuilt for the way professionals work today. Conversational, accurate, auditable, and accessible.</p>
+          <p>The result is a math engine with thirty years of real-world use behind it, rebuilt for the way professionals work today.</p>
           <p style="margin-top:36px;">
             <a href="https://app.truemath.ai/contact" style="font-size:15px;font-weight:500;color:var(--purple);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:color 0.2s;">
               Get in touch
@@ -1051,7 +1052,7 @@
 
         <div class="team-grid">
           <div class="team-card">
-            <img src="Bill_Kelly.jpg" alt="Bill Kelly" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
+            <img src="Bill_Kelly.jpg" alt="Bill Kelly" style="width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
             <div>
               <div class="team-name">Bill Kelly</div>
               <div class="team-title">Chief Executive Officer</div>
@@ -1059,7 +1060,7 @@
             </div>
           </div>
           <div class="team-card">
-            <img src="Elia_Freedman.jpg" alt="Elia Freedman" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
+            <img src="Elia_Freedman.jpg" alt="Elia Freedman" style="width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
             <div>
               <div class="team-name">Elia Freedman</div>
               <div class="team-title">Chief Technology Officer</div>
@@ -1075,7 +1076,7 @@
   <section class="cta-section">
     <div class="cta-box">
       <h2 class="cta-headline">Your next right answer is one question away.</h2>
-      <p class="cta-subhead">Join the beta and start calculating with certainty.</p>
+      <p class="cta-subhead">Join the beta. Start getting answers you can stand behind.</p>
       <a href="https://app.truemath.ai/signup" class="btn-cta">Create your free account</a>
     </div>
   </section>
