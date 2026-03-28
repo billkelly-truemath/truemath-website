@@ -77,11 +77,12 @@
     /* HERO */
     .hero {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      display: flex;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
+      text-align: center;
       padding: 120px 64px 80px;
-      gap: 64px;
       position: relative;
       overflow: hidden;
       background: var(--bg);
@@ -145,8 +146,6 @@
     .build-own-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--slate); background: rgba(138, 155, 184, 0.1); border: 1px solid rgba(138, 155, 184, 0.3); border-radius: 100px; padding: 6px 14px; white-space: nowrap; }
 
     /* HERO ILLUSTRATION */
-    .hero-illustration { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
-    .hero-illustration svg { width: 100%; max-width: 480px; height: auto; }
 
     /* SECTIONS */
     .section { padding: 96px 64px; max-width: 1160px; margin: 0 auto; }
@@ -163,8 +162,7 @@
     .section-tint { background: var(--purple-tint); border-top: 1px solid var(--border-purple); border-bottom: 1px solid var(--border-purple); }
 
     /* WHY */
-    .why-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .why-illustration { display: flex; align-items: center; justify-content: center; }
+    .why-layout { display: block; }
 
     .why-cards { display: flex; flex-direction: column; gap: 16px; }
 
@@ -188,7 +186,6 @@
     .category-tag { font-size: 12px; font-weight: 500; color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple); border-radius: 100px; padding: 4px 13px; white-space: nowrap; }
 
     .library-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-    .library-illustration { position: sticky; top: 100px; display: flex; align-items: flex-start; justify-content: center; padding-top: 16px; }
 
     .workflow-stack { display: flex; flex-direction: column; gap: 16px; }
 
@@ -208,14 +205,13 @@
     .library-domain-count strong { color: var(--ink); font-weight: 600; }
 
     /* ASSISTANT */
-    .assistant-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .assistant-layout { display: block; }
     .assistant-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple); border-radius: 100px; padding: 4px 13px; margin-bottom: 20px; }
     .assistant-headline { font-family: var(--font-serif); font-size: clamp(22px, 2.5vw, 32px); font-weight: 500; color: var(--ink); margin-bottom: 14px; line-height: 1.25; }
     .assistant-body { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 24px; }
     .assistant-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); font-weight: 300; margin-bottom: 10px; }
     .assistant-check { width: 18px; height: 18px; border-radius: 50%; background: var(--purple-tint); border: 1px solid var(--border-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
     .assistant-paid { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 6px; margin-top: 20px; }
-    .assistant-illustration { display: flex; align-items: center; justify-content: center; }
 
     /* DEVELOPERS */
     .dev-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: center; }
@@ -276,15 +272,11 @@
       nav { padding: 0 24px; }
       .nav-links { display: none; }
       .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
-      .hero-illustration { display: none; }
       .section { padding: 60px 24px; }
       .section-sm { padding: 48px 24px; }
       .why-layout { grid-template-columns: 1fr; gap: 40px; }
-      .why-illustration { display: none; }
       .library-layout { grid-template-columns: 1fr; gap: 0; }
-      .library-illustration { display: none; }
       .assistant-layout { grid-template-columns: 1fr; gap: 40px; }
-      .assistant-illustration { display: none; }
       .dev-layout { grid-template-columns: 1fr; gap: 40px; }
       .about-layout { grid-template-columns: 1fr; gap: 40px; }
       .steps-grid { grid-template-columns: 1fr 1fr; }
@@ -647,61 +639,6 @@
         </span>
       </div>
     </div>
-
-    <!-- Hero illustration: professional at desk -->
-    <div class="hero-illustration">
-      <svg viewBox="0 0 440 480" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1A1830" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Desk surface -->
-        <path d="M60 340 Q80 335 420 338" stroke-width="2.5"/>
-        <path d="M60 340 L55 420" stroke-width="2"/>
-        <path d="M420 338 L418 420" stroke-width="2"/>
-        <!-- Laptop screen -->
-        <path d="M160 200 Q162 165 240 162 Q318 160 322 200" stroke-width="2.2"/>
-        <path d="M158 200 L155 318 Q158 325 240 326 Q322 325 326 318 L322 200" stroke-width="2.2"/>
-        <path d="M130 325 L350 326" stroke-width="2.5"/>
-        <path d="M125 327 Q138 332 240 333 Q342 332 355 327" stroke-width="2"/>
-        <!-- Screen content - numbers/chart -->
-        <path d="M185 260 L185 295 M205 250 L205 295 M225 270 L225 295 M245 245 L245 295 M265 265 L265 295" stroke-width="1.5" opacity="0.5"/>
-        <path d="M180 295 L270 295" stroke-width="1.2" opacity="0.4"/>
-        <path d="M185 260 Q205 250 225 270 Q245 245 265 265" stroke-width="1.8" stroke="#6B44C4" opacity="0.7"/>
-        <!-- Person seated - body -->
-        <path d="M240 138 Q242 155 238 175 Q235 200 238 230 Q240 260 236 290" stroke-width="2.2"/>
-        <!-- Head -->
-        <ellipse cx="242" cy="118" rx="22" ry="26" stroke-width="2"/>
-        <!-- Hair loose suggestion -->
-        <path d="M222 108 Q224 95 242 92 Q260 92 263 108" stroke-width="1.8"/>
-        <path d="M220 112 Q216 125 218 135" stroke-width="1.5"/>
-        <!-- Face - looking down at screen -->
-        <path d="M234 116 Q238 119 244 116" stroke-width="1.3" opacity="0.6"/>
-        <circle cx="236" cy="112" r="2" fill="#1A1830" stroke="none"/>
-        <circle cx="248" cy="112" r="2" fill="#1A1830" stroke="none"/>
-        <!-- Arm reaching to laptop -->
-        <path d="M238 175 Q230 200 210 240 Q200 260 195 300" stroke-width="2"/>
-        <path d="M238 180 Q255 205 270 245 Q278 268 280 305" stroke-width="2"/>
-        <!-- Hand near keyboard -->
-        <path d="M192 300 Q198 308 205 305 Q210 302 195 298" stroke-width="1.5"/>
-        <!-- Chair suggestion -->
-        <path d="M200 290 Q205 320 200 338" stroke-width="2"/>
-        <path d="M275 290 Q278 320 280 338" stroke-width="2"/>
-        <path d="M195 310 Q240 316 282 310" stroke-width="1.8"/>
-        <!-- Coffee cup -->
-        <path d="M340 310 Q338 295 352 293 Q366 293 364 310 Q362 316 340 316 Z" stroke-width="1.8"/>
-        <path d="M364 300 Q372 298 372 305 Q372 312 364 308" stroke-width="1.5"/>
-        <!-- Small plant -->
-        <path d="M90 340 L90 300" stroke-width="1.5"/>
-        <path d="M90 310 Q78 295 72 282 Q80 280 88 292" stroke-width="1.5"/>
-        <path d="M90 320 Q102 305 108 290 Q100 285 92 298" stroke-width="1.5"/>
-        <path d="M78 340 Q82 338 90 338 Q98 338 102 340" stroke-width="1.8"/>
-        <!-- Window light suggestion top right -->
-        <path d="M350 40 L350 140 M390 40 L390 140" stroke-width="1.2" opacity="0.3"/>
-        <path d="M350 40 L390 40 M350 90 L390 90 M350 140 L390 140" stroke-width="1.2" opacity="0.3"/>
-        <!-- Floating numbers / math suggestion -->
-        <text x="50" y="180" font-family="DM Mono, monospace" font-size="13" fill="#6B44C4" opacity="0.25" stroke="none">IRR</text>
-        <text x="380" y="220" font-family="DM Mono, monospace" font-size="11" fill="#6B44C4" opacity="0.2" stroke="none">12.4%</text>
-        <text x="38" y="260" font-family="DM Mono, monospace" font-size="10" fill="#6B44C4" opacity="0.18" stroke="none">NPV</text>
-        <text x="370" y="160" font-family="DM Mono, monospace" font-size="10" fill="#6B44C4" opacity="0.2" stroke="none">DSCR</text>
-      </svg>
-    </div>
   </section>
 
   <!-- WHY TRUEMATH -->
@@ -744,79 +681,6 @@
           </div>
         </div>
 
-        <!-- Illustration: analyst presenting to group -->
-        <div class="why-illustration">
-          <svg viewBox="0 0 380 420" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1A1830" stroke-linecap="round" stroke-linejoin="round" style="max-width:340px;width:100%;">
-            <!-- Whiteboard / screen -->
-            <rect x="60" y="40" width="260" height="170" rx="4" stroke-width="2"/>
-            <path d="M60 68 L320 68" stroke-width="1.5"/>
-            <!-- Chart on board -->
-            <path d="M90 180 L90 100 M120 165 L120 100 M150 145 L150 100 M180 125 L180 100 M210 155 L210 100" stroke-width="1.8" opacity="0.4"/>
-            <path d="M85 180 L215 180" stroke-width="1.2" opacity="0.4"/>
-            <path d="M90 180 Q120 165 150 145 Q180 125 210 155" stroke-width="2.2" stroke="#6B44C4" opacity="0.6" fill="none"/>
-            <!-- Numbers on board -->
-            <path d="M240 110 L300 110 M240 130 L290 130 M240 150 L295 150" stroke-width="1.5" opacity="0.3"/>
-            <!-- Presenter - standing left -->
-            <ellipse cx="48" cy="235" rx="16" ry="19" stroke-width="1.8"/>
-            <path d="M48 254 Q46 275 48 310 Q49 330 46 360" stroke-width="2"/>
-            <path d="M50 258 Q62 275 72 295" stroke-width="1.8"/>
-            <path d="M46 265 Q35 278 28 295" stroke-width="1.8"/>
-            <path d="M46 310 Q40 335 38 360" stroke-width="1.8"/>
-            <path d="M50 310 Q54 335 55 360" stroke-width="1.8"/>
-            <path d="M35 360 Q42 364 55 360" stroke-width="1.5"/>
-            <!-- Pointer arm -->
-            <path d="M72 295 Q80 280 110 230" stroke-width="1.8"/>
-            <!-- Two listeners seated -->
-            <!-- Person 2 -->
-            <ellipse cx="190" cy="300" rx="14" ry="17" stroke-width="1.8"/>
-            <path d="M190 317 Q188 335 190 355" stroke-width="1.8"/>
-            <path d="M180 325 Q170 340 168 355" stroke-width="1.5"/>
-            <path d="M200 325 Q208 340 210 355" stroke-width="1.5"/>
-            <!-- Person 3 -->
-            <ellipse cx="290" cy="295" rx="14" ry="17" stroke-width="1.8"/>
-            <path d="M290 312 Q288 330 290 355" stroke-width="1.8"/>
-            <path d="M280 320 Q270 336 268 355" stroke-width="1.5"/>
-            <path d="M300 320 Q308 336 312 355" stroke-width="1.5"/>
-            <!-- Table they're sitting at -->
-            <path d="M140 345 Q240 342 360 345" stroke-width="2"/>
-            <!-- Papers/notebooks on table -->
-            <path d="M175 344 Q178 320 196 320 Q210 320 212 344" stroke-width="1.5"/>
-            <path d="M260 344 Q262 322 278 322 Q292 322 294 344" stroke-width="1.5"/>
-            <!-- Floor line -->
-            <path d="M20 385 Q200 382 380 385" stroke-width="1.5" opacity="0.4"/>
-          </svg>
-        </div>
-      </div>
-
-      <!-- How it works steps -->
-      <div style="margin-top:72px;">
-        <span class="section-label">How it works</span>
-        <h3 style="font-family:var(--font-serif);font-size:clamp(22px,2.8vw,34px);font-weight:500;color:var(--ink);margin-bottom:0;line-height:1.2;letter-spacing:-0.01em;">Four steps from question to certainty</h3>
-        <div class="steps-grid">
-          <div class="step-item">
-            <span class="step-num">01</span>
-            <span class="step-title">Natural language input</span>
-            <p class="step-desc">Ask your question exactly as you'd say it. No formulas, no special syntax.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">02</span>
-            <span class="step-title">Parse and structure</span>
-            <p class="step-desc">TrueMath identifies the variables, relationships, and target output.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">03</span>
-            <span class="step-title">Traverse the math map</span>
-            <p class="step-desc">A validated library of activities finds the correct calculation path.</p>
-          </div>
-          <div class="step-item">
-            <span class="step-num">04</span>
-            <span class="step-title">Auditable answer</span>
-            <p class="step-desc">You get the result, the steps, and the reasoning -- everything you need to stand behind it.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- PROFESSIONAL LIBRARY -->
   <div id="library">
@@ -842,7 +706,8 @@
       <!-- CAROUSEL -->
       <div class="carousel-outer" id="carousel-outer">
         <div class="carousel-track" id="track">
-<!-- CARD 1: Wealth Manager -->
+
+      <!-- CARD 1: Wealth Manager -->
       <div class="vignette-card">
         <div class="session-panel">
           <div class="session-content">
@@ -1021,7 +886,8 @@
           <div class="role-category">API Integration</div>
       </div>
       </div>
-        </div>
+
+    </div>
       </div>
 
       <!-- Controls -->
@@ -1056,7 +922,7 @@
     </div>
   </div>
 
-    <!-- ASSISTANT STRIP -->
+  <!-- ASSISTANT STRIP -->
   <div class="section-tint">
     <div class="section">
       <div class="assistant-layout">
@@ -1084,47 +950,6 @@
             <a href="https://app.truemath.ai/signup" class="btn-large">Get started free</a>
           </div>
         </div>
-
-        <!-- Illustration: someone in conversation, gesturing naturally -->
-        <div class="assistant-illustration">
-          <svg viewBox="0 0 340 400" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1A1830" stroke-linecap="round" stroke-linejoin="round" style="max-width:300px;width:100%;">
-            <!-- Person - relaxed, in conversation -->
-            <ellipse cx="170" cy="110" rx="24" ry="28" stroke-width="2"/>
-            <!-- Hair -->
-            <path d="M148 100 Q150 80 170 78 Q190 80 192 100" stroke-width="1.8"/>
-            <!-- Face looking up/forward -->
-            <circle cx="163" cy="106" r="2.2" fill="#1A1830" stroke="none"/>
-            <circle cx="177" cy="106" r="2.2" fill="#1A1830" stroke="none"/>
-            <path d="M163 116 Q170 120 177 116" stroke-width="1.4" opacity="0.6"/>
-            <!-- Body - slightly relaxed posture -->
-            <path d="M170 138 Q168 165 172 200 Q174 225 170 270" stroke-width="2.2"/>
-            <!-- Open collar shirt suggestion -->
-            <path d="M170 140 Q156 150 142 175 Q130 200 128 235 Q126 260 128 290" stroke-width="2"/>
-            <path d="M170 145 Q184 156 196 180 Q208 205 210 240 Q212 265 210 290" stroke-width="2"/>
-            <path d="M162 143 Q170 150 178 143" stroke-width="1.5"/>
-            <!-- Arm gesture - one raised explaining -->
-            <path d="M142 175 Q125 165 112 148 Q100 132 92 118" stroke-width="2"/>
-            <path d="M92 118 Q88 110 94 108 Q100 106 104 114" stroke-width="1.8"/>
-            <!-- Other arm relaxed -->
-            <path d="M210 240 Q225 255 235 270 Q242 282 240 295" stroke-width="2"/>
-            <!-- Hand holding phone/device -->
-            <rect x="228" y="282" width="24" height="38" rx="4" stroke-width="1.8"/>
-            <!-- Screen glow suggestion -->
-            <path d="M232 290 L248 290 M232 298 L248 298 M232 306 L242 306" stroke-width="1.2" opacity="0.4"/>
-            <!-- Legs sitting suggestion -->
-            <path d="M164 270 Q158 300 155 340 Q152 360 155 385" stroke-width="2"/>
-            <path d="M176 270 Q180 300 182 340 Q185 360 182 385" stroke-width="2"/>
-            <!-- Chair arm -->
-            <path d="M120 240 Q118 260 122 300 Q124 310 140 312" stroke-width="1.8"/>
-            <path d="M118 310 Q130 315 155 315" stroke-width="1.8"/>
-            <!-- Speech bubble suggestion -->
-            <path d="M100 65 Q100 30 180 28 Q270 28 270 62 Q270 90 200 92 Q175 92 165 105 Q160 98 145 95 Q100 93 100 65 Z" stroke-width="1.5" opacity="0.35"/>
-            <path d="M125 52 L240 52 M125 65 L235 65 M125 78 L200 78" stroke-width="1.2" opacity="0.25"/>
-            <!-- Floating math -->
-            <text x="28" y="200" font-family="DM Mono, monospace" font-size="12" fill="#6B44C4" opacity="0.2" stroke="none">f(x)</text>
-            <text x="272" y="148" font-family="DM Mono, monospace" font-size="11" fill="#6B44C4" opacity="0.18" stroke="none">∑</text>
-          </svg>
-        </div>
       </div>
     </div>
   </div>
@@ -1146,41 +971,6 @@
           </div>
 
           <a href="https://app.truemath.ai/signup" class="btn-large" style="font-size:15px;padding:13px 28px;">Request API access</a>
-
-          <!-- Developer illustration -->
-          <div style="margin-top:48px;">
-            <svg viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1A1830" stroke-linecap="round" stroke-linejoin="round" style="max-width:280px;width:100%;opacity:0.85;">
-              <!-- Desk -->
-              <path d="M20 170 L300 168" stroke-width="2"/>
-              <!-- Monitor -->
-              <rect x="85" y="60" width="150" height="100" rx="4" stroke-width="2"/>
-              <rect x="90" y="65" width="140" height="88" rx="2" stroke-width="1.2" opacity="0.4"/>
-              <path d="M145 160 L175 160 L175 170 L145 170 Z" stroke-width="1.5"/>
-              <path d="M125 170 L195 170" stroke-width="2"/>
-              <!-- Code on screen -->
-              <path d="M98 82 L105 82" stroke-width="1.5" stroke="#6B44C4" opacity="0.7"/>
-              <path d="M108 82 L145 82" stroke-width="1.5" opacity="0.3"/>
-              <path d="M105 92 L120 92" stroke-width="1.5" stroke="#A8D8A8" opacity="0.6"/>
-              <path d="M122 92 L160 92" stroke-width="1.5" opacity="0.25"/>
-              <path d="M105 102 L115 102" stroke-width="1.5" stroke="#F0C89A" opacity="0.6"/>
-              <path d="M117 102 L150 102" stroke-width="1.5" opacity="0.25"/>
-              <path d="M105 112 L135 112" stroke-width="1.5" stroke="#6B44C4" opacity="0.5"/>
-              <path d="M98 122 L108 122" stroke-width="1.5" opacity="0.3"/>
-              <path d="M110 122 L155 122" stroke-width="1.5" stroke="#A8D8A8" opacity="0.4"/>
-              <!-- Person at desk - side view -->
-              <ellipse cx="52" cy="118" rx="16" ry="19" stroke-width="1.8"/>
-              <path d="M52 137 Q50 155 52 168" stroke-width="2"/>
-              <path d="M52 140 Q40 150 35 162" stroke-width="1.8"/>
-              <path d="M52 145 Q64 153 72 160 Q82 165 88 158" stroke-width="1.8"/>
-              <!-- Head tilted at screen -->
-              <path d="M38 140 Q34 130 36 120" stroke-width="1.8"/>
-              <!-- Keyboard -->
-              <rect x="88" y="162" width="60" height="8" rx="2" stroke-width="1.3" opacity="0.5"/>
-              <!-- Coffee -->
-              <path d="M260 155 Q258 143 268 141 Q278 141 276 155" stroke-width="1.5"/>
-              <path d="M276 148 Q282 146 282 152 Q282 157 276 155" stroke-width="1.3"/>
-            </svg>
-          </div>
         </div>
 
         <!-- Code panel - dark inset on light page -->
@@ -1244,44 +1034,13 @@
   <div id="about">
     <div class="section">
       <span class="section-label">About TrueMath</span>
-      <h2 class="section-headline">Built on 30 years of calculation experience</h2>
+      <h2 class="section-headline">Built on 30 years of calculation experience and 30 million users</h2>
 
       <div class="about-layout">
         <div class="about-philosophy">
           <p>Every time technology advances, our tools for working with numbers evolve too -- from abacuses to calculators to spreadsheets, and now to AI.</p>
-          <p>But early AI missed the mark. Language models could talk about math, but they couldn't do it reliably. TrueMath was built to close that gap -- with decades of calculation experience, feedback from millions of users, and a math engine built from the ground up for the AI age.</p>
-          <p>The result is a smarter way to work with numbers. Conversational, accurate, auditable, and accessible.</p>
-
-          <!-- About illustration -->
-          <div style="margin-top:48px;">
-            <svg viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#1A1830" stroke-linecap="round" stroke-linejoin="round" style="max-width:280px;width:100%;opacity:0.8;">
-              <!-- Two people collaborating over papers -->
-              <!-- Table -->
-              <path d="M30 148 L290 146" stroke-width="2"/>
-              <!-- Papers spread on table -->
-              <path d="M80 146 Q82 118 102 116 Q118 116 120 146" stroke-width="1.5" opacity="0.5"/>
-              <path d="M85 120 L112 120 M85 128 L110 128 M85 136 L105 136" stroke-width="1" opacity="0.35"/>
-              <path d="M155 146 Q157 122 175 120 Q192 120 194 146" stroke-width="1.5" opacity="0.5"/>
-              <!-- Person 1 left -->
-              <ellipse cx="80" cy="92" rx="16" ry="19" stroke-width="1.8"/>
-              <path d="M66 84 Q68 70 80 68 Q92 70 94 84" stroke-width="1.5"/>
-              <circle cx="74" cy="89" r="1.8" fill="#1A1830" stroke="none"/>
-              <circle cx="86" cy="89" r="1.8" fill="#1A1830" stroke="none"/>
-              <path d="M80 111 Q78 128 80 148" stroke-width="2"/>
-              <path d="M80 115 Q68 125 60 138" stroke-width="1.8"/>
-              <path d="M80 118 Q94 130 108 138 Q128 142 135 136" stroke-width="1.8"/>
-              <!-- Person 2 right -->
-              <ellipse cx="230" cy="88" rx="16" ry="19" stroke-width="1.8"/>
-              <path d="M216 78 Q218 64 230 62 Q242 64 244 78" stroke-width="1.5"/>
-              <path d="M215 83 Q211 95 213 106" stroke-width="1.3"/>
-              <circle cx="224" cy="85" r="1.8" fill="#1A1830" stroke="none"/>
-              <circle cx="236" cy="85" r="1.8" fill="#1A1830" stroke="none"/>
-              <path d="M230 107 Q228 126 230 148" stroke-width="2"/>
-              <path d="M230 112 Q218 124 205 136 Q190 140 182 136" stroke-width="1.8"/>
-              <path d="M230 115 Q242 126 250 140" stroke-width="1.8"/>
-            </svg>
-          </div>
-
+          <p>TrueMath is built on PowerOne, a calculation platform developed over 30 years by TrueMath co-founder Elia Freedman. With 30 million downloads and a reputation for precision across finance, engineering, and science, PowerOne became the foundation Elia committed to TrueMath -- bringing three decades of real-world calculation experience into the AI age.</p>
+          <p>The result is not a new idea dressed up in AI clothing. It is a proven math engine, rebuilt for the way professionals work today. Conversational, accurate, auditable, and accessible.</p>
           <p style="margin-top:36px;">
             <a href="https://app.truemath.ai/contact" style="font-size:15px;font-weight:500;color:var(--purple);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:color 0.2s;">
               Get in touch
@@ -1292,7 +1051,7 @@
 
         <div class="team-grid">
           <div class="team-card">
-            <div class="team-avatar">BK</div>
+            <img src="Bill_Kelly.jpg" alt="Bill Kelly" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
             <div>
               <div class="team-name">Bill Kelly</div>
               <div class="team-title">Chief Executive Officer</div>
@@ -1300,7 +1059,7 @@
             </div>
           </div>
           <div class="team-card">
-            <div class="team-avatar">EF</div>
+            <img src="Elia_Freedman.jpg" alt="Elia Freedman" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
             <div>
               <div class="team-name">Elia Freedman</div>
               <div class="team-title">Chief Technology Officer</div>
@@ -1365,6 +1124,131 @@
     setInterval(() => { index = (index + 1) % domains.length; showDomain(index); }, 1000);
   </script>
 
+
+<script>
+  const track = document.getElementById('track');
+  const dotsContainer = document.getElementById('dots');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const pauseBtn = document.getElementById('pause-btn');
+  const pauseIcon = document.getElementById('pause-icon');
+  const playIcon = document.getElementById('play-icon');
+
+  const originals = Array.from(track.children);
+  const total = originals.length;
+  const cloneCount = 3;
+
+  // Append clones of first N at end
+  for (let i = 0; i < cloneCount; i++) {
+    track.appendChild(originals[i % total].cloneNode(true));
+  }
+  // Prepend clones of last N at start
+  for (let i = cloneCount - 1; i >= 0; i--) {
+    track.insertBefore(originals[total - 1 - (i % total)].cloneNode(true), track.firstChild);
+  }
+
+  const allCards = Array.from(track.children);
+
+  // rawPos tracks actual position in full track (clones + originals + clones)
+  // Originals occupy indices cloneCount through cloneCount+total-1
+  let rawPos = cloneCount;
+  let isPaused = false;
+  let autoTimer = null;
+  let transitioning = false;
+
+  // Build dots
+  originals.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => {
+      if (transitioning) return;
+      rawPos = cloneCount + i;
+      setPos(true);
+      updateDots();
+      if (!isPaused) { stopAuto(); startAuto(); }
+    });
+    dotsContainer.appendChild(dot);
+  });
+
+  function cardWidth() {
+    return allCards[0].offsetWidth + 28;
+  }
+
+  function setPos(animated) {
+    track.style.transition = animated
+      ? 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)'
+      : 'none';
+    track.style.transform = `translateX(-${rawPos * cardWidth()}px)`;
+    if (animated) transitioning = true;
+  }
+
+  function updateDots() {
+    const logical = ((rawPos - cloneCount) % total + total) % total;
+    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === logical);
+    });
+  }
+
+  // After transition: silently snap back if in clone zone
+  track.addEventListener('transitionend', () => {
+    transitioning = false;
+    if (rawPos >= cloneCount + total) {
+      rawPos -= total;
+      setPos(false);
+    } else if (rawPos < cloneCount) {
+      rawPos += total;
+      setPos(false);
+    }
+    updateDots();
+  });
+
+  function advance(dir) {
+    if (transitioning) return;
+    rawPos += dir;
+    setPos(true);
+    updateDots();
+  }
+
+  function startAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+    autoTimer = setInterval(() => advance(1), 2000);
+  }
+
+  function stopAuto() {
+    clearInterval(autoTimer);
+    autoTimer = null;
+  }
+
+  pauseBtn.addEventListener('click', () => {
+    isPaused = !isPaused;
+    pauseIcon.style.display = isPaused ? 'none' : 'block';
+    playIcon.style.display = isPaused ? 'block' : 'none';
+    pauseBtn.classList.toggle('active', isPaused);
+    isPaused ? stopAuto() : startAuto();
+  });
+
+  prevBtn.addEventListener('click', () => { advance(-1); if (!isPaused) { stopAuto(); startAuto(); } });
+  nextBtn.addEventListener('click', () => { advance(1); if (!isPaused) { stopAuto(); startAuto(); } });
+
+  track.addEventListener('mouseenter', () => { if (!isPaused) stopAuto(); });
+  track.addEventListener('mouseleave', () => { if (!isPaused) startAuto(); });
+
+  let touchStart = 0;
+  track.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; if (!isPaused) stopAuto(); }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) advance(diff > 0 ? 1 : -1);
+    if (!isPaused) startAuto();
+  });
+
+  // Init
+  setPos(false);
+  updateDots();
+  startAuto();
+</script>
+
+</body>
+</html>
 
 <script>
   const track = document.getElementById('track');
