@@ -127,6 +127,14 @@
     .hero-headline em { font-style: italic; color: var(--purple); }
     .hero-clients { font-size: 0.52em; color: var(--slate); font-weight: 400; font-style: normal; vertical-align: middle; position: relative; top: -0.1em; font-family: var(--font-sans); }
     .hero-once { display: block; margin-top: 0.15em; }
+    .hero-br { display: inline; } /* space on wide screens */
+
+    @media (max-width: 640px) {
+      .hero-br { display: block; height: 0; } /* becomes a line break */
+      .hero-clients { display: block; font-size: 0.48em; margin-top: 0.2em; vertical-align: baseline; top: 0; }
+      .hero-once { display: block; margin-top: 0.25em; }
+      .hero-once em { display: block; }
+    }
 
     .hero-tagline { display: block; font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-top: 24px; text-align: center; }
 
@@ -614,7 +622,7 @@
       </div>
 
       <h1 class="hero-headline">
-        Unlock what AI can do for you <span class="hero-clients">(and your clients)</span>
+        Unlock what AI<span class="hero-br"> </span>can do for you <span class="hero-clients">(and your clients)</span>
         <span class="hero-once">Once you're <em>sure of the math</em></span>
       </h1>
 
