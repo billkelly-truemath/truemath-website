@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — TrueMath</title>
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-Color_Logo-Only-Color.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-White-1000px.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F7F6F2;
+      --bg-white:     #FFFFFF;
+      --ink:          #1A1830;
+      --ink-mid:      #3D3B52;
+      --ink-muted:    #9896B0;
+      --purple:       #6B44C4;
+      --purple-tint:  #EDE9FE;
+      --border:       rgba(26, 24, 48, 0.1);
+      --border-purple:rgba(107, 68, 196, 0.2);
+      --font-serif:   'Lora', Georgia, serif;
+      --font-sans:    'DM Sans', system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:           #12111C;
+        --bg-white:     #1C1A2E;
+        --ink:          #EDE9FE;
+        --ink-mid:      #B8B4D4;
+        --ink-muted:    #6E6B8A;
+        --purple:       #9B77F5;
+        --purple-tint:  #1E1840;
+        --border:       rgba(237, 233, 254, 0.08);
+        --border-purple:rgba(155, 119, 245, 0.25);
+      }
+      nav { background: rgba(18, 17, 28, 0.95); }
+      .logo-light { display: none !important; }
+      .logo-dark  { display: block !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(247, 246, 242, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 26px; display: block; }
+    .logo-light { display: block; }
+    .logo-dark  { display: none; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .btn-primary { font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: #fff;
+      background: var(--purple); border: none; border-radius: 8px; padding: 9px 20px;
+      cursor: pointer; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+    .btn-primary:hover { background: #8B5CF6; }
+
+    /* PAGE LAYOUT */
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 32px 96px;
+    }
+
+    /* HEADER */
+    .doc-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 16px;
+    }
+    .doc-title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .doc-effective {
+      font-size: 14px;
+      color: var(--ink-muted);
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* CONTENT */
+    .doc-intro {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-top: 48px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 24px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin: 0 0 16px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    ul li {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 13px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: 0.5;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    strong { font-weight: 500; color: var(--ink); }
+
+    /* CONTACT BOX */
+    .contact-box {
+      background: var(--purple-tint);
+      border: 1px solid var(--border-purple);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-top: 48px;
+    }
+    .contact-box p { margin-bottom: 0; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-left { display: flex; align-items: center; gap: 20px; }
+    .footer-logo img { height: 20px; display: block; }
+    .footer-copy { font-size: 13px; color: var(--ink-muted); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-trademark {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 14px 48px;
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 24px; }
+      .page-wrap { padding: 96px 24px 64px; }
+      footer { padding: 24px; }
+      .footer-trademark { padding: 14px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://billkelly-truemath.github.io/truemath-website/" class="nav-logo">
+    <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://billkelly-truemath.github.io/truemath-website/#why">Why TrueMath</a></li>
+    <li><a href="https://billkelly-truemath.github.io/truemath-website/#library">Professional Library</a></li>
+    <li><a href="https://billkelly-truemath.github.io/truemath-website/#developers">Developers</a></li>
+    <li><a href="https://truemath.ai/blog">Blog</a></li>
+  </ul>
+  <a href="https://app.truemath.ai/signup" class="btn-primary">Get started free</a>
+</nav>
+
+<div class="page-wrap">
+
+  <span class="doc-label">Legal</span>
+  <h1 class="doc-title">Privacy Policy</h1>
+  <p class="doc-effective">Effective: August 1, 2025</p>
+
+  <p class="doc-intro">TrueMath, Inc., is committed to protecting your privacy. This Privacy Policy outlines how we handle personal information collected from or about you when you use our website, applications, and services ("Services"). This Policy does not apply to content processed through our business products, such as our API, which are governed by separate agreements.</p>
+
+  <p>For details about how we collect and use data for developing our language models that power TrueMath, please refer to our <a href="https://app.truemath.ai/contact">help center</a>.</p>
+
+  <h2>Personal Information We Collect</h2>
+
+  <h3>Information You Provide</h3>
+  <p>We collect personal information ("Personal Information") you provide when you create an account, communicate with us, or interact with our Services.</p>
+  <ul>
+    <li><strong>Account Information:</strong> When creating an account, we collect your name, contact details, login credentials, payment data, and transaction history.</li>
+    <li><strong>User Content:</strong> Any information included in your inputs, file uploads, or feedback when using our Services.</li>
+    <li><strong>Communication Information:</strong> Details such as your name, contact information, and any message contents if you reach out to us.</li>
+    <li><strong>Social Media Information:</strong> Information you provide when interacting with us on social platforms like Instagram, Facebook, LinkedIn, etc., as well as aggregate analytics from these platforms.</li>
+    <li><strong>Additional Information:</strong> Data you provide during events, surveys, or identity verification processes.</li>
+  </ul>
+
+  <h3>Information Collected Automatically</h3>
+  <p>We automatically collect certain data when you interact with our Services.</p>
+  <ul>
+    <li><strong>Log Data:</strong> Information your device sends automatically, such as your IP address, browser details, and interaction data.</li>
+    <li><strong>Usage Data:</strong> Information about your interactions with our Services, including content viewed, features used, and device-specific data like time zone and device type.</li>
+    <li><strong>Device Information:</strong> Data like device name, operating system, and identifiers.</li>
+    <li><strong>Cookies:</strong> We use cookies to manage and enhance our Services. You can control cookie preferences through your browser settings.</li>
+  </ul>
+
+  <h3>Analytics</h3>
+  <p>We may use analytics tools that rely on cookies to understand usage patterns and improve our Services.</p>
+
+  <h2>How We Use Personal Information</h2>
+  <p>We may use Personal Information for purposes including:</p>
+  <ul>
+    <li>Operating, maintaining, and analyzing our Services</li>
+    <li>Improving and expanding our offerings</li>
+    <li>Communicating with you, including sending updates on our Services and events</li>
+    <li>Developing new features</li>
+    <li>Preventing fraud and safeguarding our systems</li>
+    <li>Managing business transactions, such as mergers or reorganizations</li>
+    <li>Complying with legal requirements and protecting our rights</li>
+  </ul>
+
+  <h3>Aggregated or De-identified Information</h3>
+  <p>We may de-identify or aggregate Personal Information for analytics, research, or other business purposes. We do not attempt to re-identify such information unless legally required.</p>
+
+  <h2>Disclosure of Personal Information</h2>
+  <p>We may share Personal Information under these circumstances:</p>
+  <ul>
+    <li><strong>Service Providers:</strong> We share data with third-party providers who support our operations, such as hosting services, customer support, and analytics.</li>
+    <li><strong>Business Transactions:</strong> Personal Information may be shared during due diligence or transferred as part of a merger, acquisition, or similar transaction.</li>
+    <li><strong>Legal Obligations:</strong> We may disclose data if required by law, to enforce our policies, prevent fraud, or protect the safety of our users.</li>
+    <li><strong>Affiliates:</strong> We may share data with our affiliates who process information consistently with this Privacy Policy.</li>
+    <li><strong>Enterprise Account Administrators:</strong> If you join a TrueMath enterprise account, your account information may be accessible to the administrators.</li>
+    <li><strong>Other Users:</strong> When you share information via certain features, like shared links or third-party integrations, you control what information is disclosed.</li>
+  </ul>
+
+  <h2>Your Rights</h2>
+  <p>Depending on your location, you may have the right to:</p>
+  <ul>
+    <li>Access and review your Personal Information</li>
+    <li>Request deletion or correction of your data</li>
+    <li>Transfer your data to a third party</li>
+    <li>Restrict processing of your information</li>
+    <li>Withdraw consent for data use</li>
+    <li>Object to how your data is processed</li>
+    <li>File a complaint with your local authority</li>
+  </ul>
+  <p>You can exercise these rights through your TrueMath account or by contacting us at <a href="mailto:hello@truemath.ai">hello@truemath.ai</a>.</p>
+
+  <h2>Additional U.S. State Disclosures</h2>
+  <p>We provide details about our data collection and sharing practices based on the categories of Personal Information we collect and the types of disclosures. For more specific information, refer to the sections above on "Personal Information We Collect" and "How We Use Personal Information."</p>
+  <p>We do not sell your Personal Information or use it for cross-contextual behavioral advertising. Nor do we process sensitive data to infer user characteristics.</p>
+
+  <h2>Children</h2>
+  <p>TrueMath is not intended for users under 13. We do not knowingly collect Personal Information from children under 13. If we discover that such data has been provided, we will take steps to delete it. If you are between 13 and 18, you must have parental consent to use our Services.</p>
+
+  <h2>Security and Data Retention</h2>
+  <p>We use industry-standard measures to protect your Personal Information. However, no online service is entirely secure. We retain your data only as long as necessary for business or legal purposes, with retention periods determined by factors like data sensitivity and legal requirements.</p>
+
+  <h2>International Users</h2>
+  <p>By using our Services, you consent to the transfer and processing of your data in the United States or other jurisdictions.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>We may update this Privacy Policy periodically. Any changes will be posted on this page with the updated date.</p>
+
+  <h2>Governing Law and Disputes</h2>
+  <p>This Policy is governed by the laws of the State of Oregon, with any disputes resolved in Portland, Oregon.</p>
+
+  <div class="contact-box">
+    <h2 style="margin-top:0; border-bottom: none; padding-bottom: 0;">Contact Us</h2>
+    <p>For any questions or concerns, please reach out to our support team at <a href="mailto:hello@truemath.ai">hello@truemath.ai</a>.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">
+    <a href="https://billkelly-truemath.github.io/truemath-website/" class="footer-logo">
+      <picture>
+        <source srcset="TrueMath-Logo-Long-White-500px.png" media="(prefers-color-scheme: dark)">
+        <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+      </picture>
+    </a>
+    <span class="footer-copy">© 2026 TrueMath, Inc.</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="terms.html">Terms</a></li>
+    <li><a href="https://app.truemath.ai/contact">Contact</a></li>
+  </ul>
+</footer>
+<div class="footer-trademark">
+  Claude is a trademark of Anthropic, PBC. TrueMath is an independent product and is not affiliated with or endorsed by Anthropic. Use of the Claude name reflects a commercial API relationship only.
+</div>
+
+</body>
+</html>

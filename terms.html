@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — TrueMath</title>
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-Color_Logo-Only-Color.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-White-1000px.png" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #F7F6F2;
+      --bg-white:     #FFFFFF;
+      --ink:          #1A1830;
+      --ink-mid:      #3D3B52;
+      --ink-muted:    #9896B0;
+      --purple:       #6B44C4;
+      --purple-tint:  #EDE9FE;
+      --border:       rgba(26, 24, 48, 0.1);
+      --border-purple:rgba(107, 68, 196, 0.2);
+      --font-serif:   'Lora', Georgia, serif;
+      --font-sans:    'DM Sans', system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:           #12111C;
+        --bg-white:     #1C1A2E;
+        --ink:          #EDE9FE;
+        --ink-mid:      #B8B4D4;
+        --ink-muted:    #6E6B8A;
+        --purple:       #9B77F5;
+        --purple-tint:  #1E1840;
+        --border:       rgba(237, 233, 254, 0.08);
+        --border-purple:rgba(155, 119, 245, 0.25);
+      }
+      nav { background: rgba(18, 17, 28, 0.95); }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(247, 246, 242, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo img { height: 26px; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .btn-primary { font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: #fff;
+      background: var(--purple); border: none; border-radius: 8px; padding: 9px 20px;
+      cursor: pointer; text-decoration: none; transition: background 0.2s; white-space: nowrap; }
+    .btn-primary:hover { background: #8B5CF6; }
+
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 32px 96px;
+    }
+
+    .doc-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 16px;
+    }
+    .doc-title {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .doc-effective {
+      font-size: 14px;
+      color: var(--ink-muted);
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-intro {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-top: 48px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 24px;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    ul {
+      margin: 0 0 16px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    ul li {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      padding: 4px 0 4px 20px;
+      position: relative;
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 13px;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--purple);
+      opacity: 0.5;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    strong { font-weight: 500; color: var(--ink); }
+
+    .address-block {
+      background: var(--purple-tint);
+      border: 1px solid var(--border-purple);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 16px 0 24px;
+      font-size: 15px;
+      color: var(--ink-mid);
+      line-height: 1.8;
+    }
+
+    .contact-box {
+      background: var(--purple-tint);
+      border: 1px solid var(--border-purple);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-top: 48px;
+    }
+    .contact-box p { margin-bottom: 0; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-left { display: flex; align-items: center; gap: 20px; }
+    .footer-logo img { height: 20px; display: block; }
+    .footer-copy { font-size: 13px; color: var(--ink-muted); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-trademark {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 14px 48px;
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      nav { padding: 0 24px; }
+      .page-wrap { padding: 96px 24px 64px; }
+      footer { padding: 24px; }
+      .footer-trademark { padding: 14px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://billkelly-truemath.github.io/truemath-website/" class="nav-logo">
+    <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://billkelly-truemath.github.io/truemath-website/#why">Why TrueMath</a></li>
+    <li><a href="https://billkelly-truemath.github.io/truemath-website/#library">Professional Library</a></li>
+    <li><a href="https://billkelly-truemath.github.io/truemath-website/#developers">Developers</a></li>
+    <li><a href="https://truemath.ai/blog">Blog</a></li>
+  </ul>
+  <a href="https://app.truemath.ai/signup" class="btn-primary">Get started free</a>
+</nav>
+
+<div class="page-wrap">
+
+  <span class="doc-label">Legal</span>
+  <h1 class="doc-title">Terms of Service</h1>
+  <p class="doc-effective">Effective Date: August 1, 2025</p>
+
+  <p class="doc-intro">These Terms of Service govern your access to and use of TrueMath's offerings, which include our online application, APIs, and related services for individuals, along with any associated software applications and websites (collectively, the "Services"). By using these Services, you agree to these Terms, which form a contract between you and TrueMath, Inc., an Oregon Limited Liability Company.</p>
+
+  <p>If you are located in the European Economic Area, Switzerland, or the UK, specific terms apply to you.</p>
+  <p>Please also review our <a href="privacy.html">Privacy Policy</a>, which describes how we handle your personal information.</p>
+
+  <h2>About Us</h2>
+  <p>TrueMath, Inc., specializes in providing advanced AI-driven mathematical tools for a broad range of users. Our mission is to deliver precise and efficient computational solutions across various industries. For more information, please visit our <a href="https://billkelly-truemath.github.io/truemath-website/">website</a>.</p>
+
+  <h2>Registration and Access</h2>
+  <h3>Eligibility Requirements</h3>
+  <p>You must be at least 13 years old or meet the minimum age requirement in your country to consent to use our Services. If you're under 18, parental or guardian permission is necessary.</p>
+
+  <h3>Account Creation</h3>
+  <p>To use our Services, you must register and provide accurate and complete information. You are responsible for keeping your account credentials secure and ensuring that all activities conducted under your account comply with these Terms. If you create an account or use the Services on behalf of someone else, you must have the legal authority to do so.</p>
+
+  <h2>Using Our Services</h2>
+  <h3>Permitted Use</h3>
+  <p>You may access and use our Services, provided you comply with these Terms, relevant laws, and our Sharing &amp; Publication Policy, Usage Policies, and any other documentation we provide.</p>
+
+  <h3>Prohibited Use</h3>
+  <p>You may not engage in activities that are illegal, harmful, or abusive, including but not limited to:</p>
+  <ul>
+    <li>Infringing, misappropriating, or violating the rights of others</li>
+    <li>Modifying, copying, leasing, selling, or distributing any part of our Services</li>
+    <li>Attempting to reverse-engineer, decompile, or discover the source code of our Services, including models, algorithms, or systems (unless legally exempted)</li>
+    <li>Automatically extracting data or output without permission</li>
+    <li>Misrepresenting outputs as human-generated when they are not</li>
+    <li>Disrupting or circumventing any restrictions, protections, or safety measures built into our Services</li>
+    <li>Using our outputs to create competing models or services</li>
+  </ul>
+
+  <h3>Software</h3>
+  <p>Our Services may include downloadable software, such as mobile applications, which may update automatically. Some of this software may include open-source components governed by separate licenses.</p>
+
+  <h3>Third-Party Services</h3>
+  <p>Some aspects of our Services may involve third-party software, products, or services ("Third-Party Services") and may include output generated by these third parties ("Third-Party Output"). These are subject to their own terms, and we aren't responsible for them.</p>
+
+  <h3>Feedback</h3>
+  <p>We welcome your feedback, which you agree we may use without obligation or compensation.</p>
+
+  <h2>Content</h2>
+  <h3>Your Content</h3>
+  <p>When you provide input to our Services ("Input") and receive output ("Output"), these collectively form your content ("Content"). You are responsible for ensuring your Content complies with these Terms and applicable laws. You represent that you have all necessary rights and permissions to provide your Input.</p>
+
+  <h3>Content Ownership</h3>
+  <p>You retain ownership of your Input, and we assign to you any rights we may have in your Output, to the extent allowed by law.</p>
+
+  <h3>Content Similarity</h3>
+  <p>Due to the nature of AI, the outputs you receive may be similar to those of other users. This assignment of rights doesn't extend to similar outputs generated for others.</p>
+
+  <h3>Our Use of Content</h3>
+  <p>We may use your Content to enhance and develop our Services, comply with legal obligations, and ensure the safety and integrity of our Services.</p>
+
+  <h3>Opt-Out</h3>
+  <p>If you don't want us to use your Content to improve our services, you can contact us at <a href="/cdn-cgi/l/email-protection#78101d141417380c0a0d1d15190c10561911"><span class="__cf_email__" data-cfemail="7a121f1616153a0e080f1f171b0e12541b13">[email&#160;protected]</span></a>.</p>
+
+  <h3>Accuracy Disclaimer</h3>
+  <p>AI and machine learning are evolving technologies. Although we work continuously to improve our Services, outputs may sometimes be inaccurate, incomplete, or misleading. You should evaluate outputs before relying on them for important decisions.</p>
+
+  <h2>Intellectual Property Rights</h2>
+  <p>We, along with our affiliates, hold all rights in the Services. Any use of our brand assets must comply with our Brand Guidelines.</p>
+
+  <h2>Paid Subscriptions</h2>
+  <h3>Billing</h3>
+  <p>When purchasing a subscription, you must provide accurate payment information. For recurring subscriptions, charges will continue until you cancel. Taxes are your responsibility, and we will collect them as required. Failure to pay may result in a downgrade or suspension of your account.</p>
+
+  <h3>Cancellation and Refunds</h3>
+  <p>You may cancel at any time, but payments are non-refundable except where required by law. Upon cancellation we will maintain your service level until the end of the period you have paid for.</p>
+
+  <h3>Price Changes</h3>
+  <p>We may adjust our prices. You'll receive at least 30 days' notice before any price increase takes effect at your next renewal.</p>
+
+  <h2>Termination and Suspension</h2>
+  <p>We may suspend or terminate your access if you breach these Terms, if legally required, or if your use poses a risk to us or others. Accounts inactive for over a year may be terminated unless you have a paid subscription. If you believe your account was wrongly terminated, you can appeal.</p>
+
+  <h2>Service Discontinuation</h2>
+  <p>If we decide to stop offering the Services, we will provide advance notice and refund any prepaid, unused amounts.</p>
+
+  <h2>Disclaimers</h2>
+  <p>The Services are provided "as is." To the fullest extent allowed by law, we disclaim all warranties, including those of merchantability, fitness for a particular purpose, and non-infringement. We don't guarantee uninterrupted, accurate, or error-free service.</p>
+
+  <h2>Limitation of Liability</h2>
+  <p>We and our affiliates are not liable for indirect, incidental, special, or consequential damages. Our liability is capped at the greater of $100 or the amount you paid for the Service within the past 12 months. Some jurisdictions may have different limitations.</p>
+
+  <h2>Indemnification</h2>
+  <p>If you are a business, you agree to indemnify us for claims arising from your use of the Services or violation of these Terms.</p>
+
+  <h2>Dispute Resolution</h2>
+  <h3>Mandatory Arbitration and Waivers</h3>
+  <p>Any disputes will be resolved through binding arbitration, with limited exceptions. Class actions and jury trials are waived.</p>
+
+  <h3>Batch Arbitration</h3>
+  <p>Claims filed by multiple parties will be grouped into batches for resolution.</p>
+
+  <h2>Copyright Complaints</h2>
+  <p>For copyright infringement claims, contact us at:</p>
+  <div class="address-block">
+    TrueMath, Inc.<br>
+    1226 SW Cheltenham St<br>
+    Portland OR 97239<br>
+    United States<br>
+    Attn: General Counsel / Copyright Agent
+  </div>
+  <p>Include a signature, description of the infringed work, location of the infringing material, your contact information, and a good-faith statement regarding the claim.</p>
+
+  <h2>General Terms</h2>
+  <h3>Assignment</h3>
+  <p>You cannot assign these Terms without our consent. We may assign our rights to an affiliate or successor.</p>
+
+  <h3>Changes to These Terms</h3>
+  <p>We may update these Terms and our Services. Material changes will be communicated in advance.</p>
+
+  <h3>Governing Law</h3>
+  <p>These Terms are governed by Oregon law, with exclusive jurisdiction in Portland, Oregon courts, except as specified for arbitration.</p>
+
+  <div class="contact-box">
+    <h2 style="margin-top:0; border-bottom:none; padding-bottom:0;">Questions?</h2>
+    <p>Reach out to our team at <a href="/cdn-cgi/l/email-protection#5c34393030331c282e2939313d2834723d35"><span class="__cf_email__" data-cfemail="462e232a2a2906323433232b27322e68272f">[email&#160;protected]</span></a>.</p>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">
+    <a href="https://billkelly-truemath.github.io/truemath-website/" class="footer-logo">
+      <picture>
+        <source srcset="TrueMath-Logo-Long-White-500px.png" media="(prefers-color-scheme: dark)">
+        <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+      </picture>
+    </a>
+    <span class="footer-copy">© 2026 TrueMath, Inc.</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="privacy.html">Privacy</a></li>
+    <li><a href="terms.html">Terms</a></li>
+    <li><a href="https://app.truemath.ai/contact">Contact</a></li>
+  </ul>
+</
