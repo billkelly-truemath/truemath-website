@@ -933,7 +933,7 @@
         </div>
               <div class="prompt-bubble">
               <div class="prompt-label">You asked</div>
-              <div class="prompt-text">TCO comparison — on-prem at $1.2M capex, 3-year refresh vs. cloud at $28k/month with 18-month migration ramp, over 5 years.</div>
+              <div class="prompt-text">TCO comparison — on-prem at $1.2M capex, 3-year refresh, $88k/yr maintenance vs. cloud at $28k/month plus $280k migration cost, over 5 years.</div>
             </div>
             </div>
             <div class="answer-bubble">
@@ -942,7 +942,7 @@
                 On-prem 5yr TCO: <strong>$2,840,000</strong><br>
                 Cloud 5yr TCO: <strong>$1,960,000</strong><br>
                 Cloud savings: <strong>$880,000</strong><br>
-                Break-even: <strong>Month 29</strong><span class="cursor"></span>
+                Migration payback: <strong>Month 14</strong><span class="cursor"></span>
               </div>
             </div>
           </div>
@@ -963,7 +963,7 @@
         </div>
               <div class="prompt-bubble">
               <div class="prompt-label">POST /v1/calculate</div>
-              <div class="prompt-text" style="font-family:var(--font-mono);font-size:12px;line-height:1.7;">"domain": "cre_investor",<br>"prompt": "IRR on this deal?",<br>"inputs": {"purchase": 4200000}</div>
+              <div class="prompt-text" style="font-family:var(--font-mono);font-size:12px;line-height:1.7;">"domain": "cre_investor",<br>"prompt": "IRR on this deal?",<br>"inputs": {"purchase": 4200000,<br>&nbsp;"noi": 273000, "hold": 5,<br>&nbsp;"exit_value": 4840000,<br>&nbsp;"ltv": 0.60, "loan_rate": 0.065}</div>
             </div>
             </div>
             <div class="answer-bubble">
