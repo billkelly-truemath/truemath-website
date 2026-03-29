@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F7F6F2">
-  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-Color_Logo-Only-Color.png">
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-Color_Logo-Only-Color.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-White-1000px.png" media="(prefers-color-scheme: dark)">
   <title>TrueMath: The Math Engine for the AI Age</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,6 +55,10 @@
       /* Nav */
       nav { background: rgba(18, 17, 28, 0.92); }
 
+      /* Logo swap */
+      .logo-light { display: none; }
+      .logo-dark  { display: block; }
+
       /* Hero background pattern adjusts for dark */
       .hero-bg-pattern {
         background-image:
@@ -71,13 +76,7 @@
         border-color: rgba(155, 119, 245, 0.2);
       }
 
-      /* Code panels already dark -- just tweak slightly */
-      .code-panel { background: #0D0C18; }
-      .code-panel-header { border-color: rgba(255,255,255,0.06); }
-
-      /* CTA section -- already dark ink, stays dark */
-      .cta-section { background: #0D0C18; }
-      .btn-cta { color: #12111C; }
+      /* Code panels and CTA section are pinned to fixed dark colors -- no override needed */
 
       /* Footer */
       footer { border-color: var(--border); }
@@ -137,6 +136,8 @@
     }
 
     .nav-logo img { height: 28px; display: block; }
+    .logo-light { display: block; }
+    .logo-dark  { display: none; }
 
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
@@ -309,7 +310,7 @@
     .integration-tag { font-size: 12px; font-weight: 500; color: var(--ink-mid); background: var(--bg-white); border: 1px solid var(--border); border-radius: 100px; padding: 4px 13px; }
     .integration-tag.available { color: var(--purple); border-color: var(--border-purple); background: var(--purple-tint); }
 
-    .code-panel { background: var(--ink); border-radius: 14px; overflow: hidden; }
+    .code-panel { background: #0F0E1A; border-radius: 14px; overflow: hidden; }
     .code-panel-header { padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
     .code-panel-label { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); }
     .code-panel-endpoint { font-family: var(--font-mono); font-size: 11px; color: var(--purple-light); }
@@ -340,7 +341,7 @@
     .team-linkedin:hover { color: var(--purple-bright); }
 
     /* FINAL CTA */
-    .cta-section { padding: 96px 64px; text-align: center; background: var(--ink); position: relative; overflow: hidden; }
+    .cta-section { padding: 96px 64px; text-align: center; background: #0F0E1A; position: relative; overflow: hidden; }
     .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(107,68,196,0.3) 0%, transparent 65%); pointer-events: none; }
     .cta-box { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
     .cta-headline { font-family: var(--font-serif); font-size: clamp(28px,4vw,48px); font-weight: 500; color: #fff; margin-bottom: 16px; line-height: 1.2; letter-spacing: -0.01em; }
@@ -674,7 +675,8 @@
   <!-- NAV -->
   <nav>
     <a href="https://billkelly-truemath.github.io/truemath-website/" class="nav-logo">
-      <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+      <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath" class="logo-light">
+      <img src="TrueMath-Logo-Long-White-500px.png" alt="TrueMath" class="logo-dark">
     </a>
     <ul class="nav-links">
       <li><a href="#why">Why TrueMath</a></li>
