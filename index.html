@@ -55,9 +55,7 @@
       /* Nav */
       nav { background: rgba(18, 17, 28, 0.92); }
 
-      /* Logo swap */
-      .logo-light { display: none !important; }
-      .logo-dark  { display: block !important; }
+      /* Logo swap handled via picture element */
 
       /* Hero background pattern adjusts for dark */
       .hero-bg-pattern {
@@ -140,8 +138,6 @@
     }
 
     .nav-logo img { height: 28px; display: block; }
-    .logo-light { display: block; }
-    .logo-dark  { display: none !important; }
 
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
@@ -700,8 +696,10 @@
     <div class="hero-bg-pattern"></div>
 
     <div class="hero-content">
-      <img src="TrueMath-Logo-Color_Logo-Color.png" alt="TrueMath" class="hero-logo logo-light">
-      <img src="TrueMath-Logo-White-1000px.png" alt="TrueMath" class="hero-logo logo-dark">
+      <picture>
+        <source srcset="TrueMath-Logo-White-1000px.png" media="(prefers-color-scheme: dark)">
+        <img src="TrueMath-Logo-Color_Logo-Color.png" alt="TrueMath" class="hero-logo">
+      </picture>
 
       <div class="hero-eyebrow">
         <span class="eyebrow-dot"></span>
@@ -1169,8 +1167,10 @@
   <footer>
     <div class="footer-left">
       <a href="https://billkelly-truemath.github.io/truemath-website/" class="footer-logo">
-        <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath" class="logo-light">
-        <img src="TrueMath-Logo-Long-White-500px.png" alt="TrueMath" class="logo-dark">
+        <picture>
+          <source srcset="TrueMath-Logo-Long-White-500px.png" media="(prefers-color-scheme: dark)">
+          <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+        </picture>
       </a>
       <span class="footer-copy">© 2026 TrueMath, Inc.</span>
     </div>
