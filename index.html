@@ -348,7 +348,8 @@
     .assistant-body { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 24px; }
     .assistant-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); font-weight: 300; margin-bottom: 10px; }
     .assistant-check { width: 18px; height: 18px; border-radius: 50%; background: var(--purple-tint); border: 1px solid var(--border-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-    .assistant-paid { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 6px; margin-top: 20px; }
+    .assistant-paid { font-size: 12px; color: var(--ink-muted); display: flex; align-items: flex-start; gap: 8px; margin-top: 20px; line-height: 1.6; }
+    .assistant-paid svg { flex-shrink: 0; margin-top: 3px; }
 
     .assistant-screenshot {
       width: 100%;
@@ -819,7 +820,7 @@
         <div>
           <span class="section-label">Why TrueMath</span>
           <h2 class="section-headline">What becomes possible when AI can really do the math</h2>
-          <p class="section-body">AI has changed how professionals work. Except with numbers. That's what TrueMath is for.</p>
+          <p class="section-body">AI has changed how professionals work.<br>Except with numbers.<br>That's what TrueMath is for.</p>
 
           <div class="why-cards">
             <div class="why-card">
@@ -1112,12 +1113,12 @@
           </div>
           <div class="assistant-paid">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5.5" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            The Assistant is a paid feature after <strong>beta</strong>. The Library is <strong>free</strong> to explore now, and there will always be a <strong>free</strong> tier.
+            <span>The Assistant is a paid feature after <strong>beta</strong>. The Library is <strong>free</strong> to explore now, and there will always be a <strong>free</strong> tier.</span>
           </div>
           <div style="margin-top:28px;">
             <a href="https://app.truemath.ai/signup" class="btn-large">Join our free beta now</a>
           </div>
-          <p style="font-size:12px;color:var(--ink-muted);margin-top:12px;">No credit card. We're still building -- come build with us.</p>
+          <p style="font-size:12px;color:var(--ink-muted);margin-top:12px;">No credit card required.</p>
         </div>
 
         <div>
