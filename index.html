@@ -357,19 +357,26 @@
     .assistant-screenshot-caption { font-size: 12px; color: var(--ink-muted); text-align: center; margin-top: 14px; font-style: italic; }
 
     /* DEVELOPERS */
-    .dev-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: center; }
+    .dev-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
     .integration-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 32px; }
     .integration-tag { font-size: 12px; font-weight: 500; color: var(--ink-mid); background: var(--bg-white); border: 1px solid var(--border); border-radius: 100px; padding: 4px 13px; }
     .integration-tag.available { color: var(--purple); border-color: var(--border-purple); background: var(--purple-tint); }
 
     .code-panel { background: #0F0E1A; border-radius: 14px; overflow: hidden; }
-    .code-panel-header { padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
+    .code-panel-header { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
     .code-panel-label { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); }
     .code-panel-endpoint { font-family: var(--font-mono); font-size: 11px; color: var(--purple-light); }
-    .code-panel-body { padding: 20px 18px; font-family: var(--font-mono); font-size: 12px; line-height: 1.9; color: rgba(255,255,255,0.5); }
+    .code-panel-body { padding: 16px; font-family: var(--font-mono); font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.5); overflow-x: auto; }
+    .code-panel-body::-webkit-scrollbar { height: 6px; }
+    .code-panel-body::-webkit-scrollbar-track { background: transparent; }
+    .code-panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
+    .code-panel-body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
     .code-key { color: var(--purple-light); }
     .code-str { color: #A8D8A8; }
     .code-num { color: #F0C89A; }
+    .code-kw { color: #C19FE2; }
+    .code-comment { color: rgba(255,255,255,0.35); font-style: italic; }
+    .code-fn { color: #B5C9F2; }
 
     .endpoint-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
     .endpoint-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 12px; }
@@ -1142,12 +1149,12 @@
         <div>
           <span class="section-label">For Developers</span>
           <h2 class="section-headline">Embed deterministic math into any product</h2>
-          <p class="section-body">The TrueMath API connects your application to the same math engine professionals use every day. Send a natural language prompt with your inputs. Get back a precise, auditable answer.</p>
+          <p class="section-body">The TrueMath API connects your application to the same math engine professionals use every day. Send a natural-language or structured prompt with your inputs. Get back a precise, auditable answer, with full lineage.</p>
 
           <div class="integration-tags">
             <span class="integration-tag available">REST API: available now</span>
+            <span class="integration-tag available">JS/TS SDK: available now</span>
             <span class="integration-tag">Python SDK: coming soon</span>
-            <span class="integration-tag">JS/TS SDK: coming soon</span>
             <span class="integration-tag">MCP integration: coming soon</span>
           </div>
 
@@ -1159,18 +1166,17 @@
           <div class="code-panel">
             <div class="code-panel-header">
               <span class="code-panel-label">REQUEST</span>
-              <span class="code-panel-endpoint">POST /v1/calculate</span>
+              <span class="code-panel-endpoint">truemath-sdk · TypeScript</span>
             </div>
             <div class="code-panel-body">
-              {<br>
-              &nbsp;&nbsp;<span class="code-key">"domain"</span>: <span class="code-str">"cre_investor"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"prompt"</span>: <span class="code-str">"What is the IRR<br>&nbsp;&nbsp;&nbsp;&nbsp;on this deal?"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"inputs"</span>: {<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"purchase_price"</span>: <span class="code-num">4200000</span>,<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"noi"</span>: <span class="code-num">273000</span>,<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"hold_period_years"</span>: <span class="code-num">5</span><br>
-              &nbsp;&nbsp;}<br>
-              }
+              <span class="code-comment">// Auto-handles polling for long calculations</span><br>
+              <span class="code-kw">const</span> result = <span class="code-kw">await</span> sdk.calculations.<span class="code-fn">calculateAndWait</span>({<br>
+              &nbsp;&nbsp;<span class="code-key">domainId</span>: <span class="code-str">"00000000-0000-0000-0000-000000000001"</span>,<br>
+              &nbsp;&nbsp;<span class="code-key">inputFormat</span>: <span class="code-str">"natural_language"</span>,<br>
+              &nbsp;&nbsp;<span class="code-key">prompt</span>:<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"Levered IRR on $4.2M, $273K NOI, "</span> +<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"65% LTV @ 6.25%, 5yr hold"</span><br>
+              });
             </div>
           </div>
 
@@ -1181,13 +1187,17 @@
             </div>
             <div class="code-panel-body">
               {<br>
-              &nbsp;&nbsp;<span class="code-key">"result"</span>: {<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"irr"</span>: <span class="code-num">0.1243</span>,<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-key">"irr_formatted"</span>: <span class="code-str">"12.43%"</span><br>
-              &nbsp;&nbsp;},<br>
+              &nbsp;<span class="code-key">"status"</span>: <span class="code-str">"completed"</span>,<br>
+              &nbsp;<span class="code-key">"results"</span>: {<br>
+              &nbsp;&nbsp;<span class="code-key">"leveredIrr"</span>: <span class="code-num">0.1843</span>,<br>
+              &nbsp;&nbsp;<span class="code-key">"formatted"</span>: <span class="code-str">"18.43%"</span>,<br>
+              &nbsp;&nbsp;<span class="code-key">"equityMultiple"</span>: <span class="code-num">2.21</span><br>
+              &nbsp;},<br>
+              &nbsp;<span class="code-key">"lineage"</span>: {<br>
               &nbsp;&nbsp;<span class="code-key">"activity"</span>: <span class="code-str">"levered_irr"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"deterministic"</span>: <span class="code-num">true</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"steps"</span>: [<span style="color:rgba(255,255,255,0.3)">...</span>]<br>
+              &nbsp;&nbsp;<span class="code-key">"variables"</span>: <span class="code-num">7</span>,<br>
+              &nbsp;&nbsp;<span class="code-key">"deterministic"</span>: <span class="code-num">true</span><br>
+              &nbsp;}<br>
               }
             </div>
           </div>
