@@ -405,7 +405,8 @@
     /* FOOTER */
     footer { border-top: 1px solid var(--border); padding: 36px 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; background: var(--bg); }
     .footer-left { display: flex; align-items: center; gap: 20px; }
-    .footer-logo img { height: 22px; }
+    .footer-logo { display: inline-flex; align-items: center; line-height: 0; }
+    .footer-logo img { height: 18px; display: block; }
     .footer-copy { font-size: 13px; color: var(--ink-muted); }
     .footer-links { display: flex; align-items: center; gap: 24px; list-style: none; }
     .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
@@ -1311,17 +1312,16 @@
     })();
 
     const domains = [
-      "M&A Advisor","Equity Capital Markets","Leveraged Finance","Restructuring Advisor",
-      "Private Equity Investor","Venture Capital Investor","Credit Investor","Fund Manager",
-      "Wealth Manager","Retirement Planner","Financial Advisor","Estate Planner","Tax Advisor",
-      "CFO / Corporate Finance","Business Valuation Analyst","FP&A Analyst","Treasury Manager",
-      "CRE Investor","CRE Lender","Residential Lender",
-      "General Contractor / Estimator","Construction Project Owner","Construction Lender","Trades Contractor",
-      "Solution Architect / Sales Engineer","SaaS Pricing Strategist","SaaS Account Executive","Cloud FinOps Analyst",
-      "Life & Annuity Advisor","P&C Underwriter","Actuarial Analyst",
-      "Litigation Finance Expert","Divorce Financial Analyst","Business Succession Advisor","Management Consultant",
-      "Healthcare Practice Advisor","Hospital CFO","Pharma / Biotech Finance",
-      "Engineering Economist","Data Scientist / Statistician","Environmental Finance Analyst"
+      "Financial Advisor","Estate Planner","Business Valuation Analyst",
+      "M&A Advisor","Private Capital Investor",
+      "Corporate Finance Analyst",
+      "Real Estate Investor","Real Estate Agent / Broker","Mortgage Originator","Commercial RE Analyst",
+      "General Contractor / Estimator",
+      "Solution Architect","Sales Engineer","Revenue Operations Analyst",
+      "Commercial Lines Underwriter","Reinsurance Treaty Analyst",
+      "Divorce Financial Analyst",
+      "Medical Practice Manager","Clinical Trial Analyst",
+      "and more on the way"
     ];
     const pill = document.getElementById('carousel-pill');
     let index = 0;
@@ -1330,7 +1330,14 @@
       pill.style.transform = 'translateY(5px)';
       setTimeout(() => {
         pill.textContent = domains[i];
-        pill.style.opacity = '1';
+        // Closing pill gets a subtle italic treatment to signal it's a narrative line, not a role
+        if (i === domains.length - 1) {
+          pill.style.fontStyle = 'italic';
+          pill.style.opacity = '0.75';
+        } else {
+          pill.style.fontStyle = 'normal';
+          pill.style.opacity = '1';
+        }
         pill.style.transform = 'translateY(0)';
       }, 200);
     }
