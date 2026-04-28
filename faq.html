@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#F7F6F2">
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-Color_Logo-Only-Color.png" media="(prefers-color-scheme: light)">
+  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-White-1000px.png" media="(prefers-color-scheme: dark)">
+  <title>TrueMath FAQ: Frequently Asked Questions</title>
+  <meta name="description" content="Frequently asked questions about TrueMath: how it works, what's free, how the math is verified, data privacy, and developer integration.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:            #F7F6F2;
+      --bg-white:      #FFFFFF;
+      --bg-tint:       #F0EDFB;
+      --bg-tint-warm:  #F4F3EF;
+      --ink:           #1A1830;
+      --ink-mid:       #3D3B52;
+      --ink-muted:     #9896B0;
+      --purple:        #6B44C4;
+      --purple-bright: #8B5CF6;
+      --purple-light:  #C4B5FD;
+      --purple-tint:   #EDE9FE;
+      --border:        rgba(26, 24, 48, 0.1);
+      --border-purple: rgba(107, 68, 196, 0.2);
+      --font-serif:    'Lora', Georgia, serif;
+      --font-sans:     'DM Sans', system-ui, sans-serif;
+      --font-mono:     'DM Mono', monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:            #12111C;
+        --bg-white:      #1C1A2E;
+        --bg-tint:       #1E1B30;
+        --bg-tint-warm:  #181620;
+        --ink:           #EDE9FE;
+        --ink-mid:       #B8B4D4;
+        --ink-muted:     #6E6B8A;
+        --purple:        #9B77F5;
+        --purple-bright: #B89EFF;
+        --purple-light:  #C4B5FD;
+        --purple-tint:   #1E1840;
+        --border:        rgba(237, 233, 254, 0.08);
+        --border-purple: rgba(155, 119, 245, 0.25);
+      }
+      nav { background: rgba(18, 17, 28, 0.92); }
+      .faq-card { background: var(--bg-white); }
+      .faq-card:hover { border-color: var(--border-purple); }
+      .mobile-menu { background: rgba(18, 17, 28, 0.98); }
+      .hamburger-line { background: var(--ink); }
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 400;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV (matches homepage exactly) */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247, 246, 242, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 64px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 32px; width: auto; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--ink-mid); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--purple); text-decoration: none; }
+    .nav-cta { display: flex; align-items: center; gap: 16px; }
+    .btn-ghost {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      padding: 8px 16px;
+      transition: color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--purple); text-decoration: none; }
+    .btn-primary {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--purple);
+      padding: 10px 20px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: var(--purple-bright); text-decoration: none; transform: translateY(-1px); }
+
+    /* HAMBURGER */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      width: 40px;
+      height: 40px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    .hamburger-line {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .nav-hamburger.open .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open .hamburger-line:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      position: fixed;
+      top: 68px;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background: rgba(247, 246, 242, 0.98);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 24px;
+      transform: translateY(-12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      max-height: calc(100vh - 68px);
+      overflow-y: auto;
+    }
+    .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .mobile-menu-links { list-style: none; display: flex; flex-direction: column; gap: 4px; padding: 0; margin: 0 0 20px 0; }
+    .mobile-menu-links a {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      padding: 12px 8px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .mobile-menu-links a:hover { background: var(--purple-tint); text-decoration: none; }
+    .mobile-menu-cta { display: flex; flex-direction: column; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .mobile-menu-login { font-family: var(--font-sans); font-size: 15px; color: var(--ink-muted); padding: 10px 8px; }
+    .mobile-menu-login:hover { color: var(--ink); text-decoration: none; }
+    .mobile-menu-signup { text-align: center; padding: 13px 24px !important; font-size: 15px !important; }
+
+    /* FAQ HERO */
+    .faq-hero {
+      padding: 80px 64px 48px;
+      max-width: 1120px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .faq-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple);
+      background: var(--purple-tint);
+      border: 1px solid var(--border-purple);
+      border-radius: 100px;
+      padding: 4px 13px;
+      margin-bottom: 20px;
+    }
+    .faq-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 16px;
+      text-wrap: pretty;
+    }
+    .faq-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0 auto;
+      text-wrap: pretty;
+    }
+
+    /* FAQ LAYOUT */
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 64px;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 64px 96px;
+    }
+
+    /* SIDEBAR */
+    .faq-sidebar {
+      position: sticky;
+      top: 96px;
+      align-self: start;
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+    .faq-sidebar-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 16px;
+    }
+    .faq-sidebar-links { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .faq-sidebar-links a {
+      display: block;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      border-radius: 8px;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .faq-sidebar-links a:hover {
+      color: var(--purple);
+      background: var(--purple-tint);
+      text-decoration: none;
+    }
+    .faq-sidebar-links a.active {
+      color: var(--purple);
+      background: var(--purple-tint);
+      border-left-color: var(--purple);
+    }
+
+    /* FAQ CONTENT */
+    .faq-section { margin-bottom: 64px; }
+    .faq-section:last-child { margin-bottom: 0; }
+    .faq-section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--purple);
+      margin-bottom: 12px;
+    }
+    .faq-section-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      color: var(--ink);
+      margin-bottom: 8px;
+      text-wrap: pretty;
+    }
+    .faq-section-intro {
+      font-size: 15px;
+      color: var(--ink-mid);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 28px;
+      max-width: 620px;
+    }
+
+    /* FAQ CARDS (accordion) */
+    .faq-card {
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      overflow: hidden;
+    }
+    .faq-card:hover { border-color: var(--border-purple); }
+    .faq-card[open] {
+      border-color: var(--border-purple);
+      box-shadow: 0 4px 20px rgba(107, 68, 196, 0.06);
+    }
+    .faq-question {
+      padding: 20px 24px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .faq-question::-webkit-details-marker { display: none; }
+    .faq-toggle {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--purple-tint);
+      border: 1px solid var(--border-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, background 0.2s;
+    }
+    .faq-card[open] .faq-toggle {
+      transform: rotate(45deg);
+      background: var(--purple);
+    }
+    .faq-card[open] .faq-toggle svg path { stroke: #fff; }
+    .faq-toggle svg path { stroke: var(--purple); transition: stroke 0.2s; }
+    .faq-answer {
+      padding: 0 24px 24px;
+      font-size: 15px;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .faq-answer p { margin-bottom: 12px; }
+    .faq-answer p:last-child { margin-bottom: 0; }
+    .faq-answer ul { margin: 8px 0 12px 4px; padding-left: 20px; }
+    .faq-answer ul li { margin-bottom: 6px; }
+    .faq-answer strong { color: var(--ink); font-weight: 600; }
+    .faq-answer a { font-weight: 500; }
+    .faq-answer code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: var(--purple-tint);
+      color: var(--purple);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* FINAL CTA (mini) */
+    .faq-cta {
+      max-width: 1120px;
+      margin: 0 auto 96px;
+      padding: 48px 64px;
+      background: #0F0E1A;
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .faq-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(107, 68, 196, 0.3) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .faq-cta-content { position: relative; z-index: 1; }
+    .faq-cta-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 12px;
+      text-wrap: pretty;
+    }
+    .faq-cta-subhead {
+      font-size: 16px;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+    .btn-cta {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--purple);
+      padding: 13px 28px;
+      border-radius: 100px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-cta:hover { background: var(--purple-bright); text-decoration: none; transform: translateY(-1px); }
+
+    /* FOOTER (matches homepage) */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 32px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo { display: flex; align-items: center; }
+    .footer-logo img { height: 22px; }
+    .footer-copyright { font-size: 12px; color: var(--ink-muted); }
+    .footer-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--ink-muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--ink); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .faq-hero { padding: 56px 24px 32px; }
+      .faq-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 16px 24px 64px;
+      }
+      .faq-sidebar {
+        position: static;
+        max-height: none;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      .faq-sidebar-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .faq-sidebar-links a {
+        padding: 6px 12px;
+        border: 1px solid var(--border);
+        border-left-width: 1px;
+        border-radius: 100px;
+        font-size: 13px;
+      }
+      .faq-sidebar-links a.active {
+        border-color: var(--purple);
+        border-left-width: 1px;
+      }
+      .faq-cta { padding: 36px 24px; margin: 0 24px 64px; }
+      footer { padding: 24px; flex-direction: column; text-align: center; }
+    }
+
+    /* BETA BANNER */
+    .beta-banner {
+      background: var(--purple-tint);
+      border-bottom: 1px solid var(--border-purple);
+      padding: 10px 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--ink-mid);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .beta-banner strong {
+      color: var(--purple);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .beta-banner-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple);
+      flex-shrink: 0;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    @media (max-width: 720px) {
+      .beta-banner {
+        padding: 10px 20px;
+        font-size: 12px;
+        text-align: center;
+        line-height: 1.45;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BETA BANNER -->
+  <div class="beta-banner" role="status">
+    <span class="beta-banner-dot" aria-hidden="true"></span>
+    <span><strong>Beta in motion.</strong> The platform works, and you can run real calculations today. Some surfaces are still being polished and you may see updates land in real time.</span>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#why">Why TrueMath</a></li>
+      <li><a href="index.html#library">Professional Library</a></li>
+      <li><a href="index.html#developers">Developers</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="https://truemath.ai/blog">Blog</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="https://app.truemath.ai" class="btn-ghost">Log in</a>
+      <a href="https://app.truemath.ai/signup" class="btn-primary">Join our free beta now</a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU PANEL -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="mobile-menu-links">
+      <li><a href="index.html#why">Why TrueMath</a></li>
+      <li><a href="index.html#library">Professional Library</a></li>
+      <li><a href="index.html#developers">Developers</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="https://truemath.ai/blog">Blog</a></li>
+    </ul>
+    <div class="mobile-menu-cta">
+      <a href="https://app.truemath.ai" class="mobile-menu-login">Log in</a>
+      <a href="https://app.truemath.ai/signup" class="btn-primary mobile-menu-signup">Join our free beta now</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="faq-hero">
+    <span class="faq-eyebrow">Frequently Asked Questions</span>
+    <h1 class="faq-title">Answers about TrueMath</h1>
+    <p class="faq-subtitle">How TrueMath works, what's free, how the math is verified, how your data is handled, and what developers can build with it.</p>
+  </section>
+
+  <!-- LAYOUT -->
+  <div class="faq-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="faq-sidebar">
+      <div class="faq-sidebar-title">Sections</div>
+      <ul class="faq-sidebar-links">
+        <li><a href="#getting-started" data-section="getting-started">Getting Started</a></li>
+        <li><a href="#how-it-works" data-section="how-it-works">How TrueMath Works</a></li>
+        <li><a href="#trust-privacy" data-section="trust-privacy">Trust and Privacy</a></li>
+        <li><a href="#developers" data-section="developers">For Developers</a></li>
+      </ul>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="faq-content">
+
+      <!-- ============ GETTING STARTED ============ -->
+      <section id="getting-started" class="faq-section">
+        <span class="faq-section-label">Getting Started</span>
+        <h2 class="faq-section-headline">The basics</h2>
+        <p class="faq-section-intro">What TrueMath is, who it's for, and what it costs.</p>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What is TrueMath?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>TrueMath is a calculation platform for professionals who need answers they can <strong>defend, share, and move on from</strong>. You ask a question in plain language, TrueMath figures out which calculation to run, executes it precisely on its own deterministic math engine, and returns the result with full lineage: every variable, every step, every assumption. That lineage is what makes the answer auditable when you're the one being questioned, and what makes it portable when you're the one pitching a client or aligning a counterparty on a deal.</p>
+            <p>Think of it as the calculation layer that sits between an AI assistant and the math the assistant can't actually do reliably on its own.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Who is TrueMath for?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Professionals whose work depends on getting the numbers right, <em>and</em> on getting the people across the table to agree the numbers are right. Financial advisors walking clients through retirement assumptions. CPAs explaining a return to a partner. M&amp;A advisors quoting fees in an engagement letter. Mortgage brokers showing a borrower how the rate-and-points trade-off actually pencils out. Sales engineers sizing a deal in front of a procurement team.</p>
+            <p>If you've ever pasted numbers into a chat assistant and then double-checked the answer in Excel because you didn't quite trust it, TrueMath is built for you. If you've ever finished the math and then spent an hour trying to walk a client or a counterparty through how you got there, TrueMath is <em>especially</em> built for you.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What's free, and what costs money?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>The Library is free, with a generous monthly allowance of calculations included. You can browse the full set of pre-built calculation domains, run real work in them, and invite colleagues to share an account. Your team works from the same calculation pool.</p>
+            <p>A paid plan unlocks four things:</p>
+            <ul>
+              <li>More monthly calculations than the free tier includes</li>
+              <li>The TrueMath Assistant, which builds new domains for you in plain language</li>
+              <li>Customization: forking and extending Library domains with your firm's specific calculation paths and defaults</li>
+              <li>Sharing beyond your team: sending calculations to clients, counterparties, regulators, or anyone who isn't on your account</li>
+            </ul>
+            <p>During the open beta, everything is free while we tune the product. No credit card required to sign up.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What's a "domain"?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>A domain is a curated bundle of calculations for a specific kind of work. The Retirement Income Drawdown Strategy domain, for example, is built for financial advisors planning a client's retirement.</p>
+            <p>Inside a domain are three things that work together:</p>
+            <p><strong>Activities</strong> are the individual calculations a domain can perform. The Retirement Income Drawdown Strategy domain has activities like Annual Spending Requirement, Bracket-Fill Roth Conversion Amount, IRMAA Surcharge Projection, Sequence-of-Returns Risk Test, and Tax-Efficient Withdrawal Order. Each activity is a defined computation: a series, a single calculation, a simulation, a test, or a decision.</p>
+            <p><strong>Variables</strong> are the typed, self-describing pieces of data that activities consume and produce. A variable like Retirement Age or Taxable Balance carries more than a value. It carries its type (age, currency, percentage), its display units (years, dollars, basis points), its presentation format (a single number, a table, a chart), its decimal precision for display, and an optional default. The underlying value is always stored at full floating-point accuracy; the variable just knows how to present itself sensibly. A variable also carries a description, which is what helps TrueMath map your natural language to the right input.</p>
+            <p><strong>The connection between them is what makes domains powerful.</strong> A single variable typically appears in multiple activities. Retirement Age, for example, is an input to half a dozen activities in a retirement domain. Because activities share variables, they can chain together: the output of one activity becomes the input of another, fully formatted and ready to display, without anyone gluing the pieces together by hand. That chaining is what lets a domain handle questions you didn't pre-author. You're not picking a fixed calculator off a shelf; you're working inside a graph of related calculations that can compose to answer what you actually need.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            How active is the beta? Should I expect things to change?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>The beta is fully functional. You can sign up, work in any Library domain, and run real calculations on real client data. The math engine is solid; the calculation lineage is solid; the deterministic guarantees are solid.</p>
+            <p>What's still moving is the surface around it. The Library is growing weekly. The customization workflow is being refined. New activity types are being added. The Assistant is getting more capable. Some screens may look polished today and a little different next week.</p>
+            <p>If you sign up now, expect to see meaningful improvements over the coming months, and expect the occasional rough edge while we tune things. If you find one, tell us. We're building this with the professionals using it, and that's exactly the point of running an open beta.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            How do I get started?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p><a href="https://app.truemath.ai/signup">Sign up for a free account</a> at app.truemath.ai. No credit card required. You'll land in the Library, where you can browse domains by role or category, pick one, and start asking questions in plain language.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ HOW IT WORKS ============ -->
+      <section id="how-it-works" class="faq-section">
+        <span class="faq-section-label">How It Works</span>
+        <h2 class="faq-section-headline">Under the hood</h2>
+        <p class="faq-section-intro">Why the math is reliable and how TrueMath is different from a calculator, a spreadsheet, or a chat assistant.</p>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            How is this different from just asking ChatGPT or Claude to do the math?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Large language models are pattern matchers. They predict what numbers should look like, which is why they can confidently produce answers that are almost right but slightly wrong, and they can deliver wrong answers with the same confidence as right ones. There's nothing in the response that tells you which kind you're looking at.</p>
+            <p>Even when an LLM gets the math approximately right, two runs of the same question can arrive at the same answer through different reasoning paths. Now you have a different kind of audit problem: even if Run A and Run B both produced $4.21M, you can't be sure they got there the same way, with the same assumptions, applied in the same order. For a defensible answer, the path matters as much as the result.</p>
+            <p>TrueMath uses an LLM only to interpret what you're asking. The math itself runs on a separate deterministic calculation engine built over thirty years by TrueMath co-founder Elia Freedman, the same engine behind PowerOne, which has more than thirty million downloads. The LLM never does the math. Same inputs, same calculation path, same result, every time. That separation is the whole point: a natural language interface, and a calculation you can actually defend.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            How is this different from a spreadsheet?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>A spreadsheet is a blank canvas. You build the model, you maintain the formulas, you debug the cell references when a colleague's version is slightly different from yours.</p>
+            <p>TrueMath domains arrive complete. The calculation logic is already there, peer-reviewed and consistent across every user on your team. You bring the inputs and the question; the domain handles the rest.</p>
+            <p>We watch the Library closely as the world changes, but the more important monitoring is yours. When you customize a Library domain or build a new one with the Assistant, you decide what changes when. The platform makes that easy, and the lineage in every result tells you exactly which version of which activity ran.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What happens when the LLM gets the question wrong?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>First, what we mean by "wrong." TrueMath uses an LLM for one specific job: converting your natural-language prompt into the structured request the math engine actually runs (the right activity, the right variables, the right inputs). The math itself never depends on the LLM. So when we talk about LLM errors here, we mean failures in that interpretation step, not in the calculation.</p>
+            <p>The most common failure looks like this: you describe an input in natural language ("the senior debt rate," say), and the LLM doesn't recognize it as one of the activity's named variables (<code>debt_interest_rate</code>). The activity then has a missing input and can't run, or runs against the wrong variable.</p>
+            <p>Two things fix this:</p>
+            <ul>
+              <li><strong>Improve the variable description.</strong> If a variable is described in a way that anticipates the words your team actually uses, the LLM matches it correctly. The Assistant lets you edit variable descriptions in plain language, and that change propagates to every activity that uses the variable.</li>
+              <li><strong>Reword the prompt.</strong> The simpler and more direct the request ("Calculate IRR with senior debt at 6.5%"), the more reliably it maps to structured inputs.</li>
+            </ul>
+            <p>Either way, when a calculation fails or looks off, TrueMath shows you exactly what was attempted: which activity, which variables, which inputs. You can read it before you act on it. The math engine doesn't depend on the LLM being right; it just needs to know what to calculate, and you have the final say.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Can the same question return different answers on different runs?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>For the same calculation path with the same inputs, no. The math engine is deterministic. Same inputs, same answer, every time.</p>
+            <p>The interpretation step (the LLM picking which calculation to run) can vary slightly between runs, which is why TrueMath shows you the calculation path it chose. Once you've confirmed the path, the result is reproducible.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Can I build my own domain or extend an existing one?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. The TrueMath Assistant lets you describe what you need to calculate in plain language, and it builds the domain for you. You can also fork an existing Library domain and customize it: add calculation paths specific to your firm, change variable defaults, rename variables to match your terminology.</p>
+            <p>Building and customizing domains is part of the paid tier. Browsing and using the Library is free.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ TRUST AND PRIVACY ============ -->
+      <section id="trust-privacy" class="faq-section">
+        <span class="faq-section-label">Trust and Privacy</span>
+        <h2 class="faq-section-headline">Where your data goes</h2>
+        <p class="faq-section-intro">How TrueMath is hosted, what happens to your inputs, and how the LLM call is structured.</p>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Where is TrueMath hosted?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Inside AWS. The TrueMath application, the calculation engine, and the LLM interface all run within AWS's secure environment. Data is encrypted in transit and at rest.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Which AI model does TrueMath use?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>TrueMath uses Anthropic's Claude, accessed through Amazon Bedrock. The LLM interprets what you're asking and which calculation to run; it does not perform the math itself. The math runs on TrueMath's deterministic calculation engine.</p>
+            <p>We chose Bedrock specifically because of how it handles data, which is the next question.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What happens to my data when the LLM call is made?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>The LLM call goes through Amazon Bedrock, which is AWS's managed service for invoking foundation models. AWS's published Bedrock terms commit to the following:</p>
+            <ul>
+              <li>Customer prompts and completions are not used to train the underlying foundation models</li>
+              <li>Model providers, including Anthropic, do not have access to your prompts or completions</li>
+              <li>Data stays inside AWS infrastructure during the call and is not exposed to the public internet</li>
+              <li>Inputs and outputs are encrypted in transit and at rest</li>
+            </ul>
+            <p>TrueMath operates within these terms. Your calculation inputs, the prompts derived from them, and the LLM's responses stay inside the AWS environment for the duration of the request.</p>
+            <p>For the most current details, AWS publishes the Bedrock data privacy commitments at <a href="https://aws.amazon.com/bedrock/security-compliance/" target="_blank">aws.amazon.com/bedrock/security-compliance</a>.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Does TrueMath use my data to train any models?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>No. TrueMath does not train models on your calculation inputs or outputs, and the underlying foundation models accessed through Bedrock are not trained on your prompts either.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Is TrueMath multi-tenant or single-tenant?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>TrueMath is a multi-tenant application with standard AWS-grade tenant isolation. Each customer's data is logically separated, encrypted, and accessed only through authenticated, authorized API calls scoped to that customer.</p>
+            <p>Enterprise customers with stricter requirements should contact us; we're happy to discuss what's possible for specific compliance regimes.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Can someone outside my team see a calculation if I share it with them?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes, when you're on a paid plan. Sharing a calculation outside your team produces a viewable record with full lineage: every variable, every activity, every assumption. The recipient can examine it without needing a TrueMath account. They see exactly what you saw.</p>
+            <p>The shared record is a snapshot of that specific calculation. It's not a window into your account, your team's other work, or any inputs you didn't deliberately include. The recipient can read; they can't run new calculations on your dime or see anything else.</p>
+            <p>Sharing within your team is included in every plan, free or paid.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Is the math itself audit-ready?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Every TrueMath result includes the calculation path used, the variables and values applied, and the assumptions invoked. You can show the lineage to a client, a counterparty, an auditor, or a regulator and walk them through every step. The same record that lets you defend the answer internally is what lets you align stakeholders externally.</p>
+            <p>TrueMath does not produce "estimates" with hidden assumptions. If something was approximated, the approximation is in the lineage.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ FOR DEVELOPERS ============ -->
+      <section id="developers" class="faq-section">
+        <span class="faq-section-label">For Developers</span>
+        <h2 class="faq-section-headline">API and integration</h2>
+        <p class="faq-section-intro">Embedding TrueMath into your own product, agent, or workflow.</p>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Does TrueMath have an API?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Yes. The TrueMath REST API is available now. Send a domain identifier and either a natural-language prompt or a structured prompt with named variables; get back a precise, audit-ready answer with full calculation lineage.</p>
+            <p>SDKs for Python and JavaScript/TypeScript, plus an MCP integration for agentic workflows, are in development.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            How do I get API access?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p><a href="https://app.truemath.ai/signup">Sign up for an account</a> and request API access from your dashboard, or contact us directly. During beta, API access is granted on a case-by-case basis so we can support each integration well.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What does a typical API request look like?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>You hit <code>POST /v1/calculate</code> with a JSON body containing the domain identifier (e.g. <code>"cre_investor"</code>) and either a natural-language prompt or a structured prompt with named variables. You don't need to send both. If you send natural language, the LLM converts it to structure on the way in. If you send structure, the call goes straight to the math engine.</p>
+            <p>You get back the result, the calculation path, and the lineage. The homepage Developers section shows the request and response shapes.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Can I use TrueMath as a tool inside an AI agent?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>That's one of the primary use cases. If you're building an agent that needs to do real math, TrueMath is the calculation layer the agent calls when it hits a number it actually has to get right. The agent decides what to calculate; TrueMath calculates it deterministically and returns a defensible answer.</p>
+            <p>An MCP integration is in development to make this even more direct.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            What about pricing for API usage?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>API pricing tiers will be published when we exit beta. During beta, API access is free for approved integration partners. If you're building something specific, get in touch and we'll discuss what makes sense.</p>
+          </div>
+        </details>
+
+        <details class="faq-card">
+          <summary class="faq-question">
+            Is TrueMath available on AWS Marketplace?
+            <span class="faq-toggle"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M1 5h8" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+          </summary>
+          <div class="faq-answer">
+            <p>Not yet, but soon. We're in the process of listing TrueMath on AWS Marketplace, which will make procurement easier for enterprise customers who already have AWS spend committed. The Marketplace listing will cover the same product available at app.truemath.ai. Get in touch if you'd like to be notified when it goes live.</p>
+          </div>
+        </details>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="faq-cta">
+    <div class="faq-cta-content">
+      <h2 class="faq-cta-headline">Still have questions?</h2>
+      <p class="faq-cta-subhead">The fastest way to find out if TrueMath fits your work is to try it.</p>
+      <a href="https://app.truemath.ai/signup" class="btn-cta">Join our free beta now</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="index.html" class="footer-logo">
+      <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
+    </a>
+    <span class="footer-copyright">&copy; 2026 TrueMath, Inc.</span>
+    <ul class="footer-links">
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="https://truemath.ai/blog">Blog</a></li>
+      <li><a href="index.html#about">About</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Hamburger menu toggle
+    (function() {
+      const hamburger = document.getElementById('navHamburger');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (!hamburger || !mobileMenu) return;
+
+      function closeMenu() {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+      }
+      function openMenu() {
+        hamburger.classList.add('open');
+        mobileMenu.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+      }
+      hamburger.addEventListener('click', () => {
+        if (hamburger.classList.contains('open')) closeMenu();
+        else openMenu();
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && hamburger.classList.contains('open')) closeMenu();
+      });
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 960 && hamburger.classList.contains('open')) closeMenu();
+      });
+    })();
+
+    // FAQ sidebar active section tracking
+    (function() {
+      const sections = document.querySelectorAll('.faq-section');
+      const sidebarLinks = document.querySelectorAll('.faq-sidebar-links a');
+      if (!sections.length || !sidebarLinks.length) return;
+
+      function setActive(id) {
+        sidebarLinks.forEach(link => {
+          if (link.dataset.section === id) link.classList.add('active');
+          else link.classList.remove('active');
+        });
+      }
+
+      // Use IntersectionObserver to track which section is currently in view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      }, {
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+      });
+
+      sections.forEach(section => observer.observe(section));
+    })();
+
+    // Open the section linked in the hash on load
+    (function() {
+      if (window.location.hash) {
+        const target = document.querySelector(window.location.hash);
+        if (target && target.classList.contains('faq-section')) {
+          // Open all faq cards in that section
+          target.querySelectorAll('.faq-card').forEach(card => card.setAttribute('open', ''));
+        } else if (target && target.classList.contains('faq-card')) {
+          target.setAttribute('open', '');
+        }
+      }
+    })();
+  </script>
+
+</body>
+</html>
