@@ -446,9 +446,12 @@
     .carousel-outer {
       position: relative;
       overflow: hidden;
-      padding: 8px 48px 40px;
+      padding: 8px 48px 16px;
       margin: 0 -48px;
     }
+
+    /* Tighten the Library section's bottom padding so it doesn't stack with the Assistant section's top padding */
+    #library .section { padding-bottom: 48px; }
 
     /* Right fade */
     .carousel-outer::after {
@@ -471,9 +474,9 @@
     /* CARD WRAPPER */
     .vignette-card {
       flex-shrink: 0;
-      width: calc((100vw - 144px) / 2.2);
+      width: calc((100vw - 144px) / 1.9);
       max-width: 460px;
-      min-width: 300px;
+      min-width: 380px;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -682,7 +685,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-top: 36px;
+      margin-top: 24px;
     }
 
     .carousel-btn {
@@ -733,8 +736,9 @@
     /* RESPONSIVE */
     @media (max-width: 768px) {
       .vignettes-section { padding: 0 24px; }
-      .carousel-outer { padding: 48px 24px 40px; margin: -48px -24px 0; }
+      .carousel-outer { padding: 48px 24px 16px; margin: -48px -24px 0; }
       .vignette-card { width: calc(100vw - 72px); }
+      #library .section { padding-bottom: 32px; }
     }
   </style>
 </head>
@@ -796,7 +800,7 @@
       </div>
 
       <h1 class="hero-headline">
-        Unlock what AI can do <span class="hero-once">when <em>everyone</em> is sure of the math</span>
+        Unlock the math AI keeps getting wrong. <span class="hero-once">For you, your team, <em>everyone</em> in the room.</span>
       </h1>
 
       <p class="hero-subhead">
@@ -1120,18 +1124,6 @@
           <span class="section-label">The TrueMath Assistant</span>
           <h2 class="section-headline">Need a domain that isn't here? Build it in plain language.</h2>
           <p class="section-body">Tell the TrueMath Assistant what you need to calculate, in plain language, and it builds the domain for you, or extends one you already have. No configuration files, no technical setup. You describe it, it builds it.</p>
-          <div class="assistant-feature">
-            <div class="assistant-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 4.5l2 2 3-3" stroke="#502878" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Build new domains for calculations not covered in the Library
-          </div>
-          <div class="assistant-feature">
-            <div class="assistant-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 4.5l2 2 3-3" stroke="#502878" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Extend Library domains with calculation paths and defaults specific to your firm
-          </div>
-          <div class="assistant-feature">
-            <div class="assistant-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M2 4.5l2 2 3-3" stroke="#502878" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            Customize variable descriptions to match your terminology
-          </div>
           <div class="assistant-paid">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5.5" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
             <span>The Assistant is a paid feature after <strong>beta</strong>. The Library is <strong>free</strong> to explore now, and there will always be a <strong>free</strong> tier.</span>
