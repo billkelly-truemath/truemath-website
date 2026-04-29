@@ -475,6 +475,8 @@
       max-width: 460px;
       min-width: 300px;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
 
     /* SESSION PANEL */
@@ -487,6 +489,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      flex: 1;
       box-shadow:
         0 16px 56px rgba(62, 31, 143, 0.28),
         0 2px 8px rgba(62, 31, 143, 0.15);
@@ -523,6 +526,7 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      flex: 1;
     }
 
     /* PROMPT ROW: headshot left, bubble fills right */
@@ -542,8 +546,8 @@
     }
 
     .headshot-img {
-      width: 116px;
-      height: 116px;
+      width: 160px;
+      height: 160px;
       border-radius: 16px;
       object-fit: cover;
       object-position: center top;
@@ -554,9 +558,13 @@
       display: block;
     }
 
+    .headshot-img.team {
+      object-position: center center;
+    }
+
     .headshot-placeholder {
-      width: 116px;
-      height: 116px;
+      width: 160px;
+      height: 160px;
       border-radius: 16px;
       background: rgba(80, 40, 120, 0.40);
       border: 3px solid rgba(255, 255, 255, 0.2);
@@ -586,18 +594,18 @@
     }
 
     .prompt-label {
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
-      color: rgba(196, 181, 253, 0.65);
-      margin-bottom: 5px;
+      color: rgba(196, 181, 253, 0.7);
+      margin-bottom: 6px;
     }
 
     .prompt-text {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 400;
-      color: rgba(255, 255, 255, 0.88);
+      color: rgba(255, 255, 255, 0.9);
       line-height: 1.55;
     }
 
@@ -605,16 +613,20 @@
       background: rgba(139, 92, 246, 0.18);
       border: 1px solid rgba(139, 92, 246, 0.38);
       border-radius: 14px 14px 14px 4px;
-      padding: 12px 15px;
+      padding: 14px 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .answer-label {
-      font-size: 9px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
       color: var(--purple-light);
-      margin-bottom: 6px;
+      margin-bottom: 7px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -632,9 +644,9 @@
 
     .answer-text {
       font-family: var(--font-mono);
-      font-size: 12px;
-      color: rgba(196, 181, 253, 0.88);
-      line-height: 1.75;
+      font-size: 13.5px;
+      color: rgba(196, 181, 253, 0.92);
+      line-height: 1.7;
     }
 
     .answer-text strong { color: #fff; font-weight: 500; }
@@ -657,16 +669,16 @@
     }
 
     .role-label {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--ink);
       letter-spacing: -0.01em;
     }
 
     .role-category {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--ink-muted);
-      margin-top: 2px;
+      margin-top: 3px;
     }
 
     /* CONTROLS */
@@ -823,8 +835,8 @@
       <div class="why-layout">
         <div>
           <span class="section-label">Why TrueMath</span>
-          <h2 class="section-headline">What becomes possible when AI can really do the math</h2>
-          <p class="section-body">AI has changed how professionals work.<br>Except with numbers.<br>That's what TrueMath is for.</p>
+          <h2 class="section-headline">AI got you to the door. TrueMath will get you through.</h2>
+          <p class="section-body">AI changed how you and your team work. You're more productive, you sound and look more professional. The next phase is the numbers. Imagine what happens to dealflow, closes, and client engagement when the math gets the same upgrade.</p>
 
           <div class="why-cards">
             <div class="why-card">
@@ -856,11 +868,11 @@
             </div>
             <div class="why-card">
               <div class="why-card-icon">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#502878" stroke-width="1.5"/><path d="M9 6v4l2.5 2" stroke="#502878" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#502878" stroke-width="1.5"/><circle cx="9" cy="9" r="3.5" stroke="#502878" stroke-width="1.5"/><circle cx="9" cy="9" r="1" fill="#502878"/></svg>
               </div>
               <div>
-                <div class="why-card-title">Ready when it counts.</div>
-                <div class="why-card-body">In a client meeting, across the table from a counterparty, or in front of a regulator, you need answers everyone in the room can see and defend. TrueMath gives you those.</div>
+                <div class="why-card-title">Teamwork powered by reliable math.</div>
+                <div class="why-card-body">TrueMath gives your team a focal point. One set of calculations, one set of defaults, one set of customizations. The most powerful tool you can take into battle is coordination.</div>
               </div>
             </div>
           </div>
@@ -871,8 +883,8 @@
   <div id="library">
     <div class="section">
       <span class="section-label">The Professional Library</span>
-      <h2 class="section-headline">A powerful calculation toolkit built for your role</h2>
-      <p class="section-body">When you register, you choose from a growing library of pre-built calculation domains spanning professional finance, construction, technology, law, and more. Each domain is built for a specific role, not a practice area, so the calculations you actually need are there without hunting.</p>
+      <h2 class="section-headline">A running start. Built for the work you already do.</h2>
+      <p class="section-body">Calculation domains built for the work you and your team already do, ready the moment you sign in. Use, share, and customize, as a sole contributor and as a team.</p>
 
       <div class="category-strip">
         <span class="category-tag">Investment Banking &amp; M&amp;A</span>
@@ -932,7 +944,7 @@
         </div>
               <div class="prompt-bubble">
               <div class="prompt-label">You asked</div>
-              <div class="prompt-text">Break out the $2.4M renovation bid — materials at 38% markup, labor at $62/hr blended, subs at 12% overhead, 6% contingency on base costs.</div>
+              <div class="prompt-text">Break out the $2.4M renovation bid: materials at 38% markup, labor at $62/hr blended, subs at 12% overhead, 6% contingency on base costs.</div>
             </div>
             </div>
             <div class="answer-bubble">
@@ -958,11 +970,11 @@
           <div class="session-content">
             <div class="prompt-row">
               <div class="headshot-wrap">
-          <img src="M_A_Advisor.png" alt="M&A Advisor" class="headshot-img">
+          <img src="M_A_Advisor_Team.jpg" alt="M&A Advisor team" class="headshot-img team">
         </div>
               <div class="prompt-bubble">
               <div class="prompt-label">You asked</div>
-              <div class="prompt-text">Quote our fee on this $180M deal — modified Lehman: 5% on first $1M, 4% next $9M, 3% next $40M, 2% above. $50k monthly retainer credited 100%. $1.5M floor.</div>
+              <div class="prompt-text">Quote our fee on this $180M deal. Modified Lehman: 5% on first $1M, 4% next $9M, 3% next $40M, 2% above. $50k monthly retainer credited 100%. $1.5M floor.</div>
             </div>
             </div>
             <div class="answer-bubble">
@@ -1018,11 +1030,11 @@
           <div class="session-content">
             <div class="prompt-row">
               <div class="headshot-wrap">
-          <img src="Solution_Architect.png" alt="Solution Architect" class="headshot-img">
+          <img src="Solution_Architect.jpg" alt="Solution Architect team" class="headshot-img team">
         </div>
               <div class="prompt-bubble">
               <div class="prompt-label">You asked</div>
-              <div class="prompt-text">TCO comparison — on-prem at $1.2M capex, 3-year refresh, $88k/yr maintenance vs. cloud at $28k/month plus $280k migration cost, over 5 years.</div>
+              <div class="prompt-text">TCO comparison: on-prem at $1.2M capex, 3-year refresh, $88k/yr maintenance vs. cloud at $28k/month plus $280k migration cost, over 5 years.</div>
             </div>
             </div>
             <div class="answer-bubble">
@@ -1259,8 +1271,8 @@
   <!-- FINAL CTA -->
   <section class="cta-section">
     <div class="cta-box">
-      <h2 class="cta-headline">Your next right answer is one question away.</h2>
-      <p class="cta-subhead">Join the <strong>free beta</strong>. Start getting answers everyone can stand behind.</p>
+      <h2 class="cta-headline">The key is TrueMath.</h2>
+      <p class="cta-subhead">AI handles the conversation. TrueMath handles the math.</p>
       <a href="https://app.truemath.ai/signup" class="btn-cta">Join our free beta now</a>
       <p style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:16px;">No credit card. <strong style="color:rgba(255,255,255,0.85);">Free</strong> during <strong style="color:rgba(255,255,255,0.85);">beta</strong>. A <strong style="color:rgba(255,255,255,0.85);">free</strong> tier, always.</p>
     </div>
