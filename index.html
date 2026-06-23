@@ -1,1606 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#F7F6F2">
-  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-Color_Logo-Only-Color.png" media="(prefers-color-scheme: light)">
-  <link rel="icon" type="image/png" href="TrueMath-Logo-Only-White-1000px.png" media="(prefers-color-scheme: dark)">
-  <title>TrueMath: The Math Engine for the AI Age</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:            #F7F6F2;
-      --bg-white:      #FFFFFF;
-      --bg-tint:       #F0EDFB;
-      --bg-tint-warm:  #F4F3EF;
-      --ink:           #1A1830;
-      --ink-mid:       #3D3B52;
-      --ink-muted:     #9896B0;
-      --purple:        #502878;
-      --purple-bright: #735393;
-      --purple-light:  #B09EC2;
-      --purple-tint:   #EDE9FE;
-      --slate:         #8A9BB8;
-      --border:        rgba(26, 24, 48, 0.1);
-      --border-purple: rgba(80, 40, 120, 0.20);
-      --font-serif:    'Lora', Georgia, serif;
-      --font-sans:     'DM Sans', system-ui, sans-serif;
-      --font-mono:     'DM Mono', monospace;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:            #12111C;
-        --bg-white:      #1C1A2E;
-        --bg-tint:       #1E1B30;
-        --bg-tint-warm:  #181620;
-        --ink:           #EDE9FE;
-        --ink-mid:       #B8B4D4;
-        --ink-muted:     #6E6B8A;
-        --purple:        #9E88B4;
-        --purple-bright: #B9A9C9;
-        --purple-light:  #C4B5FD;
-        --purple-tint:   #1E1840;
-        --slate:         #7A8BA8;
-        --border:        rgba(237, 233, 254, 0.08);
-        --border-purple: rgba(158, 136, 180, 0.30);
-      }
-
-      /* Nav */
-      nav { background: rgba(18, 17, 28, 0.92); }
-
-      /* Logo swap handled via picture element */
-
-      /* Hero background pattern adjusts for dark */
-      .hero-bg-pattern {
-        background-image:
-          radial-gradient(circle at 70% 50%, rgba(158, 136, 180, 0.13) 0%, transparent 55%),
-          radial-gradient(circle at 20% 80%, rgba(158, 136, 180, 0.10) 0%, transparent 45%);
-      }
-
-      /* Why cards */
-      .why-card:hover { box-shadow: 0 4px 20px rgba(158, 136, 180, 0.15); }
-      .steps-grid { background: var(--border); }
-
-      /* Section tint strip (assistant) */
-      .section-tint {
-        background: #1A1535;
-        border-color: rgba(158, 136, 180, 0.25);
-      }
-
-      /* Code panels and CTA section are pinned to fixed dark colors -- no override needed */
-
-      /* CTA button -- pin to white so it stays visible against the dark section */
-      .btn-cta { background: #ffffff !important; color: #1A1830 !important; }
-      .btn-cta:hover { background: #EDE9FE !important; color: #1A1830 !important; }
-
-      /* Footer */
-      footer { border-color: var(--border); }
-
-      /* Integration tags */
-      .integration-tag { background: rgba(158, 136, 180, 0.13); border-color: rgba(158, 136, 180, 0.25); color: var(--ink-mid); }
-      .integration-tag.available { background: rgba(158, 136, 180, 0.25); border-color: rgba(158, 136, 180, 0.45); color: var(--purple-light); }
-
-      /* Category tags */
-      .category-tag { background: var(--bg-tint); border-color: var(--border-purple); color: var(--purple-light); }
-
-      /* Assistant feature checks */
-      .assistant-check { background: var(--purple-tint); border-color: var(--border-purple); }
-
-      /* Assistant paid notice */
-      .assistant-paid { border-color: var(--border-purple); color: var(--ink-muted); }
-
-      /* Assistant screenshot */
-      .assistant-screenshot { box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.3); }
-
-      /* Team cards */
-      .team-card { border-color: var(--border); }
-      .team-card:hover { border-color: var(--border-purple); }
-
-      /* Carousel controls */
-      .carousel-btn { background: var(--bg-white); border-color: var(--border); }
-      .carousel-btn:hover { background: var(--purple-tint); border-color: var(--purple); }
-      .carousel-btn svg path, .carousel-btn svg rect { stroke: var(--ink-mid); fill: var(--ink-mid); }
-      .carousel-dot { background: rgba(158, 136, 180, 0.25); }
-      .carousel-dot.active { background: var(--purple); }
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 68px;
-      background: rgba(247, 246, 242, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo img { height: 28px; display: block; }
-
-    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 14px; font-weight: 400; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--ink); }
-
-    .nav-cta { display: flex; align-items: center; gap: 12px; }
-
-    .btn-ghost { font-family: var(--font-sans); font-size: 14px; color: var(--ink-muted); background: none; border: none; cursor: pointer; text-decoration: none; transition: color 0.2s; }
-    .btn-ghost:hover { color: var(--ink); }
-
-    .btn-primary { font-family: var(--font-sans); font-size: 14px; font-weight: 500; color: #fff; background: var(--purple); border: none; border-radius: 8px; padding: 9px 20px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
-    .btn-primary:hover { background: var(--purple-bright); transform: translateY(-1px); }
-
-    .btn-large { font-family: var(--font-sans); font-size: 16px; font-weight: 500; color: #fff; background: var(--purple); border: none; border-radius: 10px; padding: 14px 32px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s, box-shadow 0.2s; display: inline-block; }
-    .btn-large:hover { background: var(--purple-bright); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(80, 40, 120, 0.32); }
-
-    /* HAMBURGER + MOBILE MENU */
-    .nav-hamburger {
-      display: none;
-      width: 40px; height: 40px;
-      background: none; border: none; cursor: pointer;
-      padding: 0; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
-    }
-    .nav-hamburger span {
-      display: block; width: 22px; height: 2px; background: var(--ink);
-      border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease;
-    }
-    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-menu {
-      position: fixed;
-      top: 68px; left: 0; right: 0;
-      z-index: 99;
-      background: rgba(247, 246, 242, 0.98);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 24px;
-      transform: translateY(-12px);
-      opacity: 0;
-      visibility: hidden;
-      transition: transform 0.25s ease, opacity 0.2s ease, visibility 0s linear 0.25s;
-    }
-    .mobile-menu.is-open {
-      transform: translateY(0);
-      opacity: 1;
-      visibility: visible;
-      transition: transform 0.25s ease, opacity 0.2s ease, visibility 0s linear 0s;
-    }
-    .mobile-menu-links { list-style: none; display: flex; flex-direction: column; gap: 4px; margin-bottom: 20px; }
-    .mobile-menu-links a {
-      display: block; padding: 12px 4px;
-      font-size: 16px; font-weight: 500; color: var(--ink); text-decoration: none;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.2s;
-    }
-    .mobile-menu-links a:hover { color: var(--purple); }
-    .mobile-menu-cta { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 8px; }
-
-    @media (prefers-color-scheme: dark) {
-      .nav-hamburger span { background: var(--ink); }
-      .mobile-menu { background: rgba(18, 17, 28, 0.98); }
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 64px 80px;
-      position: relative;
-      overflow: hidden;
-      background: var(--bg);
-    }
-
-    .hero-bg-pattern {
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 70% 50%, rgba(80, 40, 120, 0.08) 0%, transparent 55%),
-        radial-gradient(circle at 20% 80%, rgba(80, 40, 120, 0.05) 0%, transparent 45%);
-      pointer-events: none;
-    }
-
-    .hero-content { position: relative; z-index: 1; }
-
-    .hero-logo { width: 160px; height: auto; margin-bottom: 40px; display: block; margin-left: auto; margin-right: auto; }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple);
-      border-radius: 100px; padding: 5px 14px; margin-bottom: 28px;
-    }
-
-    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); animation: pulse 2s ease-in-out infinite; }
-
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.8); } }
-
-    .hero-headline {
-      font-family: var(--font-serif);
-      font-size: clamp(32px, 4vw, 56px);
-      font-weight: 500;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-      margin-bottom: 12px;
-      text-wrap: pretty;
-    }
-
-    .hero-headline em { font-style: italic; color: var(--purple); }
-    .hero-once { display: block; margin-top: 0.15em; }
-
-    @media (max-width: 640px) {
-      .hero-once { display: block; margin-top: 0.25em; }
-      .hero-once em { display: block; }
-    }
-
-    .hero-tagline { display: block; font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); margin-top: 24px; text-align: center; }
-
-    .hero-subhead { font-size: 18px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 40px; max-width: 600px; margin-top: 20px; margin-left: auto; margin-right: auto; text-align: center; text-wrap: pretty; }
-
-    .hero-actions { display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
-
-    .btn-hero-secondary { font-size: 15px; color: var(--ink-muted); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
-    .btn-hero-secondary:hover { color: var(--purple); }
-    .btn-hero-secondary svg { transition: transform 0.2s; }
-    .btn-hero-secondary:hover svg { transform: translateX(3px); }
-
-    /* CAROUSEL */
-    .verticals-strip { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
-    .verticals-label { font-size: 11px; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; }
-
-    .domain-carousel-pill { display: inline-flex; align-items: center; font-size: 13px; font-weight: 500; color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple); border-radius: 100px; padding: 6px 16px; white-space: nowrap; transition: opacity 0.2s ease, transform 0.2s ease; min-width: 220px; justify-content: center; }
-
-    .build-own-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--slate); background: rgba(138, 155, 184, 0.1); border: 1px solid rgba(138, 155, 184, 0.3); border-radius: 100px; padding: 6px 14px; white-space: nowrap; }
-
-    /* HERO ILLUSTRATION */
-
-    /* SECTIONS */
-    .section { padding: 96px 64px; max-width: 1160px; margin: 0 auto; }
-    .section-sm { padding: 72px 64px; max-width: 1160px; margin: 0 auto; }
-
-    .section-label { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); margin-bottom: 16px; }
-
-    .section-headline { font-family: var(--font-serif); font-size: clamp(26px, 3.5vw, 44px); font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; color: var(--ink); margin-bottom: 20px; text-wrap: pretty; }
-
-    .section-body { font-size: 18px; font-weight: 300; line-height: 1.75; color: var(--ink-mid); max-width: 600px; margin-bottom: 48px; }
-
-    .section-divider { background: var(--bg-tint-warm); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-    .section-tint { background: var(--purple-tint); border-top: 1px solid var(--border-purple); border-bottom: 1px solid var(--border-purple); }
-
-    /* WHY */
-    .why-layout { display: block; }
-
-    .why-cards { display: flex; flex-direction: column; gap: 16px; }
-
-    .why-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; display: flex; gap: 16px; transition: border-color 0.2s, box-shadow 0.2s; }
-    .why-card:hover { border-color: var(--border-purple); box-shadow: 0 4px 20px rgba(80, 40, 120, 0.10); }
-
-    .why-card-icon { width: 36px; height: 36px; background: var(--purple-tint); border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-    .why-card-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.01em; }
-    .why-card-body { font-size: 14px; font-weight: 300; color: var(--ink-mid); line-height: 1.65; }
-
-    /* STEPS */
-    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 48px; }
-    .step-item { background: var(--bg-white); padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; transition: background 0.2s; }
-    .step-item:hover { background: var(--bg-tint); }
-    .step-num { font-family: var(--font-mono); font-size: 11px; font-weight: 500; color: var(--purple); letter-spacing: 0.08em; }
-    .step-title { font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.3; }
-    .step-desc { font-size: 13px; font-weight: 300; color: var(--ink-mid); line-height: 1.6; }
-
-    /* LIBRARY */
-    .category-strip { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 44px; }
-    .category-tag { font-size: 12px; font-weight: 500; color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple); border-radius: 100px; padding: 4px 13px; white-space: nowrap; }
-
-    .library-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-
-    .workflow-stack { display: flex; flex-direction: column; gap: 16px; }
-
-    .workflow-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 14px; padding: 24px; transition: border-color 0.2s, box-shadow 0.2s; }
-    .workflow-card:hover { border-color: var(--border-purple); box-shadow: 0 4px 20px rgba(80, 40, 120, 0.10); }
-
-    .workflow-role-name { font-size: 15px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
-    .workflow-role-context { font-size: 12px; color: var(--ink-muted); margin-top: 2px; margin-bottom: 12px; }
-    .workflow-prompt { font-family: var(--font-mono); font-size: 12px; color: var(--purple); background: var(--purple-tint); border-radius: 8px; padding: 12px 14px; line-height: 1.6; margin-bottom: 12px; }
-    .workflow-output-label { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 6px; }
-    .workflow-output-item { font-size: 13px; color: var(--ink-mid); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .workflow-output-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
-    .workflow-b2b2c { font-size: 12px; color: var(--ink-muted); font-style: italic; padding-top: 10px; margin-top: 4px; border-top: 1px solid var(--border); }
-
-    /* ASSISTANT */
-    .assistant-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 64px; align-items: center; }
-    .assistant-badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--purple); background: var(--purple-tint); border: 1px solid var(--border-purple); border-radius: 100px; padding: 4px 13px; margin-bottom: 20px; }
-    .hero-reassure { font-size: 12px; color: var(--ink-muted); margin-top: 12px; letter-spacing: 0.02em; text-align: center; }
-    .hero-reassure strong { color: var(--purple); font-weight: 600; }
-    .assistant-paid strong { color: var(--purple); font-weight: 600; }
-    .cta-subhead strong { color: #fff; font-weight: 600; }
-    .assistant-body { font-size: 16px; font-weight: 300; color: var(--ink-mid); line-height: 1.7; margin-bottom: 24px; }
-    .assistant-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-mid); font-weight: 300; margin-bottom: 10px; }
-    .assistant-check { width: 18px; height: 18px; border-radius: 50%; background: var(--purple-tint); border: 1px solid var(--border-purple); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-    .assistant-paid { font-size: 12px; color: var(--ink-muted); display: flex; align-items: flex-start; gap: 8px; margin-top: 20px; line-height: 1.6; }
-    .assistant-paid svg { flex-shrink: 0; margin-top: 3px; }
-
-    .assistant-screenshot {
-      width: 100%;
-      border-radius: 14px;
-      border: 1px solid var(--border-purple);
-      box-shadow: 0 12px 40px rgba(80, 40, 120, 0.22), 0 2px 8px rgba(26, 24, 48, 0.06);
-      display: block;
-      background: var(--bg-white);
-    }
-    .assistant-screenshot-caption { font-size: 12px; color: var(--ink-muted); text-align: center; margin-top: 14px; font-style: italic; }
-
-    /* DEVELOPERS */
-    .dev-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
-    .integration-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 32px; }
-    .integration-tag { font-size: 12px; font-weight: 500; color: var(--ink-mid); background: var(--bg-white); border: 1px solid var(--border); border-radius: 100px; padding: 4px 13px; }
-    .integration-tag.available { color: var(--purple); border-color: var(--border-purple); background: var(--purple-tint); }
-
-    .code-panel { background: #0F0E1A; border-radius: 14px; overflow: hidden; }
-    .code-panel-header { padding: 10px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
-    .code-panel-label { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.35); }
-    .code-panel-endpoint { font-family: var(--font-mono); font-size: 11px; color: var(--purple-light); }
-    .code-panel-body { padding: 16px; font-family: var(--font-mono); font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.5); overflow-x: auto; }
-    .code-panel-body::-webkit-scrollbar { height: 6px; }
-    .code-panel-body::-webkit-scrollbar-track { background: transparent; }
-    .code-panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
-    .code-panel-body::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
-    .code-key { color: var(--purple-light); }
-    .code-str { color: #A8D8A8; }
-    .code-num { color: #F0C89A; }
-    .code-kw { color: #C19FE2; }
-    .code-comment { color: rgba(255,255,255,0.35); font-style: italic; }
-    .code-fn { color: #B5C9F2; }
-
-    .endpoint-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
-    .endpoint-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 12px; }
-    .endpoint-method { font-family: var(--font-mono); font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; letter-spacing: 0.04em; }
-    .endpoint-method.post { background: rgba(139, 92, 246, 0.2); color: var(--purple-light); }
-    .endpoint-method.get { background: rgba(138, 155, 184, 0.15); color: #A8B8CC; }
-    .endpoint-path { font-family: var(--font-mono); font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 2px; }
-    .endpoint-desc { font-size: 12px; color: rgba(255,255,255,0.35); }
-
-    /* ABOUT */
-    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
-    .about-philosophy { font-size: 17px; font-weight: 300; color: var(--ink-mid); line-height: 1.8; }
-    .about-philosophy p + p { margin-top: 20px; }
-    .team-grid { display: flex; flex-direction: column; gap: 16px; }
-    .team-card { background: var(--bg-white); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; display: flex; align-items: center; gap: 18px; transition: border-color 0.2s; }
-    .team-card:hover { border-color: var(--border-purple); }
-    .team-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--purple-tint); border: 1px solid var(--border-purple); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; color: var(--purple); flex-shrink: 0; }
-    .team-name { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
-    .team-title { font-size: 12px; color: var(--ink-muted); margin-bottom: 6px; }
-    .team-linkedin { font-size: 12px; color: var(--purple); text-decoration: none; transition: color 0.2s; }
-    .team-linkedin:hover { color: var(--purple-bright); }
-
-    /* FINAL CTA */
-    .cta-section { padding: 96px 64px; text-align: center; background: #0F0E1A; position: relative; overflow: hidden; }
-    .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 700px; height: 400px; background: radial-gradient(ellipse, rgba(107,68,196,0.3) 0%, transparent 65%); pointer-events: none; }
-    .cta-box { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
-    .cta-headline { font-family: var(--font-serif); font-size: clamp(28px,4vw,48px); font-weight: 500; color: #fff; margin-bottom: 16px; line-height: 1.2; letter-spacing: -0.01em; text-wrap: pretty; }
-    .cta-subhead { font-size: 18px; font-weight: 300; color: rgba(255,255,255,0.65); margin-bottom: 40px; line-height: 1.6; text-wrap: pretty; }
-    .btn-cta { font-family: var(--font-sans); font-size: 16px; font-weight: 500; color: #1A1830; background: #fff; border: none; border-radius: 10px; padding: 15px 36px; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-    .btn-cta:hover { background: var(--purple-tint); transform: translateY(-2px); }
-
-    /* FOOTER */
-    footer { border-top: 1px solid var(--border); padding: 36px 64px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; background: var(--bg); }
-    .footer-left { display: flex; align-items: center; gap: 20px; }
-    .footer-logo { display: inline-flex; align-items: center; line-height: 0; }
-    .footer-logo img { height: 18px; display: block; }
-    .footer-copy { font-size: 13px; color: var(--ink-muted); }
-    .footer-links { display: flex; align-items: center; gap: 24px; list-style: none; }
-    .footer-links a { font-size: 13px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--ink); }
-
-    /* RESPONSIVE */
-    @media (max-width: 960px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
-      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
-      .section { padding: 60px 24px; }
-      .section-sm { padding: 48px 24px; }
-      .why-layout { grid-template-columns: 1fr; gap: 40px; }
-      .library-layout { grid-template-columns: 1fr; gap: 0; }
-      .assistant-layout { grid-template-columns: 1fr; gap: 40px; }
-      .dev-layout { grid-template-columns: 1fr; gap: 40px; }
-      .about-layout { grid-template-columns: 1fr; gap: 40px; }
-      .steps-grid { grid-template-columns: 1fr 1fr; }
-      .cta-section { padding: 60px 24px; }
-      footer { padding: 32px 24px; }
-    }
-
-    @media (max-width: 560px) {
-      .steps-grid { grid-template-columns: 1fr; }
-      .domain-carousel-pill { min-width: 180px; }
-    }
-    /* ── CAROUSEL ── */
-    /* CAROUSEL */
-    .carousel-outer {
-      position: relative;
-      overflow: hidden;
-      padding: 8px 48px 16px;
-      margin: 0 -48px;
-    }
-
-    /* Tighten the Library section's bottom padding so it doesn't stack with the Assistant section's top padding */
-    #library .section { padding-bottom: 48px; }
-
-    /* Right fade */
-    .carousel-outer::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0;
-      width: 140px;
-      height: 100%;
-      background: linear-gradient(to right, transparent, var(--bg));
-      pointer-events: none;
-      z-index: 20;
-    }
-
-    .carousel-track {
-      display: flex;
-      gap: 28px;
-      will-change: transform;
-    }
-
-    /* CARD WRAPPER */
-    .vignette-card {
-      flex-shrink: 0;
-      width: calc((100vw - 144px) / 1.9);
-      max-width: 460px;
-      min-width: 380px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* SESSION PANEL */
-    .session-panel {
-      background: linear-gradient(145deg, #3E1F8F 0%, #2A1260 60%, #1A0A40 100%);
-      border-radius: 20px;
-      padding: 22px;
-      position: relative;
-      overflow: visible;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-      box-shadow:
-        0 16px 56px rgba(62, 31, 143, 0.28),
-        0 2px 8px rgba(62, 31, 143, 0.15);
-    }
-
-    /* Grid overlay */
-    .session-panel::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 20px;
-      background-image:
-        linear-gradient(rgba(196, 181, 253, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(196, 181, 253, 0.05) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-
-    /* Glow orb */
-    .session-panel::after {
-      content: '';
-      position: absolute;
-      top: -40px; right: -30px;
-      width: 200px; height: 200px;
-      background: radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 65%);
-      pointer-events: none;
-      border-radius: 50%;
-    }
-
-    /* SESSION CONTENT */
-    .session-content {
-      position: relative;
-      z-index: 5;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      flex: 1;
-    }
-
-    /* PROMPT ROW: headshot left, bubble fills right */
-    .prompt-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 0;
-      position: relative;
-    }
-
-    /* HEADSHOT -- inline, slightly overlaps bubble */
-    .headshot-wrap {
-      flex-shrink: 0;
-      position: relative;
-      z-index: 10;
-      margin-right: -14px; /* overlap into the bubble */
-    }
-
-    .headshot-img {
-      width: 160px;
-      height: 160px;
-      border-radius: 16px;
-      object-fit: cover;
-      object-position: center center;
-      border: 3px solid rgba(255, 255, 255, 0.28);
-      box-shadow:
-        0 8px 24px rgba(0, 0, 0, 0.35),
-        0 2px 6px rgba(0, 0, 0, 0.2);
-      display: block;
-    }
-
-    .headshot-placeholder {
-      width: 160px;
-      height: 160px;
-      border-radius: 16px;
-      background: rgba(80, 40, 120, 0.40);
-      border: 3px solid rgba(255, 255, 255, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.5);
-      font-family: var(--font-sans);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    /* PROMPT BUBBLE -- right-justified, fills remaining space */
-    .prompt-bubble {
-      flex: 1;
-      min-width: 0;
-      background: rgba(255, 255, 255, 0.09);
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 4px 14px 14px 14px;
-      padding: 12px 14px 12px 22px; /* extra left padding absorbs headshot overlap */
-      backdrop-filter: blur(4px);
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .prompt-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: rgba(196, 181, 253, 0.7);
-      margin-bottom: 6px;
-    }
-
-    .prompt-text {
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.9);
-      line-height: 1.55;
-    }
-
-    .answer-bubble {
-      background: rgba(139, 92, 246, 0.18);
-      border: 1px solid rgba(139, 92, 246, 0.38);
-      border-radius: 14px 14px 14px 4px;
-      padding: 14px 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    .answer-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: var(--purple-light);
-      margin-bottom: 7px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .answer-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--purple-light);
-      animation: pulse 2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-
-    .answer-text {
-      font-family: var(--font-mono);
-      font-size: 13.5px;
-      color: rgba(196, 181, 253, 0.92);
-      line-height: 1.7;
-    }
-
-    .answer-text strong { color: #fff; font-weight: 500; }
-
-    .cursor {
-      display: inline-block;
-      width: 7px; height: 13px;
-      background: var(--purple-light);
-      border-radius: 1px;
-      margin-left: 2px;
-      vertical-align: middle;
-      animation: blink 1.1s step-end infinite;
-    }
-
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    /* CARD FOOTER */
-    .card-footer {
-      padding: 14px 4px 0;
-    }
-
-    .role-label {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.01em;
-    }
-
-    .role-category {
-      font-size: 12.5px;
-      color: var(--ink-muted);
-      margin-top: 3px;
-    }
-
-    /* CONTROLS */
-    .carousel-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 24px;
-    }
-
-    .carousel-btn {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      flex-shrink: 0;
-    }
-
-    .carousel-btn:hover {
-      border-color: var(--purple);
-      background: var(--purple-tint);
-    }
-
-    .carousel-btn.active {
-      border-color: var(--purple);
-      background: var(--purple-tint);
-    }
-
-    .carousel-dots {
-      display: flex;
-      gap: 6px;
-      margin-left: 4px;
-    }
-
-    .carousel-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--border-purple);
-      border: none;
-      padding: 0;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .carousel-dot.active {
-      width: 20px;
-      border-radius: 3px;
-      background: var(--purple);
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      .vignettes-section { padding: 0 24px; }
-      .carousel-outer { padding: 48px 24px 16px; margin: -48px -24px 0; }
-      .vignette-card { width: calc(100vw - 72px); }
-      #library .section { padding-bottom: 32px; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TrueMath — preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,500&family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.47.0/iconfont/tabler-icons.min.css">
+<style>
+  :root{
+    --cream:#F7F6F2; --ink:#1A1830; --purple:#502878; --muted:#6E6B78;
+    --line:rgba(26,24,48,.12); --card:#FFFFFF; --warm:#F1EFE8;
+    --ptint:#EDE7F3; --pfill:#F4F1F8; --plight:#CECBF6; --ptext:#E4DAF2;
+    --moved:#9A3D14;
+    --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif; --mono:'DM Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+  .draftbar{background:var(--ink);color:#fff;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-align:center;padding:7px 12px}
+  .draftbar span{opacity:.7}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0}
+  .mark{display:flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:500;font-size:20px;color:var(--ink);text-decoration:none}
+  .mark i{color:var(--purple);font-size:22px}
+  .navpill{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:5px 13px}
+
+  section{padding:60px 0}
+  .hero{padding:46px 0 30px}
+  h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-.01em;margin:0 0 20px;max-width:18ch}
+  h1 em{font-style:italic;color:var(--purple)}
+  .sub{font-size:clamp(16px,2vw,20px);color:#2A2838;max-width:50ch;margin:0 0 30px}
+  .ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{font-family:var(--sans);font-size:15px;font-weight:500;text-decoration:none;padding:12px 22px;border-radius:9px;cursor:pointer;border:1px solid transparent;transition:transform .12s,background .15s}
+  .btn:active{transform:scale(.98)}
+  .btn-p{background:var(--purple);color:#fff}
+  .btn-p:hover{background:#3F1F61}
+  .btn-o{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn-o:hover{border-color:var(--purple);color:var(--purple)}
+
+  .stitle{font-family:var(--serif);font-weight:500;font-size:clamp(24px,3.4vw,32px);line-height:1.2;margin:10px 0 8px;max-width:30ch}
+  .stitle em{font-style:italic;color:var(--purple)}
+  .slead{color:var(--muted);max-width:62ch;font-size:15px;margin:0 0 26px}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .win{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .win.tm{border-color:rgba(80,40,120,.30)}
+  .winhead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+  .win.tm .winhead{border-color:rgba(80,40,120,.18)}
+  .winhead .ti{font-size:17px;color:var(--muted)}
+  .win.tm .winhead .ti{color:var(--purple)}
+  .winlab{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .win.tm .winlab{color:var(--purple)}
+  .winbody{padding:16px}
+  .seg{display:flex;gap:6px;margin-bottom:14px}
+  .seg button{font-family:var(--mono);font-size:11px;letter-spacing:.04em;padding:7px 0;flex:1;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;transition:all .12s}
+  .prompt{background:#EDEBE4;border-radius:11px;padding:9px 12px;font-size:13px;margin-bottom:13px}
+  .r{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-bottom:1px solid rgba(26,24,48,.06);font-size:13px}
+  .r:last-child{border-bottom:0}
+  .r .lbl{color:var(--muted)}
+  .m{font-family:var(--mono)}
+  .moved{color:var(--moved);font-weight:500}
+  .note{font-style:italic;color:#9A97A0;font-size:12px;margin-top:8px}
+  .cap{padding:11px 14px;font-size:12.5px}
+  .cap.l{background:var(--warm);color:#5F5E5A}
+  .cap.p{background:var(--ptint);color:var(--purple)}
+  .reckey{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;margin:4px 0 5px}
+  .tmcard{transition:background .25s;border-radius:10px;padding:2px 11px;background:var(--pfill)}
+  .meta{font-family:var(--mono);font-size:10px;color:var(--muted);margin:9px 2px 0}
+  .meta b{color:var(--purple);font-weight:500}
+  .tmnote{font-family:var(--mono);font-size:11px;color:var(--purple);margin:6px 2px 0}
+
+  .band{font-family:var(--serif);font-weight:500;font-size:clamp(20px,2.8vw,26px);line-height:1.32;max-width:46ch;margin:8px 0 26px}
+  .band em{font-style:italic;color:var(--purple)}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px}
+  .card h3{font-family:var(--serif);font-weight:500;font-size:18px;margin:0 0 8px;display:flex;align-items:center;gap:10px}
+  .card h3 .ti{color:var(--purple);font-size:20px}
+  .card p{margin:0;font-size:14px;color:var(--muted)}
+
+  .diagramwrap{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 24px}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 50px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer .mono{font-family:var(--mono);font-size:11px}
+
+  @media (max-width:760px){
+    .cols{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr}
+    section{padding:44px 0}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
+<div class="draftbar">DRAFT PREVIEW <span>· internal review · not for distribution</span></div>
+
+<div class="wrap">
   <nav>
-    <a href="https://billkelly-truemath.github.io/truemath-website/" class="nav-logo">
-      <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
-    </a>
-    <ul class="nav-links">
-      <li><a href="#why">Why TrueMath</a></li>
-      <li><a href="#library">Professional Library</a></li>
-      <li><a href="#developers">Developers</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="https://truemath.ai/blog">Blog</a></li>
-    </ul>
-    <div class="nav-cta">
-      <a href="https://app.truemath.ai" class="btn-ghost">Log in</a>
-      <a href="https://app.truemath.ai/signup" class="btn-primary">Join free beta</a>
-    </div>
-    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <a class="mark" href="#"><i class="ti ti-square-root-2" aria-hidden="true"></i>TrueMath</a>
+    <span class="navpill">Private beta</span>
   </nav>
 
-  <!-- MOBILE MENU PANEL -->
-  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-    <ul class="mobile-menu-links">
-      <li><a href="#why">Why TrueMath</a></li>
-      <li><a href="#library">Professional Library</a></li>
-      <li><a href="#developers">Developers</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="https://truemath.ai/blog">Blog</a></li>
-    </ul>
-    <div class="mobile-menu-cta">
-      <a href="https://app.truemath.ai" class="btn-ghost">Log in</a>
-      <a href="https://app.truemath.ai/signup" class="btn-primary">Join free beta</a>
+  <header class="hero">
+    <div class="eyebrow" style="margin-bottom:14px">Trusted math for your AI</div>
+    <h1>The same answer every time. <em>With the receipt.</em></h1>
+    <p class="sub">Trusted math for your AI: exact numbers, a full audit trail, and math you never have to second-guess.</p>
+    <div class="ctas">
+      <a class="btn btn-p" href="#">Get invited</a>
+      <a class="btn btn-o" href="#how">See how it works</a>
     </div>
-  </div>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg-pattern"></div>
-
-    <div class="hero-content">
-      <picture>
-        <source srcset="TrueMath-Logo-White-1000px.png" media="(prefers-color-scheme: dark)">
-        <img src="TrueMath-Logo-Color_Logo-Color.png" alt="TrueMath" class="hero-logo">
-      </picture>
-
-      <div class="hero-eyebrow">
-        <span class="eyebrow-dot"></span>
-        Now in beta. Free to join. No credit card.
-      </div>
-
-      <h1 class="hero-headline">
-        Unlock the math AI keeps getting wrong. <span class="hero-once">For you, your team, <em>everyone</em> in the room.</span>
-      </h1>
-
-      <p class="hero-subhead">
-        TrueMath is the auditable math engine any time 90% right is 100% wrong.
-      </p>
-
-      <span class="hero-tagline">Deterministic.&nbsp;&nbsp;Auditable.&nbsp;&nbsp;Shareable.</span>
-
-      <div class="hero-actions" style="margin-top:36px;">
-        <a href="https://app.truemath.ai/signup" class="btn-large">Join our free beta now</a>
-        <a href="#developers" class="btn-hero-secondary">
-          Integrate via API
-          <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-      <p class="hero-reassure"><strong>Free</strong> during <strong>beta</strong>. A <strong>free</strong> tier, always. No credit card required.</p>
-
-      <div class="verticals-strip" style="margin-top:36px;">
-        <span class="verticals-label">Built for</span>
-        <span class="domain-carousel-pill" id="carousel-pill"></span>
-        <span class="build-own-pill">
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M5.5 1.5v8M1.5 5.5h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          build your own
-        </span>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY TRUEMATH -->
-  <div id="why" class="section-divider">
-    <div class="section">
-      <div class="why-layout">
-        <div>
-          <span class="section-label">Why TrueMath</span>
-          <h2 class="section-headline">AI got you to the door. TrueMath gets you through.</h2>
-          <p class="section-body">AI changed how you and your team work. You're more productive, you sound and look more professional. The next phase is the numbers. Imagine what happens to dealflow, closes, and client engagement when the math gets the same upgrade.</p>
-
-          <div class="why-cards">
-            <div class="why-card">
-              <div class="why-card-icon">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h12M9 3v12" stroke="#502878" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </div>
-              <div>
-                <div class="why-card-title">Ask the way you actually talk.</div>
-                <div class="why-card-body">No formulas, no spreadsheet syntax. Describe the calculation the way you'd explain it to a colleague. TrueMath figures out the rest and returns a result you can stake your reputation on.</div>
-              </div>
-            </div>
-            <div class="why-card">
-              <div class="why-card-icon">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2.5" y="2.5" width="13" height="13" rx="2" stroke="#502878" stroke-width="1.5"/><path d="M6 9l2 2 4-4" stroke="#502878" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <div>
-                <div class="why-card-title">Every answer is auditable.</div>
-                <div class="why-card-body">TrueMath doesn't estimate. It finds the right calculation path, runs the math precisely, and returns the result with full lineage: variables used, steps taken, logic behind every number.</div>
-              </div>
-            </div>
-            <div class="why-card">
-              <div class="why-card-icon">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="4.5" cy="9" r="2" stroke="#502878" stroke-width="1.5"/><circle cx="13.5" cy="4.5" r="2" stroke="#502878" stroke-width="1.5"/><circle cx="13.5" cy="13.5" r="2" stroke="#502878" stroke-width="1.5"/><path d="M6.3 8l5.4-2.7M6.3 10l5.4 2.7" stroke="#502878" stroke-width="1.5" stroke-linecap="round"/></svg>
-              </div>
-              <div>
-                <div class="why-card-title">Shareable proof, not just an answer.</div>
-                <div class="why-card-body">Speak the calculation into existence as fast as the conversation moves. Send it to a client with a quote. Share it with a counterparty on a deal. Everyone is looking at the same math, the same method, the same assumptions, so the room can agree and move on.</div>
-              </div>
-            </div>
-            <div class="why-card">
-              <div class="why-card-icon">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="#502878" stroke-width="1.5"/><circle cx="9" cy="9" r="3.5" stroke="#502878" stroke-width="1.5"/><circle cx="9" cy="9" r="1" fill="#502878"/></svg>
-              </div>
-              <div>
-                <div class="why-card-title">Teamwork powered by reliable math.</div>
-                <div class="why-card-body">TrueMath gives your team a focal point. One set of calculations, one set of defaults, one set of customizations. The most powerful tool you can take into battle is coordination.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-  <!-- PROFESSIONAL LIBRARY -->
-  <div id="library">
-    <div class="section">
-      <span class="section-label">The Professional Library</span>
-      <h2 class="section-headline">A running start. Built for the work you already do.</h2>
-      <p class="section-body">Calculation domains built for the work you and your team already do, ready the moment you sign in. Use, share, and customize, as a sole contributor and as a team.</p>
-
-      <div class="category-strip">
-        <span class="category-tag">Investment Banking &amp; M&amp;A</span>
-        <span class="category-tag">Private Capital</span>
-        <span class="category-tag">Wealth &amp; Personal Finance</span>
-        <span class="category-tag">Corporate Finance</span>
-        <span class="category-tag">Real Estate</span>
-        <span class="category-tag">Construction</span>
-        <span class="category-tag">Cloud &amp; Tech Services</span>
-        <span class="category-tag">Insurance &amp; Actuarial</span>
-        <span class="category-tag">Legal &amp; Advisory</span>
-        <span class="category-tag">Healthcare Finance</span>
-        <span class="category-tag">Engineering &amp; Science</span>
-      </div>
-
-      <!-- CAROUSEL -->
-      <div class="carousel-outer" id="carousel-outer">
-        <div class="carousel-track" id="track">
-
-      <!-- CARD 1: Wealth Manager -->
-      <div class="vignette-card">
-        <div class="session-panel">
-          <div class="session-content">
-            <div class="prompt-row">
-              <div class="headshot-wrap">
-          <img src="Wealth_Manager.jpg" alt="Wealth Manager" class="headshot-img">
-        </div>
-              <div class="prompt-bubble">
-              <div class="prompt-label">You asked</div>
-              <div class="prompt-text">Show Maria's retirement trajectory at her current savings rate vs. increasing contributions by $500/month, assuming 6.5% annual return.</div>
-            </div>
-            </div>
-            <div class="answer-bubble">
-              <div class="answer-label"><span class="answer-dot"></span>TrueMath</div>
-              <div class="answer-text">
-                At current rate: <strong>$1,847,320</strong> at 65<br>
-                With +$500/mo: <strong>$2,341,880</strong> at 65<br>
-                Difference: <strong>+$494,560</strong> (26.8%)<br>
-                Monthly income delta: <strong>+$1,648/mo</strong><span class="cursor"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="role-label">Wealth Manager</div>
-          <div class="role-category">Wealth &amp; Personal Finance</div>
-      </div>
-      </div>
-
-      <!-- CARD 2: General Contractor -->
-      <div class="vignette-card">
-        <div class="session-panel">
-          <div class="session-content">
-            <div class="prompt-row">
-              <div class="headshot-wrap">
-          <img src="General_Contractor.jpg" alt="General Contractor" class="headshot-img">
-        </div>
-              <div class="prompt-bubble">
-              <div class="prompt-label">You asked</div>
-              <div class="prompt-text">Break out the $2.4M renovation bid: materials at 38% markup, labor at $62/hr blended, subs at 12% overhead, 6% contingency on base costs.</div>
-            </div>
-            </div>
-            <div class="answer-bubble">
-              <div class="answer-label"><span class="answer-dot"></span>TrueMath</div>
-              <div class="answer-text">
-                Materials w/ markup: <strong>$905,000</strong><br>
-                Labor burden: <strong>$790,000</strong><br>
-                Subcontractor costs: <strong>$569,000</strong><br>
-                Contingency (6%): <strong>$135,840</strong><span class="cursor"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="role-label">General Contractor</div>
-          <div class="role-category">Construction</div>
-      </div>
-      </div>
-
-      <!-- CARD 3: M&A Advisor -->
-      <div class="vignette-card">
-        <div class="session-panel">
-          <div class="session-content">
-            <div class="prompt-row">
-              <div class="headshot-wrap">
-          <img src="M_A_Advisor_Team.jpg" alt="M&A Advisor team" class="headshot-img">
-        </div>
-              <div class="prompt-bubble">
-              <div class="prompt-label">You asked</div>
-              <div class="prompt-text">Quote our fee on this $180M deal. Modified Lehman: 5% on first $1M, 4% next $9M, 3% next $40M, 2% above. $50k monthly retainer credited 100%. $1.5M floor.</div>
-            </div>
-            </div>
-            <div class="answer-bubble">
-              <div class="answer-label"><span class="answer-dot"></span>TrueMath</div>
-              <div class="answer-text">
-                Tiered success fee: <strong>$4,210,000</strong><br>
-                Retainer credit (6 mo): <strong>−$300,000</strong><br>
-                Net fee at close: <strong>$3,910,000</strong><br>
-                Effective rate: <strong>2.17%</strong> of deal<span class="cursor"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="role-label">M&amp;A Advisor</div>
-          <div class="role-category">Investment Banking &amp; M&amp;A</div>
-      </div>
-      </div>
-
-      <!-- CARD 4: Estate Planner -->
-      <div class="vignette-card">
-        <div class="session-panel">
-          <div class="session-content">
-            <div class="prompt-row">
-              <div class="headshot-wrap">
-          <img src="Estate_Planner.jpg" alt="Estate Planner" class="headshot-img">
-        </div>
-              <div class="prompt-bubble">
-              <div class="prompt-label">You asked</div>
-              <div class="prompt-text">What does a $2M zeroed-out GRAT return to heirs at 7.5% growth vs. the 3.8% AFR, over 5 years?</div>
-            </div>
-            </div>
-            <div class="answer-bubble">
-              <div class="answer-label"><span class="answer-dot"></span>TrueMath</div>
-              <div class="answer-text">
-                Annuity payment: <strong>$446,733/yr</strong><br>
-                Trust FV at 7.5%: <strong>$2,871,259</strong><br>
-                Annuities returned: <strong>$2,594,801</strong><br>
-                Remainder to heirs: <strong>$276,458</strong> tax-free<span class="cursor"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="role-label">Estate Planner</div>
-          <div class="role-category">Wealth &amp; Personal Finance</div>
-      </div>
-      </div>
-
-      <!-- CARD 5: Solution Architect -->
-      <div class="vignette-card">
-        <div class="session-panel">
-          <div class="session-content">
-            <div class="prompt-row">
-              <div class="headshot-wrap">
-          <img src="Solution_Architect.jpg" alt="Solution Architect team" class="headshot-img">
-        </div>
-              <div class="prompt-bubble">
-              <div class="prompt-label">You asked</div>
-              <div class="prompt-text">TCO comparison: on-prem at $1.2M capex, 3-year refresh, $88k/yr maintenance vs. cloud at $28k/month plus $280k migration cost, over 5 years.</div>
-            </div>
-            </div>
-            <div class="answer-bubble">
-              <div class="answer-label"><span class="answer-dot"></span>TrueMath</div>
-              <div class="answer-text">
-                On-prem 5yr TCO: <strong>$2,840,000</strong><br>
-                Cloud 5yr TCO: <strong>$1,960,000</strong><br>
-                Cloud savings: <strong>$880,000</strong><br>
-                Migration payback: <strong>Month 14</strong><span class="cursor"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="role-label">Solution Architect</div>
-          <div class="role-category">Cloud &amp; Tech Services</div>
-      </div>
-      </div>
-
-      <!-- CARD 6: Developer -->
-      <div class="vignette-card">
-        <div class="session-panel">
-          <div class="session-content">
-            <div class="prompt-row">
-              <div class="headshot-wrap">
-          <img src="Developer.jpg" alt="Developer" class="headshot-img">
-        </div>
-              <div class="prompt-bubble">
-              <div class="prompt-label">POST /v1/calculate</div>
-              <div class="prompt-text" style="font-family:var(--font-mono);font-size:12px;line-height:1.7;">"domain": "cre_investor",<br>"prompt": "IRR on this deal?",<br>"inputs": {"purchase": 4200000,<br>&nbsp;"noi": 273000, "hold": 5,<br>&nbsp;"exit_value": 4840000,<br>&nbsp;"ltv": 0.60, "loan_rate": 0.065}</div>
-            </div>
-            </div>
-            <div class="answer-bubble">
-              <div class="answer-label"><span class="answer-dot"></span>200 OK</div>
-              <div class="answer-text">
-                "irr": <strong>0.1243</strong>,<br>
-                "irr_formatted": <strong>"12.43%"</strong>,<br>
-                "deterministic": <strong>true</strong>,<br>
-                "activity": <strong>"levered_irr"</strong><span class="cursor"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="role-label">Developer</div>
-          <div class="role-category">API Integration</div>
-      </div>
-      </div>
-
-    </div>
-      </div>
-
-      <!-- Controls -->
-  <div class="carousel-controls">
-    <button class="carousel-btn" id="prev" aria-label="Previous">
-      <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
-        <path d="M10 12L6 8l4-4" stroke="#3D3B52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-    <button class="carousel-btn" id="pause-btn" aria-label="Pause">
-      <svg id="pause-icon" width="16" height="16" fill="none" viewBox="0 0 16 16">
-        <rect x="4" y="3" width="3" height="10" rx="1" fill="#3D3B52"/>
-        <rect x="9" y="3" width="3" height="10" rx="1" fill="#3D3B52"/>
-      </svg>
-      <svg id="play-icon" width="16" height="16" fill="none" viewBox="0 0 16 16" style="display:none;">
-        <path d="M5 3l9 5-9 5V3z" fill="#3D3B52"/>
-      </svg>
-    </button>
-    <button class="carousel-btn" id="next" aria-label="Next">
-      <svg width="16" height="16" fill="none" viewBox="0 0 16 16">
-        <path d="M6 4l4 4-4 4" stroke="#3D3B52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-    <div class="carousel-dots" id="dots"></div>
-  </div>
+  </header>
 </div>
 
+<section id="demo">
+  <div class="wrap">
+    <div class="eyebrow">See it run</div>
+    <h2 class="stitle">Same question, asked three times. Only one side <em>holds still.</em></h2>
+    <p class="slead">The question never changed. Switch between the three runs and watch which side moves.</p>
+
+    <div class="cols">
+      <div class="win">
+        <div class="winhead"><i class="ti ti-sparkles" aria-hidden="true"></i><span class="winlab">A general AI assistant</span></div>
+        <div class="winbody">
+          <div class="seg" id="llmseg">
+            <button data-llm="0">Run 1</button><button data-llm="1">Run 2</button><button data-llm="2">Run 3</button>
+          </div>
+          <div class="prompt">What are the PITI payments for my client for a $750,000 house with a 6.25% mortgage?</div>
+          <div id="llmbody"></div>
+        </div>
+        <div class="cap l">You re-check every figure, every run.</div>
+      </div>
+
+      <div class="win tm">
+        <div class="winhead"><i class="ti ti-square-root-2" aria-hidden="true"></i><span class="winlab">TrueMath</span></div>
+        <div class="winbody">
+          <div class="seg" id="tmseg">
+            <button data-tm="0">Run 1</button><button data-tm="1">Run 2</button><button data-tm="2">Run 3</button>
+          </div>
+          <div class="prompt">What are the PITI payments for my client for a $750,000 house with a 6.25% mortgage?</div>
+          <div class="tmcard" id="tmcard">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;padding:9px 0 6px">
+              <span style="color:var(--muted);font-size:12px">Monthly PITI</span>
+              <span style="font-family:var(--serif);font-size:23px;font-weight:500">$4,631.80</span>
+            </div>
+            <div class="r"><span class="lbl">Principal &amp; interest</span><span class="m">$3,694.30</span></div>
+            <div class="r"><span class="lbl">Property tax (1.1%/yr)</span><span class="m">$687.50</span></div>
+            <div class="r"><span class="lbl">Insurance (0.4%/yr)</span><span class="m">$250.00</span></div>
+            <div class="r"><span class="lbl">PMI (LTV 80%)</span><span class="m">$0.00</span></div>
+            <div class="r"><span class="lbl">Down payment</span><span class="m">20% · assumed</span></div>
+          </div>
+          <div class="meta">monthly_piti_payment · v1 · <b>deterministic: true</b></div>
+          <div class="tmnote">Same method, every run.</div>
+        </div>
+        <div class="cap p">The math is guaranteed. You confirm the inputs.</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- ASSISTANT STRIP -->
-  <div class="section-tint">
-    <div class="section">
-      <div class="assistant-layout">
-        <div>
-          <span class="section-label">The TrueMath Assistant</span>
-          <h2 class="section-headline">Need a domain that isn't here? Build it in plain language.</h2>
-          <p class="section-body">Tell the TrueMath Assistant what you need to calculate, in plain language, and it builds the domain for you, or extends one you already have. No configuration files, no technical setup. You describe it, it builds it.</p>
-          <div class="assistant-paid">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="2" y="5.5" width="10" height="7" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 5.5V4a2.5 2.5 0 015 0v1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-            <span>The Assistant is a paid feature after <strong>beta</strong>. The Library is <strong>free</strong> to explore now, and there will always be a <strong>free</strong> tier.</span>
-          </div>
-          <div style="margin-top:28px;">
-            <a href="https://app.truemath.ai/signup" class="btn-large">Join our free beta now</a>
-          </div>
-          <p style="font-size:12px;color:var(--ink-muted);margin-top:12px;">No credit card required.</p>
-        </div>
-
-        <div>
-          <img src="Customizer_Screenshot.jpg" alt="Screenshot of the TrueMath Assistant customizing a Retirement Income Drawdown Strategy domain" class="assistant-screenshot">
-          <p class="assistant-screenshot-caption">Customizing the Retirement Income Drawdown Strategy domain in plain language.</p>
-        </div>
+<section id="why">
+  <div class="wrap">
+    <div class="eyebrow">Works beneath your AI</div>
+    <p class="band">Your model keeps doing what it does well. TrueMath gives its numbers a <em>locked-down method you can defend.</em></p>
+    <div class="cards">
+      <div class="card">
+        <h3><i class="ti ti-lock-check" aria-hidden="true"></i>Never redo the math</h3>
+        <p>The result is deterministic. You confirm the inputs, the engine guarantees the arithmetic.</p>
+      </div>
+      <div class="card">
+        <h3><i class="ti ti-list-details" aria-hidden="true"></i>Show your work, every time</h3>
+        <p>Every answer carries the variables, the values, the assumptions, and the method behind it.</p>
+      </div>
+      <div class="card">
+        <h3><i class="ti ti-users" aria-hidden="true"></i>Everyone gets the same number</h3>
+        <p>The same question returns the same result for you, your team, your client, and the counterparty checking it.</p>
+      </div>
+      <div class="card">
+        <h3><i class="ti ti-history" aria-hidden="true"></i>Pull up any calculation, any time</h3>
+        <p>Methods are versioned, so a number from last year recomputes identically this year.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- DEVELOPERS -->
-  <div id="developers" class="section-divider">
-    <div class="section">
-      <div class="dev-layout">
-        <div>
-          <span class="section-label">For Developers</span>
-          <h2 class="section-headline">Embed deterministic math into any product</h2>
-          <p class="section-body">The TrueMath API connects your application to the same math engine professionals use every day. Send a natural-language or structured prompt with your inputs. Get back a precise, auditable answer, with full lineage.</p>
-
-          <div class="integration-tags">
-            <span class="integration-tag available">REST API: available now</span>
-            <span class="integration-tag available">JS/TS SDK: available now</span>
-            <span class="integration-tag">Python SDK: coming soon</span>
-            <span class="integration-tag">MCP integration: coming soon</span>
-          </div>
-
-          <a href="https://app.truemath.ai/signup" class="btn-large" style="font-size:15px;padding:13px 28px;">Request API access</a>
-        </div>
-
-        <!-- Code panel - dark inset on light page -->
-        <div>
-          <div class="code-panel">
-            <div class="code-panel-header">
-              <span class="code-panel-label">REQUEST</span>
-              <span class="code-panel-endpoint">truemath-sdk · TypeScript</span>
-            </div>
-            <div class="code-panel-body">
-              <span class="code-comment">// Auto-handles polling for long calculations</span><br>
-              <span class="code-kw">const</span> result = <span class="code-kw">await</span> sdk.calculations.<span class="code-fn">calculateAndWait</span>({<br>
-              &nbsp;&nbsp;<span class="code-key">domainId</span>: <span class="code-str">"00000000-0000-0000-0000-000000000001"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">inputFormat</span>: <span class="code-str">"natural_language"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">prompt</span>:<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"Levered IRR on $4.2M, $273K NOI, "</span> +<br>
-              &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"65% LTV @ 6.25%, 5yr hold"</span><br>
-              });
-            </div>
-          </div>
-
-          <div class="code-panel" style="margin-top:12px;">
-            <div class="code-panel-header">
-              <span class="code-panel-label">RESPONSE</span>
-              <span style="font-family:var(--font-mono);font-size:11px;color:#A8D8A8;">200 OK</span>
-            </div>
-            <div class="code-panel-body">
-              {<br>
-              &nbsp;<span class="code-key">"status"</span>: <span class="code-str">"completed"</span>,<br>
-              &nbsp;<span class="code-key">"results"</span>: {<br>
-              &nbsp;&nbsp;<span class="code-key">"leveredIrr"</span>: <span class="code-num">0.1843</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"formatted"</span>: <span class="code-str">"18.43%"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"equityMultiple"</span>: <span class="code-num">2.21</span><br>
-              &nbsp;},<br>
-              &nbsp;<span class="code-key">"lineage"</span>: {<br>
-              &nbsp;&nbsp;<span class="code-key">"activity"</span>: <span class="code-str">"levered_irr"</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"variables"</span>: <span class="code-num">7</span>,<br>
-              &nbsp;&nbsp;<span class="code-key">"deterministic"</span>: <span class="code-num">true</span><br>
-              &nbsp;}<br>
-              }
-            </div>
-          </div>
-
-        </div>
-      </div>
+<section id="how">
+  <div class="wrap">
+    <div class="diagramwrap">
+      <div class="eyebrow" style="margin-bottom:9px">How it works</div>
+      <h2 class="stitle" style="margin-top:0">The model reasons. TrueMath <em>executes.</em></h2>
+      <p class="slead" style="margin-bottom:18px">Your AI reads the request. It hands the math to TrueMath, which runs it on a locked method and returns the answer with full lineage. The method is where the work you can defend actually lives.</p>
+      <svg width="100%" viewBox="0 0 680 132" role="img" aria-label="Your AI reads the request and hands the math to TrueMath, whose locked method holds proprietary calculations, custom defaults, versioning, and team sharing, returning an auditable result.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+        <rect x="20" y="39" width="136" height="56" rx="9" fill="#F1EFE8" stroke="rgba(26,24,48,.18)" stroke-width="0.5"/>
+        <text x="88" y="60" text-anchor="middle" dominant-baseline="central" font-family="DM Sans" font-size="14" font-weight="500" fill="#1A1830">Your AI</text>
+        <text x="88" y="79" text-anchor="middle" dominant-baseline="central" font-family="DM Sans" font-size="11" fill="#6E6B78">reads the request</text>
+        <line x1="160" y1="67" x2="196" y2="67" stroke="#6E6B78" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <rect x="200" y="18" width="280" height="98" rx="11" fill="#502878" stroke="#502878" stroke-width="0.5"/>
+        <text x="216" y="41" font-family="DM Sans" font-size="14" font-weight="500" fill="#FFFFFF">TrueMath, the locked method</text>
+        <text x="218" y="60" font-family="DM Sans" font-size="12" fill="#CECBF6">&#10003;</text><text x="232" y="60" font-family="DM Sans" font-size="12" fill="#E4DAF2">proprietary calculations</text>
+        <text x="218" y="76" font-family="DM Sans" font-size="12" fill="#CECBF6">&#10003;</text><text x="232" y="76" font-family="DM Sans" font-size="12" fill="#E4DAF2">your custom defaults</text>
+        <text x="218" y="92" font-family="DM Sans" font-size="12" fill="#CECBF6">&#10003;</text><text x="232" y="92" font-family="DM Sans" font-size="12" fill="#E4DAF2">versioned, every change tracked</text>
+        <text x="218" y="108" font-family="DM Sans" font-size="12" fill="#CECBF6">&#10003;</text><text x="232" y="108" font-family="DM Sans" font-size="12" fill="#E4DAF2">shared with your team</text>
+        <line x1="484" y1="67" x2="520" y2="67" stroke="#6E6B78" stroke-width="1.5" marker-end="url(#ar2)"/>
+        <rect x="524" y="39" width="136" height="56" rx="9" fill="#FFFFFF" stroke="rgba(80,40,120,.30)" stroke-width="0.5"/>
+        <text x="592" y="60" text-anchor="middle" dominant-baseline="central" font-family="DM Sans" font-size="14" font-weight="500" fill="#1A1830">The result</text>
+        <text x="592" y="79" text-anchor="middle" dominant-baseline="central" font-family="DM Sans" font-size="11" fill="#6E6B78">answer + lineage</text>
+      </svg>
     </div>
   </div>
+</section>
 
-  <!-- ABOUT -->
-  <div id="about">
-    <div class="section">
-      <span class="section-label">About TrueMath</span>
-      <h2 class="section-headline">Built on 30 years of calculation experience and 30 million users</h2>
-
-      <div class="about-layout">
-        <div class="about-philosophy">
-          <p>Every time technology advances, our tools for working with numbers evolve too -- from abacuses to calculators to spreadsheets, and now to AI.</p>
-          <p>TrueMath is built on PowerOne, a calculation platform developed over 30 years by TrueMath co-founder Elia Freedman. With 30 million downloads and a reputation for precision across finance, engineering, and science, PowerOne became the foundation Elia committed to TrueMath -- bringing three decades of real-world calculation experience into the AI age.</p>
-          <p>The result is a math engine with thirty years of real-world use behind it, rebuilt for the way professionals work today.</p>
-          <p style="margin-top:36px;">
-            <a href="https://app.truemath.ai/contact" style="font-size:15px;font-weight:500;color:var(--purple);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:color 0.2s;">
-              Get in touch
-              <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-          </p>
-        </div>
-
-        <div class="team-grid">
-          <div class="team-card">
-            <img src="Bill_Kelly.jpg" alt="Bill Kelly" style="width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
-            <div>
-              <div class="team-name">Bill Kelly</div>
-              <div class="team-title">Chief Executive Officer</div>
-              <a href="https://www.linkedin.com/in/wjkellypdx/" class="team-linkedin" target="_blank">LinkedIn</a>
-            </div>
-          </div>
-          <div class="team-card">
-            <img src="Elia_Freedman.jpg" alt="Elia Freedman" style="width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
-            <div>
-              <div class="team-name">Elia Freedman</div>
-              <div class="team-title">Chief Technology Officer</div>
-              <a href="https://www.linkedin.com/in/eliafreedman/" class="team-linkedin" target="_blank">LinkedIn</a>
-            </div>
-          </div>
-          <div class="team-card">
-            <img src="Elizabeth_Magliana.jpg" alt="Elizabeth Magliana" style="width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--border-purple);flex-shrink:0;">
-            <div>
-              <div class="team-name">Elizabeth Magliana</div>
-              <div class="team-title">Enterprise Sales</div>
-              <a href="https://www.linkedin.com/in/elizabethmagliana/" class="team-linkedin" target="_blank">LinkedIn</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FINAL CTA -->
-  <section class="cta-section">
-    <div class="cta-box">
-      <h2 class="cta-headline">The key is TrueMath.</h2>
-      <p class="cta-subhead">AI handles the conversation. TrueMath handles the math.</p>
-      <a href="https://app.truemath.ai/signup" class="btn-cta">Join our free beta now</a>
-      <p style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:16px;">No credit card. <strong style="color:rgba(255,255,255,0.85);">Free</strong> during <strong style="color:rgba(255,255,255,0.85);">beta</strong>. A <strong style="color:rgba(255,255,255,0.85);">free</strong> tier, always.</p>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+<div class="wrap">
   <footer>
-    <div class="footer-left">
-      <a href="https://billkelly-truemath.github.io/truemath-website/" class="footer-logo">
-        <picture>
-          <source srcset="TrueMath-Logo-Long-White-500px.png" media="(prefers-color-scheme: dark)">
-          <img src="TrueMath-Logo-Long-Color_Logo-Long-Color.png" alt="TrueMath">
-        </picture>
-      </a>
-      <span class="footer-copy">© 2026 TrueMath, Inc.</span>
-    </div>
-    <ul class="footer-links">
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="terms.html">Terms</a></li>
-      <li><a href="https://app.truemath.ai/contact">Contact</a></li>
-    </ul>
+    <span>© 2026 TrueMath, Inc.</span>
+    <span class="mono">draft preview · sections: hero · demo · why · how</span>
   </footer>
-
-  <script>
-    // HAMBURGER MENU TOGGLE
-    (function() {
-      const hamburger = document.getElementById('navHamburger');
-      const menu = document.getElementById('mobileMenu');
-      if (!hamburger || !menu) return;
-
-      function setOpen(open) {
-        hamburger.classList.toggle('is-open', open);
-        menu.classList.toggle('is-open', open);
-        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
-        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-      }
-
-      hamburger.addEventListener('click', function() {
-        setOpen(!hamburger.classList.contains('is-open'));
-      });
-
-      // Close when any menu link is clicked
-      menu.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function() { setOpen(false); });
-      });
-
-      // Close on Escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && hamburger.classList.contains('is-open')) setOpen(false);
-      });
-
-      // Close if window grows past breakpoint
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 960 && hamburger.classList.contains('is-open')) setOpen(false);
-      });
-    })();
-
-    const domains = [
-      "Financial Advisor","Estate Planner","Business Valuation Analyst",
-      "M&A Advisor","Private Capital Investor",
-      "Corporate Finance Analyst",
-      "Real Estate Investor","Real Estate Agent / Broker","Mortgage Originator","Commercial RE Analyst",
-      "General Contractor / Estimator",
-      "Solution Architect","Sales Engineer","Revenue Operations Analyst",
-      "Commercial Lines Underwriter","Reinsurance Treaty Analyst",
-      "Divorce Financial Analyst",
-      "Medical Practice Manager","Clinical Trial Analyst",
-      "and more on the way"
-    ];
-    const pill = document.getElementById('carousel-pill');
-    let index = 0;
-    function showDomain(i) {
-      pill.style.opacity = '0';
-      pill.style.transform = 'translateY(5px)';
-      setTimeout(() => {
-        pill.textContent = domains[i];
-        // Closing pill gets a subtle italic treatment to signal it's a narrative line, not a role
-        if (i === domains.length - 1) {
-          pill.style.fontStyle = 'italic';
-          pill.style.opacity = '0.75';
-        } else {
-          pill.style.fontStyle = 'normal';
-          pill.style.opacity = '1';
-        }
-        pill.style.transform = 'translateY(0)';
-      }, 200);
-    }
-    showDomain(0);
-    setInterval(() => { index = (index + 1) % domains.length; showDomain(index); }, 1000);
-  </script>
-
+</div>
 
 <script>
-  const track = document.getElementById('track');
-  const dotsContainer = document.getElementById('dots');
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
-  const pauseBtn = document.getElementById('pause-btn');
-  const pauseIcon = document.getElementById('pause-icon');
-  const playIcon = document.getElementById('play-icon');
-
-  const originals = Array.from(track.children);
-  const total = originals.length;
-  const cloneCount = 3;
-
-  // Append clones of first N at end
-  for (let i = 0; i < cloneCount; i++) {
-    track.appendChild(originals[i % total].cloneNode(true));
+(function(){
+  var runs=[
+    {tax:"1.1%",taxv:"$687.50",pi:"$3,694.34",ins:"$125.00",pmi:"$0",total:"$4,506.84",note:"30-yr fixed, 20% down, national averages."},
+    {tax:"1.15%",taxv:"$719.00",pi:"$3,694.00",ins:"$150.00",pmi:"$0",total:"$4,563.00",note:"30-yr fixed, 20% down, national averages."},
+    {tax:"1.0%",taxv:"$625.00",pi:"$3,695.33",ins:"$150.00",pmi:"$0",total:"$4,470.33",note:"Restructured into two down-payment scenarios on its own."}
+  ];
+  var base=runs[0], body=document.getElementById("llmbody");
+  function mv(a,b){return a!==b?" moved":"";}
+  function renderLlm(i){
+    var r=runs[i];
+    body.innerHTML=
+      '<div class="r"><span class="lbl">Principal &amp; interest</span><span class="m'+mv(r.pi,base.pi)+'">'+r.pi+'</span></div>'+
+      '<div class="r"><span class="lbl">Property tax</span><span class="m'+mv(r.tax,base.tax)+'">'+r.taxv+' · '+r.tax+'</span></div>'+
+      '<div class="r"><span class="lbl">Insurance</span><span class="m'+mv(r.ins,base.ins)+'">'+r.ins+'</span></div>'+
+      '<div class="r"><span class="lbl">PMI</span><span class="m">'+r.pmi+'</span></div>'+
+      '<div class="r"><span class="lbl" style="font-weight:500;color:var(--ink)">Total PITI</span><span class="m'+mv(r.total,base.total)+'" style="font-weight:500">'+r.total+'</span></div>'+
+      '<div class="note">'+r.note+'</div>';
   }
-  // Prepend clones of last N at start
-  for (let i = cloneCount - 1; i >= 0; i--) {
-    track.insertBefore(originals[total - 1 - (i % total)].cloneNode(true), track.firstChild);
-  }
-
-  const allCards = Array.from(track.children);
-
-  // rawPos tracks actual position in full track (clones + originals + clones)
-  // Originals occupy indices cloneCount through cloneCount+total-1
-  let rawPos = cloneCount;
-  let isPaused = false;
-  let autoTimer = null;
-  let transitioning = false;
-
-  // Build dots
-  originals.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => {
-      if (transitioning) return;
-      rawPos = cloneCount + i;
-      setPos(true);
-      updateDots();
-      if (!isPaused) { stopAuto(); startAuto(); }
-    });
-    dotsContainer.appendChild(dot);
-  });
-
-  function cardWidth() {
-    return allCards[0].offsetWidth + 28;
-  }
-
-  function setPos(animated) {
-    track.style.transition = animated
-      ? 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)'
-      : 'none';
-    track.style.transform = `translateX(-${rawPos * cardWidth()}px)`;
-    if (animated) transitioning = true;
-  }
-
-  function updateDots() {
-    const logical = ((rawPos - cloneCount) % total + total) % total;
-    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === logical);
+  function setSeg(seg,idx,kind){
+    [].forEach.call(seg.children,function(b,k){
+      var on=k===idx;
+      b.style.background=on?(kind==="llm"?"#1A1830":"#502878"):"#fff";
+      b.style.color=on?"#fff":"#6E6B78";
+      b.style.borderColor=on?(kind==="llm"?"#1A1830":"#502878"):"var(--line)";
     });
   }
-
-  // After transition: silently snap back if in clone zone
-  track.addEventListener('transitionend', () => {
-    transitioning = false;
-    if (rawPos >= cloneCount + total) {
-      rawPos -= total;
-      setPos(false);
-    } else if (rawPos < cloneCount) {
-      rawPos += total;
-      setPos(false);
-    }
-    updateDots();
-  });
-
-  function advance(dir) {
-    if (transitioning) return;
-    rawPos += dir;
-    setPos(true);
-    updateDots();
-  }
-
-  function startAuto() {
-    if (autoTimer) clearInterval(autoTimer);
-    autoTimer = setInterval(() => advance(1), 2000);
-  }
-
-  function stopAuto() {
-    clearInterval(autoTimer);
-    autoTimer = null;
-  }
-
-  pauseBtn.addEventListener('click', () => {
-    isPaused = !isPaused;
-    pauseIcon.style.display = isPaused ? 'none' : 'block';
-    playIcon.style.display = isPaused ? 'block' : 'none';
-    pauseBtn.classList.toggle('active', isPaused);
-    isPaused ? stopAuto() : startAuto();
-  });
-
-  prevBtn.addEventListener('click', () => { advance(-1); if (!isPaused) { stopAuto(); startAuto(); } });
-  nextBtn.addEventListener('click', () => { advance(1); if (!isPaused) { stopAuto(); startAuto(); } });
-
-  track.addEventListener('mouseenter', () => { if (!isPaused) stopAuto(); });
-  track.addEventListener('mouseleave', () => { if (!isPaused) startAuto(); });
-
-  let touchStart = 0;
-  track.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; if (!isPaused) stopAuto(); }, { passive: true });
-  track.addEventListener('touchend', e => {
-    const diff = touchStart - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) advance(diff > 0 ? 1 : -1);
-    if (!isPaused) startAuto();
-  });
-
-  // Init
-  setPos(false);
-  updateDots();
-  startAuto();
+  var llmseg=document.getElementById("llmseg");
+  llmseg.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var i=+b.dataset.llm;renderLlm(i);setSeg(llmseg,i,"llm");});
+  var tmseg=document.getElementById("tmseg"),card=document.getElementById("tmcard");
+  tmseg.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var i=+b.dataset.tm;setSeg(tmseg,i,"tm");card.style.background="#E4D8F0";setTimeout(function(){card.style.background="#F4F1F8";},220);});
+  renderLlm(0);setSeg(llmseg,0,"llm");setSeg(tmseg,0,"tm");
+})();
 </script>
-
-</body>
-</html>
-
-<script>
-  const track = document.getElementById('track');
-  const dotsContainer = document.getElementById('dots');
-  const prevBtn = document.getElementById('prev');
-  const nextBtn = document.getElementById('next');
-  const pauseBtn = document.getElementById('pause-btn');
-  const pauseIcon = document.getElementById('pause-icon');
-  const playIcon = document.getElementById('play-icon');
-
-  const originals = Array.from(track.children);
-  const total = originals.length;
-  const cloneCount = 3;
-
-  // Append clones of first N at end
-  for (let i = 0; i < cloneCount; i++) {
-    track.appendChild(originals[i % total].cloneNode(true));
-  }
-  // Prepend clones of last N at start
-  for (let i = cloneCount - 1; i >= 0; i--) {
-    track.insertBefore(originals[total - 1 - (i % total)].cloneNode(true), track.firstChild);
-  }
-
-  const allCards = Array.from(track.children);
-
-  // rawPos tracks actual position in full track (clones + originals + clones)
-  // Originals occupy indices cloneCount through cloneCount+total-1
-  let rawPos = cloneCount;
-  let isPaused = false;
-  let autoTimer = null;
-  let transitioning = false;
-
-  // Build dots
-  originals.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => {
-      if (transitioning) return;
-      rawPos = cloneCount + i;
-      setPos(true);
-      updateDots();
-      if (!isPaused) { stopAuto(); startAuto(); }
-    });
-    dotsContainer.appendChild(dot);
-  });
-
-  function cardWidth() {
-    return allCards[0].offsetWidth + 28;
-  }
-
-  function setPos(animated) {
-    track.style.transition = animated
-      ? 'transform 0.55s cubic-bezier(0.4, 0, 0.2, 1)'
-      : 'none';
-    track.style.transform = `translateX(-${rawPos * cardWidth()}px)`;
-    if (animated) transitioning = true;
-  }
-
-  function updateDots() {
-    const logical = ((rawPos - cloneCount) % total + total) % total;
-    dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === logical);
-    });
-  }
-
-  // After transition: silently snap back if in clone zone
-  track.addEventListener('transitionend', () => {
-    transitioning = false;
-    if (rawPos >= cloneCount + total) {
-      rawPos -= total;
-      setPos(false);
-    } else if (rawPos < cloneCount) {
-      rawPos += total;
-      setPos(false);
-    }
-    updateDots();
-  });
-
-  function advance(dir) {
-    if (transitioning) return;
-    rawPos += dir;
-    setPos(true);
-    updateDots();
-  }
-
-  function startAuto() {
-    if (autoTimer) clearInterval(autoTimer);
-    autoTimer = setInterval(() => advance(1), 2000);
-  }
-
-  function stopAuto() {
-    clearInterval(autoTimer);
-    autoTimer = null;
-  }
-
-  pauseBtn.addEventListener('click', () => {
-    isPaused = !isPaused;
-    pauseIcon.style.display = isPaused ? 'none' : 'block';
-    playIcon.style.display = isPaused ? 'block' : 'none';
-    pauseBtn.classList.toggle('active', isPaused);
-    isPaused ? stopAuto() : startAuto();
-  });
-
-  prevBtn.addEventListener('click', () => { advance(-1); if (!isPaused) { stopAuto(); startAuto(); } });
-  nextBtn.addEventListener('click', () => { advance(1); if (!isPaused) { stopAuto(); startAuto(); } });
-
-  track.addEventListener('mouseenter', () => { if (!isPaused) stopAuto(); });
-  track.addEventListener('mouseleave', () => { if (!isPaused) startAuto(); });
-
-  let touchStart = 0;
-  track.addEventListener('touchstart', e => { touchStart = e.touches[0].clientX; if (!isPaused) stopAuto(); }, { passive: true });
-  track.addEventListener('touchend', e => {
-    const diff = touchStart - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) advance(diff > 0 ? 1 : -1);
-    if (!isPaused) startAuto();
-  });
-
-  // Init
-  setPos(false);
-  updateDots();
-  startAuto();
-</script>
-
 </body>
 </html>
